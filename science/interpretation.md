@@ -1,6 +1,6 @@
 # The information cost of measurement-assisted entanglement
 
-The [optimal-depth theorem](model.md#5-uniform-optimal-depth-theorem) identifies a specific resource in a dynamic quantum circuit: reliable classical information about local measurement outcomes. Perfect coherent control and instantaneous classical communication do not remove the need to obtain that information. Spatial pointer copies and repeated readout can supply it, and their local cost determines the achievable entanglement range.
+The [optimal-depth theorem](model.md#5-uniform-optimal-depth-theorem) identifies a specific resource in a dynamic quantum circuit: reliable classical information about local measurement outcomes. Using measurements to improve on coherent propagation requires this information even with perfect coherent control and instantaneous classical communication. Spatial pointer copies and repeated readout can supply it, and their local cost determines the achievable entanglement range.
 
 ## 1. Why reported outcomes matter
 
@@ -39,7 +39,7 @@ The quantum operations in the original protocol are left unchanged in every comp
 
 A depth-$`T`$ quantum causal cone has spatial radius of order $`T`$. A candidate strip that interrupts the two retained cones therefore has width of order $`T`$. With at most a fixed number of reports per site and layer, this strip contains only order $`T^2`$ potential reports over the entire execution.
 
-The number of disjoint candidate strips is of order $`L/T`$. The information converse compares the real noise distribution with a mixture in which one of those candidates is fully unread. For equal strip report count $`k`$ and count $`M`$, the exact identity is
+When $`T`$ is below a fixed sufficiently small fraction of $`L`$, the number of disjoint candidate strips is of order $`L/T`$. The information converse compares the real noise distribution with a mixture in which one of those candidates is fully unread. For equal strip report count $`k`$ and count $`M`$, the exact identity is
 
 ```math
 \chi^2(Q\Vert P)=\frac{e^{2kD(p)}-1}{M}.
@@ -47,11 +47,13 @@ The number of disjoint candidate strips is of order $`L/T`$. The information con
 
 The numerator is the statistical cost of making one strip uninformative. The denominator reflects the unknown location of that change. If the two experiments remain close in statistical distance, a high-fidelity Bell output in the real experiment would also occur with substantial probability in a separable comparison experiment. The Bell witness rules that out.
 
-At high accuracy, the resulting necessary condition is of the same order as
+Within this depth regime, the resulting necessary condition at high accuracy is of the same order as
 
 ```math
 D(p)T^2\gtrsim\log\frac{L}{T\epsilon}.
 ```
+
+The [uniform depth proof](depth_law.md) treats the microscopic floor and the coherent linear-depth cap explicitly.
 
 This expression has an operational interpretation, but the proof does not assign independently readable hidden Bell bits to an arbitrary protocol. It compares whole adaptive experiments through their physical output.
 

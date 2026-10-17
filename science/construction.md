@@ -106,8 +106,8 @@ For $`m`$ reports of one latent bit, use majority decoding. Break an even-size t
 
 ```math
 e_m(p)
-=\Pr\!\left[\operatorname{Bin}(m,p)>\frac m2\right]
-+\frac12\Pr\!\left[\operatorname{Bin}(m,p)=\frac m2\right].
+=\Pr\!\left[\mathrm{Bin}(m,p)>\frac m2\right]
++\frac12\Pr\!\left[\mathrm{Bin}(m,p)=\frac m2\right].
 ```
 
 The BSC symmetry makes this error probability independent of the latent bit's value. Distinct pointers use disjoint report slots and independent tie breakers, so their decoding errors are independent. Let $`\widehat U,\widehat V`$ be the parities of the decoded bits. Apply
@@ -150,7 +150,7 @@ Define the detector coefficient as in the [model](model.md):
 D(p)=-\frac12\log[4p(1-p)]>0.
 ```
 
-For $`S\sim\operatorname{Bin}(m,p)`$ and $`\lambda\ge0`$,
+For $`S\sim\mathrm{Bin}(m,p)`$ and $`\lambda\ge0`$,
 
 ```math
 e_m(p)\le\Pr(S\ge m/2)

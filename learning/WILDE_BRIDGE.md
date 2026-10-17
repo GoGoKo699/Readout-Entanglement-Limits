@@ -46,7 +46,7 @@ Three convention choices deserve an explicit translation.
 These locators are in the [versioned author manuscript](https://arxiv.org/pdf/1106.1445v8). Thus taking an additional square of the project's Bell overlap would change its meaning. Likewise, classical total variation is
 
 ```math
-\operatorname{TV}(P,Q)=\frac12\sum_e|P(e)-Q(e)|,
+\mathrm{TV}(P,Q)=\frac12\sum_e|P(e)-Q(e)|,
 ```
 
 which equals the half-norm distance of the corresponding diagonal density matrices.
@@ -72,7 +72,7 @@ A single qubit has basis states $`|0\rangle`$ and $`|1\rangle`$. A density opera
 |\Phi^+\rangle_{AB}
 =\frac{|00\rangle+|11\rangle}{\sqrt2},
 \qquad
-F=\operatorname{Tr}(\Pi_\Phi\rho_{AB}),
+F=\mathrm{Tr}(\Pi_\Phi\rho_{AB}),
 \qquad
 \Pi_\Phi=|\Phi^+\rangle\langle\Phi^+|.
 ```
@@ -218,8 +218,8 @@ D(p)=-\frac12\ln[4p(1-p)].
 This $`D(p)`$ is a discrimination exponent. In natural-log units it also equals
 
 ```math
-D_{\mathrm{KL}}\!\left(\operatorname{Ber}(1/2)
-\middle\Vert\operatorname{Ber}(p)\right).
+D_{\mathrm{KL}}\!\left(\mathrm{Ber}(1/2)
+\middle\Vert\mathrm{Ber}(p)\right).
 ```
 
 The detector coefficient and repetition bound are established ingredients, attributed in [the research references](../references/RELATED_WORK.md#danjou2021). Their finite derivation and spatial use are given in [construction.md](../science/construction.md#4-chernoff-estimate).
@@ -331,14 +331,14 @@ The denominator $`M`$ is the benefit of mixing alternatives with unknown positio
 To turn the calculation into an entanglement constraint, define
 
 ```math
-f(e)=\operatorname{Tr}[\Pi_\Phi\rho(e)].
+f(e)=\mathrm{Tr}[\Pi_\Phi\rho(e)].
 ```
 
 This number lies in $`[0,1]`$. Under $`P`$, its average is the actual fidelity $`F`$. Under $`Q`$, its average $`F_0`$ is at most $`1/2`$. Therefore
 
 ```math
 F-\frac12
-\le\operatorname{TV}(P,Q)
+\le\mathrm{TV}(P,Q)
 \le\frac12\sqrt{\chi^2(Q\Vert P)},
 ```
 

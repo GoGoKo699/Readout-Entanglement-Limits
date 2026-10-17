@@ -106,7 +106,7 @@ Since $`Q/P=M^{-1}\sum_jR_j`$, the variances add:
 \begin{aligned}
 \chi^2(Q\Vert P)
 &=\mathbb E_P\left(\frac QP-1\right)^2\\
-&=\frac1{M^2}\sum_{j=1}^M\operatorname{Var}_P(R_j)\\
+&=\frac1{M^2}\sum_{j=1}^M\mathrm{Var}_P(R_j)\\
 &=\frac{e^{2kD(p)}-1}{M}.
 \end{aligned}
 ```
@@ -118,7 +118,7 @@ Unused table positions cause no difficulty. Their distributions are still indepe
 Write $`\Pi_\Phi`$ for the fixed Bell projector and define the binary test kernel
 
 ```math
-f(e)=\operatorname{Tr}[\Pi_\Phi\rho(e)],
+f(e)=\mathrm{Tr}[\Pi_\Phi\rho(e)],
 \qquad 0\le f(e)\le1.
 ```
 
@@ -137,14 +137,14 @@ where the last inequality follows from separability of $`\sigma`$.
 For a function taking values in $`[0,1]`$,
 
 ```math
-F-\frac12\le F-F_0\le\operatorname{TV}(P,Q).
+F-\frac12\le F-F_0\le\mathrm{TV}(P,Q).
 ```
 
 Cauchy-Schwarz gives
 
 ```math
 \begin{aligned}
-\operatorname{TV}(P,Q)
+\mathrm{TV}(P,Q)
 &=\frac12\mathbb E_P\left|1-\frac QP\right|\\
 &\le\frac12\sqrt{\chi^2(Q\Vert P)}.
 \end{aligned}

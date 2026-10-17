@@ -32,7 +32,7 @@ Suppose every report produced at a site in $`I`$ is an independent fair coin, in
 Here an unnormalized operator is separable if it belongs to the cone
 
 ```math
-\operatorname{Sep}_+(A:B)
+\mathrm{Sep}_+(A:B)
 =\left\{\sum_j X_j\otimes Y_j:\ X_j\ge0,\ Y_j\ge0\right\}.
 ```
 
@@ -118,10 +118,10 @@ Let $`P_{h,\mathrm L}`$ and $`P_{h,\mathrm R}`$ be the projectors selecting the 
 \begin{aligned}
 \Omega_{AB}(h)
 &=\gamma_h\,
-\operatorname{Tr}_{R_{\mathrm L}}
+\mathrm{Tr}_{R_{\mathrm L}}
 \!\left[(\mathbf 1_A\otimes P_{h,\mathrm L})\Xi^h_{A R_{\mathrm L}}\right]
 \otimes
-\operatorname{Tr}_{R_{\mathrm R}}
+\mathrm{Tr}_{R_{\mathrm R}}
 \!\left[(\mathbf 1_B\otimes P_{h,\mathrm R})\Xi^h_{B R_{\mathrm R}}\right]\\
 &=\gamma_h\,\Omega_A(h)\otimes\Omega_B(h),
 \end{aligned}
@@ -131,7 +131,7 @@ with positive factors. The positivity is also evident by placing each register p
 
 The two factors may both depend on the entire refined record. This is where unrestricted global classical feedforward enters: it changes the chosen local maps, but it introduces no quantum edge between the fixed-branch components.
 
-Summing over $`h`$ and averaging over shared randomness gives a positive sum of product endpoint operators. Conditioning on an allowed heralding event selects a subset of these records, or applies nonnegative classical weights to them. The resulting unnormalized operator remains in $`\operatorname{Sep}_+(A:B)`$. This proves the lemma.
+Summing over $`h`$ and averaging over shared randomness gives a positive sum of product endpoint operators. Conditioning on an allowed heralding event selects a subset of these records, or applies nonnegative classical weights to them. The resulting unnormalized operator remains in $`\mathrm{Sep}_+(A:B)`$. This proves the lemma.
 
 ## From separability to Bell fidelity
 
@@ -139,15 +139,15 @@ For $`|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2`$ and positive single-qubit 
 
 ```math
 \langle\Phi^+|X\otimes Y|\Phi^+\rangle
-=\frac12\operatorname{Tr}(X^{\mathsf T}Y)
-\le\frac12\operatorname{Tr}(X)\operatorname{Tr}(Y).
+=\frac12\mathrm{Tr}(X^{\mathsf T}Y)
+\le\frac12\mathrm{Tr}(X)\,\mathrm{Tr}(Y).
 ```
 
-The inequality follows from $`X^{\mathsf T}\le\operatorname{Tr}(X)\mathbf1`$. Therefore every unnormalized separable operator obeys
+The inequality follows from $`X^{\mathsf T}\le\mathrm{Tr}(X)\mathbf1`$. Therefore every unnormalized separable operator obeys
 
 ```math
-\operatorname{Tr}(\Pi_\Phi\Omega_{AB})
-\le\frac12\operatorname{Tr}(\Omega_{AB}),
+\mathrm{Tr}(\Pi_\Phi\Omega_{AB})
+\le\frac12\mathrm{Tr}(\Omega_{AB}),
 \qquad \Pi_\Phi=|\Phi^+\rangle\langle\Phi^+|.
 ```
 
@@ -187,7 +187,7 @@ where $`C`$ is an independent fair coin. The choice of branch is hidden. Presamp
 
 A strip is blind whenever all its $`k`$ choices take the independent-coin branch. This event has probability $`q_{\mathrm{blind}}=(2p)^k`$. The corresponding events for disjoint strips are independent. Conditional on at least one blind strip, the endpoint state is separable by the lemma. One can partition that event according to the first blind strip and then average the resulting separable states.
 
-Writing $`F=\operatorname{Tr}(\Pi_\Phi\rho_{AB})`$, it follows that
+Writing $`F=\mathrm{Tr}(\Pi_\Phi\rho_{AB})`$, it follows that
 
 ```math
 F\le\frac12+\frac12[1-(2p)^k]^M
