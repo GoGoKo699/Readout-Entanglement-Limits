@@ -1,0 +1,98 @@
+# Readout Entanglement Limits
+
+This repository studies the minimum local operation depth for a physically
+corrected Bell pair between distant endpoints of a one-dimensional chain when
+all measurement reports have independent binary errors. The complete scientific
+account is organized by topic under science/.
+
+Canonical entrypoints:
+- README.md: scientific question, uniform optimal-depth statement, result table,
+  reading routes, reproduction command, consequential assumptions, and contact.
+- science/model.md: authoritative task, initial resources, local operation and
+  report interface, squared Bell-fidelity convention, quantifiers, main theorem,
+  and connected scientific route.
+- science/blind_strip.md: separability after blinding an interior strip; the
+  adaptive proof retains outside outcome registers before projecting them;
+  finite strip packing and the separate erasure-component bound.
+- science/information_bound.md: one common channel from complete noise tables
+  to adaptive outputs; the exact chi-squared random-strip identity; deterministic
+  fidelity and high-accuracy converses; an independent heterogeneous-detector
+  lower bound with optimal comparison weights.
+- science/heralding.md: public acceptance and Bell-error response functions;
+  the random-strip witness for heralded outputs; two-sided likelihood moments
+  controlling conditional infidelity; fixed-success uniform consequences.
+- science/construction.md: central Bell creation, outward SWAPs, boundary Bell
+  decoding, coherent pointer copying, repeated QND readout, majority decoding,
+  physical Pauli correction, exact output fidelity, and arbitrary-length blocks.
+- science/depth_law.md: finite-to-uniform lower and upper proofs, explicit
+  constants, microscopic floor, coherent linear cap, Lambert-W expression,
+  variable-quality and variable-accuracy crossover, and a nonuniform-formula
+  counterexample.
+- science/interpretation.md: the relation between locality and readout
+  information; space and time as reliability resources; weak-detector behavior;
+  heralding, physical output, and implementation limits.
+- references/RELATED_WORK.md: established ingredients, precise comparisons of
+  nearby resource and noise models, primary locators, and attribution limits.
+- references/references.bib: structured primary-source metadata.
+- verification/README.md: the finite check, executed environment, commands,
+  expected counts, acceptance tolerances, and analytical scope.
+- verification/verify_bell_layout.py: deterministic twelve-qubit state-vector
+  check enumerating all sixteen Bell-outcome strings.
+- verification/expected/bell_layout.json: case definition, exact counts, and
+  floating-point acceptance tolerances.
+- verification/requirements.txt: pinned NumPy dependency for the finite check.
+
+Reader routes:
+- To understand the story: read science/model.md, then the introductions and
+  conclusions of the converse and construction pages, followed by
+  science/interpretation.md.
+- To inspect the universal converse: use science/model.md, blind_strip.md,
+  information_bound.md, heralding.md, and the lower-bound part of depth_law.md.
+  Keep the adaptive conditioning and report-interface assumptions explicit.
+- To inspect achievability: use science/model.md, construction.md, and the
+  upper-bound part of depth_law.md. Check gate layers, memory, pointer reports,
+  integer partitions, and the physical correction together.
+- To understand detector quality or a limiting regime: start from the uniform
+  theorem in science/model.md and its inversion in science/depth_law.md. Use
+  science/interpretation.md for the physical explanation of the crossover.
+- To assess prior work: follow references/RELATED_WORK.md and its primary
+  source locators; do not replace model comparison with title similarity.
+- To reproduce the finite ingredient: read verification/README.md, install
+  verification/requirements.txt, and run python3 verification/verify_bell_layout.py
+  from the repository root. Distinguish an actual run from an earlier report.
+
+Preserve these distinctions when explaining or editing:
+- The task delivers an actual corrected two-qubit Bell state. A noisy Pauli
+  frame or a mitigated expectation-value estimator is a different output.
+- Bell fidelity is Tr(Phi rho), the squared overlap with the pure target.
+  Heralding success and conditional fidelity are separate quantities.
+- All logarithms are natural. D(p) = -0.5 log[4p(1-p)] is an established
+  symmetric-readout Chernoff coefficient; introducing it is not the new claim.
+- The theorem is uniform in L, p, and epsilon. Its implicit time tau solves
+  D(p) tau^2 = log[L/(epsilon tau)], with a depth-one floor and a linear cap.
+  The time inside the logarithm cannot be discarded when p varies with L.
+- Local memory, quantum range, and report density stay fixed as the displayed
+  parameters vary. Classical computation and communication are instantaneous.
+- The entire independent flip table is independent of initial resources and
+  controller randomness. All true outcome information reaching the controller
+  uses the unflagged BSC interface; timing or measurement presence supplies no
+  noiseless side channel. The controller cannot inspect hypothetical erasure
+  flags or the index of the blinded comparison strip.
+- Blinding a strip replaces its public reports by fair bits. It preserves
+  coherent local wires and pointers. The proof obtains separability by local
+  CPTP dilation and disjoint quantum histories, not by deleting those wires.
+- The comparison distributions all use one unchanged adaptive algorithm.
+  Classical log-sum, Jensen, and second-moment inequalities supply the
+  statistical step; quantum relative entropy is not required by this proof.
+- The exact equal-even-block formulas T = b + t + 3 and m = bt/2 use the
+  stated native SWAP and QND conventions. Arbitrary chain lengths use the
+  separately specified integer partition and fixed-factor schedule.
+- Achievability assumes ideal coherent control and storage. The converse
+  allows extra local CPTP processing within the same geometry and interface.
+- Heralded constants may depend on the specified fixed lower bound s0 > 0.
+  A success-independent optimum for vanishing yield is not established.
+- The heterogeneous-detector calculation is a converse. A matched general
+  heterogeneous or correlated-noise resource law is not established here.
+- Finite verification checks finite circuit ingredients. Universal and
+  asymptotic claims rest on the analytical proofs; internal review and a
+  successful script are not external replication or peer review.
