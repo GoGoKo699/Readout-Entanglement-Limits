@@ -1,0 +1,30 @@
+{
+  "case": {
+    "qubits": 12,
+    "block_size": 4,
+    "blocks": 3,
+    "swap_nodes": 2,
+    "readout_rounds": 1
+  },
+  "layer_counts": {
+    "block_links": 3,
+    "boundary_decoding": 2,
+    "pointer_copying": 1,
+    "readout": 1,
+    "correction": 1,
+    "total": 8
+  },
+  "exact": {
+    "unitary_layers": 6,
+    "outcome_branches": 16,
+    "branch_probability": 0.0625,
+    "copies_per_pointer": 2,
+    "reports_per_pointer": 2
+  },
+  "tolerances": {
+    "probability": 1e-12,
+    "copy_probability": 1e-12,
+    "fidelity": 1e-12,
+    "density_matrix": 1e-12
+  }
+}
