@@ -140,3 +140,10 @@ The work trades infidelity for postselection overhead in dynamic-circuit primiti
 ## Scope of the comparison
 
 The source identities and locators above support attribution to particular results. They do not constitute a guarantee that every relevant prior paper has been found. The resource theorem should be assessed through its explicit assumptions, finite bounds, and constructive match. Extensions to analog detectors, correlated report errors, nonzero gate noise, or finite-speed classical control need separate statements and proofs.
+
+<a id="wilde2017"></a>
+## Educational anchor
+
+**Mark M. Wilde, *Quantum Information Theory*, second edition, Cambridge University Press (2017).** [Publisher's edition record](https://www.cambridge.org/core/books/quantum-information-theory/247A740E156416531AA8CB97DFDAE438), [DOI](https://doi.org/10.1017/9781316809976), [printed contents](https://assets.cambridge.org/97811071/76164/toc/9781107176164_toc.pdf).
+
+Wilde is the single educational anchor for the [30-milestone map](../learning/MILESTONES.md). The [source bridge](../learning/WILDE_BRIDGE.md) gives the relevant readings and convention translations, using the publisher's 2017 section/page locators and explicitly labeled locators in the related [author draft, arXiv:1106.1445v8](https://arxiv.org/abs/1106.1445v8). The book supplies quantum-information foundations; the project-specific resource proofs and their research antecedents are identified separately in the scientific pages and the account above.

@@ -47,6 +47,20 @@ The universal converse allows arbitrary adaptive protocols in the stated model. 
 
 For the connected argument, read the model, the blind-strip and information bounds, heralding, the construction, and the depth law, then the interpretation. For a circuit-first route, follow the model with the construction before returning to the converse. The [LLM guide](llms.txt) maps more specific questions to these files.
 
+## Study the project
+
+The single educational anchor is **Mark M. Wilde, *Quantum Information Theory*, second edition (2017)**. The [Wilde bridge](learning/WILDE_BRIDGE.md) gives selective source readings, translates the book's conventions, and connects them to the project's arguments. It includes a complete four-qubit example with noisy reports, majority decoding, and physical endpoint correction.
+
+The [30-milestone map](learning/MILESTONES.md) organizes the understanding route for every reader, including LLMs. Fourteen background milestones connect quantum states, instruments, and locality with the required classical statistics. Sixteen research milestones assemble the construction and blind-strip mechanism into the global resource law.
+
+| Phase | Route | Understanding developed |
+|---|---|---|
+| Background/preliminaries | [M01–M14](learning/MILESTONES.md#background-preliminaries) | Physical registers and measurement records, local quantum control, independent readout errors, and statistical comparison |
+| Narrative/innovation | [M15–M21](learning/MILESTONES.md#m15) | The Bell circuit, reliable pointer reports, and the separability mechanism inside a blind strip |
+| Narrative/innovation | [M22–M30](learning/MILESTONES.md#m22) | The common adaptive comparison, accuracy and heralding bounds, uniform optimum, crossover, and physical interpretation |
+
+Use the listed Wilde sections alongside the bridge and milestone explanations. Each milestone points to the authoritative scientific statements and proofs; the source bridge identifies the steps developed specifically for this project.
+
 ## Reproduce the finite construction check
 
 From the repository root, using Python 3.12:

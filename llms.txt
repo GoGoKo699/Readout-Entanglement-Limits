@@ -6,6 +6,7 @@ all measurement reports have independent binary errors. The complete scientific
 account is organized by topic under science/.
 
 Canonical entrypoints:
+
 - README.md: scientific question, uniform optimal-depth statement, result table,
   reading routes, reproduction command, consequential assumptions, and contact.
 - science/model.md: authoritative task, initial resources, local operation and
@@ -33,7 +34,8 @@ Canonical entrypoints:
   heralding, physical output, and implementation limits.
 - references/RELATED_WORK.md: established ingredients, precise comparisons of
   nearby resource and noise models, primary locators, and attribution limits.
-- references/references.bib: structured primary-source metadata.
+- references/references.bib: structured research-source and selected-anchor
+  metadata.
 - verification/README.md: the finite check, executed environment, commands,
   expected counts, acceptance tolerances, and analytical scope.
 - verification/verify_bell_layout.py: deterministic twelve-qubit state-vector
@@ -42,10 +44,27 @@ Canonical entrypoints:
   floating-point acceptance tolerances.
 - verification/requirements.txt: pinned NumPy dependency for the finite check.
 
+Learning entrypoints:
+
+- learning/MILESTONES.md: the project-defined map of exactly M01–M30, with
+  14 background/preliminaries and 16 narrative/innovation milestones. Each
+  milestone records a central question, understanding target, prerequisites,
+  story role, conceptual connection, and source pointers. Stable fragments
+  #m01 through #m30 identify the milestones.
+- learning/WILDE_BRIDGE.md: the sole educational anchor, Mark M. Wilde's
+  Quantum Information Theory, second edition (2017); verified printed section
+  locators and explicitly labeled author-draft locators; notation translation;
+  the four-qubit worked example; and the missing source-to-project arguments.
+
 Reader routes:
+
 - To understand the story: read science/model.md, then the introductions and
   conclusions of the converse and construction pages, followed by
   science/interpretation.md.
+- For self-directed study: follow learning/MILESTONES.md alongside
+  learning/WILDE_BRIDGE.md and its selective Wilde readings. M01–M14 assemble
+  the prerequisites, M15–M21 establish the circuit and blind-strip mechanisms,
+  and M22–M30 connect them to the global information-resource theorem.
 - To inspect the universal converse: use science/model.md, blind_strip.md,
   information_bound.md, heralding.md, and the lower-bound part of depth_law.md.
   Keep the adaptive conditioning and report-interface assumptions explicit.
@@ -62,6 +81,7 @@ Reader routes:
   from the repository root. Distinguish an actual run from an earlier report.
 
 Preserve these distinctions when explaining or editing:
+
 - The task delivers an actual corrected two-qubit Bell state. A noisy Pauli
   frame or a mitigated expectation-value estimator is a different output.
 - Bell fidelity is Tr(Phi rho), the squared overlap with the pure target.
@@ -96,3 +116,16 @@ Preserve these distinctions when explaining or editing:
 - Finite verification checks finite circuit ingredients. Universal and
   asymptotic claims rest on the analytical proofs; internal review and a
   successful script are not external replication or peer review.
+- Wilde's squared fidelity agrees with the project's Bell overlap. His
+  unhalved trace norm differs by a factor of two from normalized trace
+  distance and total variation. The book uses base-two logarithms; the project
+  uses natural logarithms. Follow the bridge's explicit conversion rules.
+- The selected edition is Wilde 2017. Its publisher contents provide printed
+  section/page locators; explicitly labeled arXiv:1106.1445v8 locators refer
+  to the related 2019 author draft and have different pagination.
+- The one educational anchor supplies foundations. The blind-strip mixture,
+  fixed-success accuracy argument, local resource accounting, and matched
+  uniform theorem are supplied by the project. Primary research citations
+  retain their attribution role without becoming additional assigned books.
+- The 30-milestone map expresses common project understanding. Its phase
+  allocation and targets are independent of a particular reader's background.
