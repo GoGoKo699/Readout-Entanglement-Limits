@@ -55,7 +55,7 @@ Each entry records a central question, an understanding target, its dependencies
 
 **Central question:** What property of the final endpoint state counts as successful entanglement delivery?
 
-**Understanding target:** Identify the target Bell projector and interpret $`F=\operatorname{Tr}(\Pi\rho_{AB})`$ as its squared overlap with the output state. Distinguish a high-fidelity physical state from a classical Pauli-frame record or an estimator of ideal observables. Recognize that the project's fidelity convention agrees with Wilde's squared convention.
+**Understanding target:** Identify the target Bell projector and interpret $`F=\mathrm{Tr}(\Pi\rho_{AB})`$ as its squared overlap with the output state. Distinguish a high-fidelity physical state from a classical Pauli-frame record or an estimator of ideal observables. Recognize that the project's fidelity convention agrees with Wilde's squared convention.
 
 **Dependencies and story role:** Uses [M01](#m01) and [M02](#m02). It fixes the output criterion before discussing the operations that produce or bound it.
 

@@ -56,9 +56,9 @@ Let $`P`$ be the actual independent BSC flip-table distribution. For a fixed com
 Define
 
 ```math
-h(e)=\operatorname{Tr}\omega_{\mathrm{acc}}(e),
+h(e)=\mathrm{Tr}\,\omega_{\mathrm{acc}}(e),
 \qquad
-b(e)=\operatorname{Tr}[(\mathbf1-\Pi_\Phi)\omega_{\mathrm{acc}}(e)].
+b(e)=\mathrm{Tr}[(\mathbf1-\Pi_\Phi)\omega_{\mathrm{acc}}(e)].
 ```
 
 These functions satisfy $`0\le b(e)\le h(e)\le1`$. The actual success probability and conditional infidelity give
@@ -85,7 +85,7 @@ For the statistical comparison, replace the rejected branch by $`|00\rangle\lang
 
 ```math
 \widetilde f(e)
-=\operatorname{Tr}[\Pi_\Phi\omega_{\mathrm{acc}}(e)]
+=\mathrm{Tr}[\Pi_\Phi\omega_{\mathrm{acc}}(e)]
 +\frac12[1-h(e)].
 ```
 

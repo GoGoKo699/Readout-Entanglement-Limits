@@ -74,17 +74,17 @@ v_j=x_j\oplus x_{j+1}
 and contributes the Hadamard phase $`(-1)^{u_jx_j}/\sqrt2`$. Therefore
 
 ```math
-x_j=x_1\oplus\bigoplus_{\ell<j}v_\ell,
+x_j=x_1\oplus\bigoplus_{\ell=1}^{j-1}v_\ell,
 \qquad
 \sum_{j=1}^{M}u_jx_j
-=Ux_1+\chi(u,v)\pmod 2,
+=Ux_1+\chi(u,v)\pmod{2},
 ```
 
 where
 
 ```math
 \chi(u,v)=\sum_{j=1}^{M}u_j
-                 \left(\bigoplus_{\ell<j}v_\ell\right)\pmod 2.
+                 \left(\bigoplus_{\ell=1}^{j-1}v_\ell\right)\pmod{2}.
 ```
 
 Only the two terms $`x_1=0,1`$ remain. If $`\mathcal B`$ denotes the product of the boundary CNOT-Hadamard decoders, their unnormalized endpoint vector is exactly
@@ -106,8 +106,8 @@ For $`m`$ reports of one latent bit, use majority decoding. Break an even-size t
 
 ```math
 e_m(p)
-=\Pr\!\left[\operatorname{Bin}(m,p)>\frac m2\right]
-+\frac12\Pr\!\left[\operatorname{Bin}(m,p)=\frac m2\right].
+=\Pr\!\left[\mathrm{Bin}(m,p)>\frac m2\right]
++\frac12\Pr\!\left[\mathrm{Bin}(m,p)=\frac m2\right].
 ```
 
 The BSC symmetry makes this error probability independent of the latent bit's value. Distinct pointers use disjoint report slots and independent tie breakers, so their decoding errors are independent. Let $`\widehat U,\widehat V`$ be the parities of the decoded bits. Apply
@@ -150,7 +150,7 @@ Define the detector coefficient as in the [model](model.md):
 D(p)=-\frac12\log[4p(1-p)]>0.
 ```
 
-For $`S\sim\operatorname{Bin}(m,p)`$ and $`\lambda\ge0`$,
+For $`S\sim\mathrm{Bin}(m,p)`$ and $`\lambda\ge0`$,
 
 ```math
 e_m(p)\le\Pr(S\ge m/2)

@@ -75,7 +75,7 @@ The target Bell state and projector are
 For deterministic preparation, the two endpoint qubits after all corrections have density operator $`\rho_{AB}`$ and Bell fidelity
 
 ```math
-F=\operatorname{Tr}(\Pi\rho_{AB})\ge1-\epsilon,
+F=\mathrm{Tr}(\Pi\rho_{AB})\ge1-\epsilon,
 \qquad 0<\epsilon\le\frac14.
 ```
 
@@ -101,7 +101,7 @@ D(p)=-\frac12\log[4p(1-p)]
      =-\frac12\log(1-\delta^2).
 ```
 
-The same scalar is the relative entropy $`D_{\mathrm{KL}}(\operatorname{Ber}(1/2)\Vert\operatorname{Ber}(p))`$ and the Chernoff information between the two symmetric output laws for latent inputs zero and one. Repeated-readout Chernoff information is an established detector-quality concept; see [D'Anjou](../references/RELATED_WORK.md#danjou2021). The resource theorem connects it to a spatial entanglement-preparation task.
+The same scalar is the relative entropy $`D_{\mathrm{KL}}(\mathrm{Ber}(1/2)\Vert\mathrm{Ber}(p))`$ and the Chernoff information between the two symmetric output laws for latent inputs zero and one. Repeated-readout Chernoff information is an established detector-quality concept; see [D'Anjou](../references/RELATED_WORK.md#danjou2021). The resource theorem connects it to a spatial entanglement-preparation task.
 
 Near an uninformative detector,
 
