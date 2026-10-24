@@ -130,6 +130,8 @@ The implemented [information proof](../science/information_bound.md) derives thi
 
 This work develops mitigation for mid-circuit readout errors in feedforward circuits. The distinction relevant here is the output criterion: a mitigated expectation assembled over executions is not a physical endpoint density matrix with the stated Bell fidelity. The present theorem concerns delivered entanglement, including a success-conditioned version, rather than the sampling overhead of estimating ideal observables.
 
+The same paper also benchmarks repeated physical readout: Sec. IV defines Rep-MAJ, which majority-decodes consecutive reports, and Rep-ALL, which accepts only unanimous reports. Section IV.2 and Fig. 5 interpolate between unitary and feedforward GHZ preparation by preparing local blocks and fusing them through measurements. These are direct antecedents for temporal repetition and block fusion in the present construction. Their finite hardware comparisons do not establish the uniform optimal-depth law in distance, detector quality, and target infidelity proved here.
+
 <a id="smith2026"></a>
 ## Smith, Pokharel, Maurya, and Takita: error-detected dynamic circuits
 
