@@ -6,18 +6,7 @@ The result is a matched law in distance, detector quality, and target accuracy. 
 
 ## Scientific route
 
-| Question | Authoritative account |
-|---|---|
-| What resources and output are specified? | The model and theorem below |
-| Why does one unread interior strip destroy endpoint entanglement? | [Blind-strip separability](blind_strip.md) |
-| How does readout information enter a universal converse? | [The random-strip information bound](information_bound.md) |
-| Can postselection change the accuracy or distance dependence? | [Heralding at fixed success probability](heralding.md) |
-| Which local circuit attains the bound? | [Spatial and temporal readout amplification](construction.md) |
-| How do the finite bounds give a uniform optimum and crossover? | [The optimal depth law](depth_law.md) |
-| What physical limitation does the theorem identify? | [Resource interpretation](interpretation.md) |
-| Which ingredients are established prior work? | [Related work](../references/RELATED_WORK.md) |
-
-The geometric lemma supplies the quantum step in the converse. An exact comparison of classical noise distributions then gives its detector and accuracy dependence. The independent construction saturates the resulting order. The theorem does not assume that an arbitrary competing protocol uses entanglement swapping or decodes individual Bell-measurement bits.
+The [reading guide](../README.md#read-the-science) maps the complete argument. After the definitions and theorem below, the [blind-strip lemma](blind_strip.md) supplies the quantum step in the converse. The [information comparison](information_bound.md) and [heralding bounds](heralding.md) give its detector and accuracy dependence. The independent [construction](construction.md) saturates that order, and the [depth law](depth_law.md) combines the finite bounds into the uniform optimum. The theorem does not assume that an arbitrary competing protocol uses entanglement swapping or decodes individual Bell-measurement bits.
 
 ## 1. Sites, time, and initial resources
 

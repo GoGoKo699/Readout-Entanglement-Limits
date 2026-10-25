@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Finite audit of science/construction.md and its uniform upper-bound choice.
 
-The sparse engine and exhaustive report checks extend the verification developed
-in Adaptive-Entanglement-Depth. This version implements this repository's centered
-Bell links, one-long-block partition, variable banks, and fair-tie majority rule.
-It uses only the standard library and never reads another repository.
+The sparse engine checks centered Bell links, the one-long-block partition,
+variable pointer banks, and fair-tie majority decoding, with exhaustive report
+and parity enumeration. It uses only the standard library.
 """
 
 from collections import Counter

@@ -1,9 +1,9 @@
 # Finite circuit verification
 
-Two deterministic checks implement [the local construction](../science/construction.md), with explicit state-vector gates and no circuit-library compiler or random sampling. Both use the same centered Bell-link preparation, pointer domains, and Pauli convention as the scientific account. Neither reads files from another repository.
+Two complementary deterministic engines audit [the construction](../science/construction.md), with explicit state-vector gates and no circuit-library compiler or random sampling. Both use the same centered Bell-link preparation, pointer domains, and Pauli convention as the scientific account. Neither reads files from another repository.
 
-- [verify_bell_layout.py](verify_bell_layout.py) preserves the original twelve-qubit audit, its independent dense engine, and its [expected case](expected/bell_layout.json).
-- [verify_construction.py](verify_construction.py) extends coverage to unequal blocks, short-chain fallback, compiled SWAPs, exact classical error probabilities, and the uniform constructive parameter choice. Its cases and acceptance criteria are in [expected/construction.json](expected/construction.json).
+- **Dense circuit audit:** [verify_bell_layout.py](verify_bell_layout.py) checks a twelve-qubit circuit and its corrected endpoint density matrices against its [expected case](expected/bell_layout.json).
+- **Resource and probability audit:** [verify_construction.py](verify_construction.py) checks unequal blocks, short-chain fallback, compiled SWAPs, exact classical error probabilities, and the uniform constructive parameter choice, using an independent sparse state-vector engine. Its cases and acceptance criteria are in [expected/construction.json](expected/construction.json).
 
 ## Run
 
@@ -11,13 +11,14 @@ From the repository root, using Python 3.12:
 
 ```sh
 python3 -m pip install -r verification/requirements.txt
-python3 verification/verify_bell_layout.py
-python3 verification/verify_construction.py
+python3 verification/check.py
 ```
 
-The [requirements file](requirements.txt) pins NumPy for the dense twelve-qubit audit. The extended script uses only the Python standard library and supports Python 3.10 or later. Each program reads its expected cases and tolerances, prints JSON, and creates no result files. A failed check raises an exception and exits unsuccessfully; checks remain active under Python's `-O` option. Success is `"passed": true` for the original audit and `"status": "PASS"` for the extension.
+The [requirements file](requirements.txt) pins NumPy for the dense twelve-qubit audit. The resource and probability audit uses only the Python standard library and supports Python 3.10 or later. The combined [runner](check.py) also uses only the standard library. It invokes both audits with the current Python executable, preserves its optimization level, and works from any directory when given the path to `check.py`.
 
-## Original twelve-qubit audit
+The runner prints compact JSON with an overall `"status": "PASS"` and a coverage summary for each audit. It exits successfully only if both audits exit successfully and report success; any failed audit produces `"status": "FAIL"` and a nonzero exit status, with available diagnostics. Both audits still run if one fails. Each engine can also be run directly to obtain its full JSON diagnostics. Engine success is `"passed": true` for the dense audit and `"status": "PASS"` for the resource and probability audit. Each engine reads its expected cases and tolerances and creates no result files. A failed scientific check raises an exception and exits unsuccessfully; checks remain active under Python's `-O` option.
+
+## Dense circuit audit
 
 The case has three blocks of four sites, two simultaneous Bell-swap boundaries, and two physical copies of each of the four latent pointer bits. Its six unitary layers are followed by one readout layer and one endpoint-correction layer. The script verifies the exact depth convention $`T=b+t+3=8`$ and the report count $`m=bt/2=2`$ for this case.
 
@@ -29,11 +30,11 @@ Projecting the original pointer registers is enough for this finite calculation:
 
 The expected JSON specifies exact integer counts and floating-point tolerances, rather than a platform-dependent exact decimal transcript. A successful run reports `passed: true`, all sixteen checked branches, and numerical errors below $`10^{-12}`$.
 
-## Extended physical and probability checks
+## Resource and probability audit
 
 ### Schedule and resource accounting
 
-For every chain length $`2\le n\le64`$ and each even block parameter $`b\in\{2,4,6,8,10,12,14\}`$, the extension emits the actual gate, readout, correction, and optional cleanup layers. These 441 cases include the one-long-block partition, odd block lengths, and unitary fallback. Every operand is checked for chain membership, nearest-neighbor locality, and disjoint use in its layer. Pointer banks must be disjoint and exclude the two output sites. Layer counts, gate counts, report counts, and optional final reset counts must match the resource formulas.
+For every chain length $`2\le n\le64`$ and each even block parameter $`b\in\{2,4,6,8,10,12,14\}`$, the resource audit emits the actual gate, readout, correction, and optional cleanup layers. These 441 cases include the one-long-block partition, odd block lengths, and unitary fallback. Every operand is checked for chain membership, nearest-neighbor locality, and disjoint use in its layer. Pointer banks must be disjoint and exclude the two output sites. Layer counts, gate counts, report counts, and optional final reset counts must match the resource formulas.
 
 Every schedule is also checked after replacing each SWAP with three alternating CNOTs. For bank circuits, the native and compiled depths are respectively $`2c+t+3`$ and $`4c+t+1`$, where $`c=\max_j\lceil\ell_j/2\rceil`$. Both even and odd unitary fallback chains are covered.
 
@@ -51,11 +52,7 @@ Seventy-two checks enumerate every raw report string for one through nine report
 
 Another 168 cases solve the defining equation for $`\tau`$ and check the [uniform upper-bound parameter choice](../science/depth_law.md#3-uniform-constructive-upper-bound), including its error union bound and $`T\le15\mathcal T`$. Distances run up to $`999999`$, detector coefficients from $`10^{-12}`$ to $`1000`$, and target errors down to $`10^{-12}`$. The cases cover bank and unitary schedules, the microscopic floor, and the linear cap. They evaluate finite formulas and do not allocate large quantum states or establish a universal converse.
 
-The extension's state-vector and noisy-fidelity tolerance is $`3\times10^{-12}`$; probability enumerations use exact rational equality. Its expected file fixes coverage counts as well as test inputs, so accidental removal of a family of cases fails the run. Floating-point output is diagnostic rather than an exact decimal snapshot.
-
-## Provenance
-
-The extension adapts the sparse engine, exhaustive report/parity enumeration, schedule inspection, and SWAP-compilation checks developed in Adaptive-Entanglement-Depth. It implements this repository's construction throughout: centered links, the one-long-block partition, variable pointer-domain sizes, and fair-tie decoding. The earlier balanced-segment schedule and odd-vote convention are not a second active implementation here. The original dense audit and its expected JSON remain unchanged.
+The sparse engine's state-vector and noisy-fidelity tolerance is $`3\times10^{-12}`$; probability enumerations use exact rational equality. Its expected file fixes coverage counts as well as test inputs, so accidental removal of a family of cases fails the run. Floating-point output is diagnostic rather than an exact decimal snapshot. Scientific attribution is recorded in [PROVENANCE.md](../references/PROVENANCE.md).
 
 ## Analytical scope
 
