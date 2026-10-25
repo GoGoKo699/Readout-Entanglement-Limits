@@ -1,483 +1,373 @@
-# Thirty milestones for readout-limited entanglement
+# Milestones for the adaptive-entanglement depth argument
 
-This map organizes the project into exactly thirty understanding targets. It follows the scientific dependencies from individual quantum records to a uniform bound on distant Bell-pair preparation. The targets are defined by the project and remain the same for every reader.
+This map follows the preparation of a retained Bell pair on the fixed endpoints of a one-dimensional chain. Its single textbook anchor is John Watrous, *The Theory of Quantum Information* (2018), introduced in [ANCHOR.md](ANCHOR.md). The [bridge](BRIDGE.md) explains how the book's formalism enters the project. Section and page references below use the book's printed numbering and link to the author's chapter files.
 
-The single educational anchor is Mark M. Wilde, *Quantum Information Theory*, second edition (2017). The [Wilde bridge](WILDE_BRIDGE.md#edition-and-access) identifies the edition and access routes. Its [selective section map](WILDE_BRIDGE.md#selective-section-map) verifies the locators used below, and its [notation guide](WILDE_BRIDGE.md#notation-and-assumptions) translates the book's conventions. The textbook supplies foundations in states, instruments, resources, and statistical distinguishability. The canonical project pages supply the local circuit geometry, the particular statistical comparison, and the matched depth theorem. [Primary research attribution](../references/RELATED_WORK.md#ingredients-and-their-roles) remains separate from the educational anchor.
+The first 12 milestones establish the mathematical objects that the argument uses: physical registers, channels, instruments, classical records, adjoint maps, separability, and the output criterion. The remaining 18 follow the actual proof and construction. This allocation gives separate treatment to the adaptive separator and the physical readout banks, then brings them together at the optimal-depth statement. The textbook supplies the underlying quantum-information formalism. The project's spatial model, reporting-noise decomposition, causal proof, probability estimates, and depth law are developed in the linked scientific pages.
 
-## Allocation and connected route
+## Phase I: Background and preliminaries (M01–M12)
 
-| Phase | Milestones | Progression |
-|---|---|---|
-| Background/preliminaries | M01–M14 | Local states and records, composite resources, adaptive local operations, statistical information, then the complete physical task. |
-| Narrative/innovation | M15–M30 | Circuit and blind-strip components, a common statistical comparison, finite accuracy and success bounds, then the uniform resource law and its meaning. |
+The route begins with one register and one operation, then builds the language needed to describe a spatially distributed adaptive protocol and its retained output.
 
-The fourteen background milestones reflect the project's connection between quantum instruments and locality on one side, and classical statistical information on the other. Neither set of prerequisites alone explains the converse. The sixteen narrative milestones develop the two concrete mechanisms before combining them: M15–M18 account for a finite construction, M19–M21 establish the blind-strip obstruction, and M22–M30 assemble the universal comparison and its consequences.
+### M01. Physical registers and spatial tensor factors
 
-Each entry records a central question, an understanding target, its dependencies and role, the conceptual connection, and source pointers. Dependencies refer only to earlier milestones. The final milestone of each phase integrates that phase. Detailed calculations remain in the linked scientific account; these thirty targets organize global understanding rather than enumerating every lemma or neighboring subject.
+**Central question:** What physical systems exist in the preparation task, and how does the state space encode their locations?
 
-<a id="background-preliminaries"></a>
-## Background/preliminaries: M01–M14
+**Understanding target:** Identify a qubit register, its computational basis, and the tensor product of the registers at sites $0,\ldots,L$. Distinguish the endpoint separation $L$, the total site count $N=L+1$, and the number $w$ of physical qubits permitted per column. Understand why retained ancillas and reusable quantum memory occupy physical slots.
 
-<a id="m01"></a>
-### M01. Qubit states and basis records
+**Dependencies:** None.
 
-**Phase:** Background/preliminaries.
+**Story role and connection:** Locality becomes a statement about which tensor factors an operation can act on. This fixes the physical meaning of both the converse's cut and the construction's banks.
 
-**Central question:** What is the difference between a qubit state and a record of a known computational-basis value?
+**Sources:** [Watrous §§2.1.1–2.1.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), registers and states; [geometry, initial state, and retained memory](../science/model.md#geometry-initial-state-and-retained-memory).
 
-**Understanding target:** Distinguish a superposition, a statistical mixture, and an orthogonal basis record. Explain why a controlled gate can copy the alternatives $`|0\rangle`$ and $`|1\rangle`$ into an initialized register without supplying a universal copier for unknown quantum states.
+### M02. The retained endpoint state
 
-**Dependencies and story role:** No earlier milestone is required. This introduces the smallest physical objects later used as data qubits, Bell-pair halves, and readout pointers.
+**Central question:** Which quantum state is judged after the other qubits have finished their work?
 
-**Conceptual connection:** The construction's redundancy comes from copying a basis record. Its resource accounting depends on what that record physically occupies and how it is moved.
+**Understanding target:** Describe mixed states and reductions by partial trace. Identify $|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2$ as the target on the designated endpoints, whose individual reductions are mixed. Separate the reduced physical pair from the joint processor state and from classical data obtained by destructively measuring that pair.
 
-**Source pointers:** Wilde §§3.2–3.3 and 4.1 through [states and records](WILDE_BRIDGE.md#states-records-and-instruments); [local quantum resources](../science/model.md#1-sites-time-and-initial-resources); [pointer-copying implementation](../science/construction.md#1-equal-blocks-and-layer-conventions).
+**Dependencies:** M01.
 
-<a id="m02"></a>
-### M02. Composite registers and reduced states
+**Story role and connection:** The output criterion concerns two retained registers. Every later equality, separability statement, and fidelity calculation must refer to these same registers.
 
-**Phase:** Background/preliminaries.
+**Sources:** [Watrous §§2.1.2–2.1.3](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), states and reductions; [§6.3.1, Example 6.50](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), qubit Bell states; [Bell fidelity and success](../science/model.md#bell-fidelity-and-success).
 
-**Central question:** How is the state of the two output qubits obtained from a circuit containing many other registers?
+### M03. Channels, discarded environments, and reset
 
-**Understanding target:** Interpret tensor products, joint density operators, and partial traces. Distinguish discarding a register from conditioning on one of its measurement outcomes, and recognize that these operations can produce different endpoint states.
+**Central question:** How can a local physical operation be described without assuming that it is unitary?
 
-**Dependencies and story role:** Uses [M01](#m01). It connects individual qubits into the register description needed for both the circuit and the converse.
+**Understanding target:** Interpret completely positive, trace-preserving maps as channels and distinguish their input and output registers. Include unitary gates, discarded local environments, and reset within this language. Recognize that a quantum environment retained for later use must be counted as memory rather than silently discarded from the resource model.
 
-**Conceptual connection:** The task concerns the reduced physical endpoint state after all corrections. The blind-strip proof must keep selected records long enough to justify which other systems can be discarded.
+**Dependencies:** M01.
 
-**Source pointers:** Wilde §§3.5 and 4.3 through [the section map](WILDE_BRIDGE.md#selective-section-map); [physical output convention](../science/model.md#3-classical-control-and-physical-output); [retained outside registers](../science/blind_strip.md#2-retain-every-outside-outcome-register).
+**Story role and connection:** General channels make the lower bound apply beyond Clifford circuits, while the construction uses a specific permitted gate set. Trace preservation will later control backward observable support.
 
-<a id="m03"></a>
-### M03. Bell states and physical fidelity
+**Sources:** [Watrous §§2.2.1–2.2.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), channels and their representations; [retained memory](../science/model.md#geometry-initial-state-and-retained-memory) and [a circuit round](../science/model.md#a-circuit-round).
 
-**Phase:** Background/preliminaries.
+### M04. Instruments and unnormalized branches
 
-**Central question:** What property of the final endpoint state counts as successful entanglement delivery?
+**Central question:** How does a measurement specify both an outcome probability and a conditional quantum state?
 
-**Understanding target:** Identify the target Bell projector and interpret $`F=\mathrm{Tr}(\Pi\rho_{AB})`$ as its squared overlap with the output state. Distinguish a high-fidelity physical state from a classical Pauli-frame record or an estimator of ideal observables. Recognize that the project's fidelity convention agrees with Wilde's squared convention.
+**Understanding target:** Use completely positive outcome maps $\mathcal M_b$ with trace-preserving sum. Interpret $\mathcal M_b(\rho)$ as a positive operator whose trace is the outcome probability, and normalization as a separate operation. Understand why summing outcomes gives a channel while selecting one outcome generally gives a trace-decreasing map.
 
-**Dependencies and story role:** Uses [M01](#m01) and [M02](#m02). It fixes the output criterion before discussing the operations that produce or bound it.
+**Dependencies:** M03.
 
-**Conceptual connection:** The same Bell projector evaluates the construction and later separates the actual output from a separable comparison state.
+**Story role and connection:** Unnormalized branches retain the probability weights needed for adaptive composition and heralding. Normalizing them prematurely would obscure the equality required in the separator proof.
 
-**Source pointers:** Wilde §§3.6 and 9.2 through [notation and assumptions](WILDE_BRIDGE.md#notation-and-assumptions); [target and fidelity](../science/model.md#3-classical-control-and-physical-output); [Bell overlap of separable operators](../science/blind_strip.md#from-separability-to-bell-fidelity).
+**Sources:** [Watrous §2.3.2, pp. 112–113, Eqs. (2.258)–(2.262)](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), instruments; [noise acts on the report](../science/model.md#noise-acts-on-the-report).
 
-<a id="m04"></a>
-### M04. Instruments and the outcome/report distinction
+### M05. Classical records beside quantum states
 
-**Phase:** Background/preliminaries.
+**Central question:** What information does an accessible transcript contain, and what quantum state remains conditional on it?
 
-**Central question:** Which part of a measurement changes the quantum state, and which part communicates its outcome to the controller?
+**Understanding target:** Represent a classical record by orthogonal labels and the joint record-output state by a sum of labeled unnormalized positive operators. Distinguish the true instrument outcome, its accessible report, an independent controller seed, and an unobserved variable. Summing an unobserved outcome and conditioning on a known outcome are different operations.
 
-**Understanding target:** Describe a binary instrument by outcome maps whose sum is trace preserving. Separate its true physical outcome from the noisy public report. Explain how ideal quantum projection can coexist with an unreliable classical record.
+**Dependencies:** M01, M04.
 
-**Dependencies and story role:** Uses [M01](#m01) and [M02](#m02). This supplies the measurement model on which both amplification and the blind-strip comparison depend.
+**Story role and connection:** The converse must preserve the whole accessible transcript together with the endpoints. An endpoint marginal alone would not justify later conditioning on a success event.
 
-**Conceptual connection:** The theorem locates the prescribed noise at the report interface. Blinding that interface changes the accessible record while leaving the physical instrument in place.
+**Sources:** [Watrous §2.1.2, p. 63, Eqs. (2.9)–(2.11), and §2.3.2, Eq. (2.262)](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), ensembles and classical-quantum output; [Bell fidelity and success](../science/model.md#bell-fidelity-and-success).
 
-**Source pointers:** Wilde §§3.4, 4.2, and 4.6 through [states, records, and instruments](WILDE_BRIDGE.md#states-records-and-instruments); [the report interface](../science/model.md#2-the-report-interface); [inside-outcome coarse graining](../science/blind_strip.md#1-refine-the-public-record-without-selecting-an-inside-outcome).
+### M06. Report noise and repeatable quantum backaction
 
-<a id="m05"></a>
-### M05. Channels and outcome-register dilations
+**Central question:** What does a noisy readout change when its quantum backaction is ideal?
 
-**Phase:** Background/preliminaries.
+**Understanding target:** Interpret the report-conditioned map $\mathcal I_y=(1-p)\mathcal M_y+p\mathcal M_{1-y}$. For a QND computational-basis instrument, understand why the first measurement fixes a basis value and later measurements have that same true value. Each report receives a fresh independent Bernoulli flip with parameter $p$, although future quantum states may depend on earlier reports through feedback.
 
-**Central question:** How can a selected measurement branch be represented inside a trace-preserving description that retains its record?
+**Dependencies:** M04, M05.
 
-**Understanding target:** Distinguish a CPTP channel from a completely positive, trace-decreasing branch. Explain the representation $`\rho\mapsto\sum_x\mathcal I_x(\rho)\otimes|x\rangle\langle x|`$ and why selecting the retained register at the end recovers the desired branch.
+**Story role and connection:** The distinction between backaction and reported data permits repeated sampling of one physical bit. It is also the distinction that makes the lower bound a statement about missing information in records.
 
-**Dependencies and story role:** Uses [M02](#m02) and [M04](#m04). It connects measurement outcomes to the channel language required for a valid cancellation argument.
+**Sources:** [Watrous §2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), the instrument formalism; [the project's reporting channel and QND example](../science/model.md#noise-acts-on-the-report).
 
-**Conceptual connection:** Mathematical outcome registers preserve the effect of conditioning. They do not grant the physical controller an additional readout channel.
+### M07. Bell labels, local gates, and classical correction
 
-**Source pointers:** Wilde §§4.4–4.6 and 5.2–5.4 through [instruments and dilations](WILDE_BRIDGE.md#states-records-and-instruments); [the explicit outcome-register construction](../science/blind_strip.md#2-retain-every-outside-outcome-register).
+**Central question:** Why can a small classical label determine which Bell state a physical pair occupies?
 
-<a id="m06"></a>
-### M06. Separable resources and shared randomness
+**Understanding target:** Relate the four Bell states to single-qubit Pauli labels and the Bell-basis measurement to Hadamard and CNOT gates. Understand teleportation's separation between a quantum resource, a classical measurement result, and a conditional correction. Identify a SWAP as movement of a register's quantum state through local gates.
 
-**Phase:** Background/preliminaries.
+**Dependencies:** M02, M03, M05.
 
-**Central question:** Which correlations can be present without supplying initial entanglement across the chain?
+**Story role and connection:** This supplies the operational language for joining Bell links. The project must additionally schedule these operations on nearest-neighbor sites and charge their depth.
 
-**Understanding target:** Distinguish product states, separable mixtures, and entangled states. Explain how fixing shared classical randomness leaves a product input, and why a positive mixture of product endpoint operators remains separable. Relate separability to the Bell-fidelity threshold $`1/2`$.
+**Sources:** [Watrous §6.3.1, especially Example 6.50, pp. 365–366](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), teleportation; [link preparation](../science/construction.md#preparing-the-links-and-returning-their-interiors-to-zero) and [joining links](../science/construction.md#joining-the-links-and-creating-disjoint-banks).
 
-**Dependencies and story role:** Uses [M02](#m02), [M03](#m03), and [M05](#m05). This identifies the free initial correlations and the comparison class used by the converse.
+### M08. Adjoint maps and identity factors
 
-**Conceptual connection:** Global classical correlations are compatible with the theorem. The decisive distinction is whether a quantum connection can create entanglement between the designated endpoints.
+**Central question:** How can an output observable be followed backward through a quantum operation?
 
-**Source pointers:** Wilde §§4.3 and 19.2 through [the selective section map](WILDE_BRIDGE.md#selective-section-map); [initial resources](../science/model.md#1-sites-time-and-initial-resources); [separability and Bell fidelity](../science/blind_strip.md#from-separability-to-bell-fidelity).
+**Understanding target:** Use the adjoint relation between Schrödinger-picture state propagation and Heisenberg-picture observable propagation. Apply the equivalence between trace preservation and a unital adjoint. Distinguish an identity tensor factor from a nontrivial operator factor, and understand why a selected measurement outcome can act differently on the identity from an outcome-summed channel.
 
-<a id="m07"></a>
-### M07. Bell transformations and Pauli corrections
+**Dependencies:** M03, M04.
 
-**Phase:** Background/preliminaries.
+**Story role and connection:** This algebra is the local engine of the separator proof. It identifies where an observable can acquire support rather than assuming that every conditioned operation has a unitary light cone.
 
-**Central question:** Why do local Bell measurements leave distant endpoints entangled with an outcome-dependent correction?
+**Sources:** [Watrous §1.1.2, pp. 21–22, Eq. (1.112)](https://cs.uwaterloo.ca/~watrous/TQI/TQI.1.pdf), adjoints of linear maps; [§2.2.2, Theorem 2.26, p. 87](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), trace preservation and unitality; [proof of output-instrument equality](../science/converse.md#proof-of-equality-of-the-output-instruments).
 
-**Understanding target:** Follow the two Bell-measurement bits through the CNOT and Hadamard basis change. Identify which bit contributes an X byproduct and which contributes a Z byproduct, and explain why a wrong classical correction changes the physical Bell state.
+### M09. Separability across a spatial cut
 
-**Dependencies and story role:** Uses [M03](#m03), [M04](#m04), and [M05](#m05). It supplies a small operational example before spatial resource accounting is added.
+**Central question:** What remains possible when two regions share classical correlations but no entanglement?
 
-**Conceptual connection:** Teleportation-style resource conversion gives the local fusion mechanism. The project adds noisy reports and a bounded-range implementation of its corrections and redundancy.
+**Understanding target:** Distinguish product states from convex mixtures of product states and use the cone of positive, possibly unnormalized, separable operators. Understand closure under positive sums and local partial trace. Relate the model's separable initialization across columns to separability across every cut that separates the endpoints.
 
-**Source pointers:** Wilde §§3.3 and 6.1–6.2 through [the four-qubit example](WILDE_BRIDGE.md#four-qubit-example); [the project's Bell-byproduct convention](../science/construction.md#2-the-two-bell-byproducts).
+**Dependencies:** M01, M02.
 
-<a id="m08"></a>
-### M08. Local depth and quantum causal cones
+**Story role and connection:** The lower bound requires separability, not independence. Shared randomness and classical communication can correlate the endpoints without supplying the entanglement certified by the target.
 
-**Phase:** Background/preliminaries.
+**Sources:** [Watrous §6.1.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), separable operators and states; [initial state](../science/model.md#geometry-initial-state-and-retained-memory) and [why the cut implies separability](../science/converse.md#why-the-cut-implies-separability).
 
-**Central question:** What can a fixed-depth circuit transmit when every quantum operation has bounded spatial range?
+### M10. Local operations, communication, and conditioning
 
-**Understanding target:** Interpret depth as gate and readout layers, with overlapping operations assigned separate layers. Explain the backward support of a retained output in a fixed circuit and why its quantum cone expands by at most $`r`$ sites per layer. Keep quantum propagation distinct from free classical communication.
+**Central question:** Why does selecting a classical transcript of an LOCC protocol preserve separability of a separable input?
 
-**Dependencies and story role:** Uses [M02](#m02), [M05](#m05), and [M07](#m07). It adds geometry to the local operations already defined.
+**Understanding target:** Follow a sequence of local instruments whose choices can depend on communicated classical outcomes. Interpret each branch as a separability-preserving operation with its probability weight retained. Distinguish this branchwise property from the weaker statement that an averaged output is separable.
 
-**Conceptual connection:** Wilde supplies channel and reversible-operation foundations. The lattice metric, fixed density, and causal-cone bound are explicit additional structures of this project.
+**Dependencies:** M04, M05, M09.
 
-**Source pointers:** Wilde §§3.3 and 4.4 through [the local-construction bridge](WILDE_BRIDGE.md#local-construction); [sites and layer conventions](../science/model.md#1-sites-time-and-initial-resources); [circuit conventions for the converse](../science/blind_strip.md#circuit-and-readout-conventions).
+**Story role and connection:** After a quantum cut is deleted, unlimited classical feedback still remains. The LOCC argument is what turns that modified circuit into a useful obstruction, including for heralded preparation.
 
-<a id="m09"></a>
-### M09. Adaptive control and refined histories
+**Sources:** [Watrous §6.1.2, including Proposition 6.26, p. 332](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), LOCC and separable channels; [why the cut implies separability](../science/converse.md#why-the-cut-implies-separability).
 
-**Phase:** Background/preliminaries.
+### M11. Bell overlap and a linear entanglement witness
 
-**Central question:** How can a proof analyze local quantum propagation when operations depend on a global public record?
+**Central question:** How can separability constrain the fidelity of the retained pair while keeping success probabilities explicit?
 
-**Understanding target:** Explain how a complete public history fixes the operation choices, while refinement by selected true outcomes produces unnormalized quantum branches. Distinguish fixing control parameters from giving the controller access to hidden outcomes. Recognize why branch selection must be retained during trace-preserving manipulations.
+**Understanding target:** Use the project's Bell overlap $\mathrm{Tr}(\Phi\rho)$, which is the square of Watrous's root-fidelity convention for a pure target. Understand the separable threshold $1/2$ and the witness $W=2\Phi-I$. For an unnormalized separable operator $\tau$, its witness expectation is nonpositive; for any positive $\tau$, it is at most $\mathrm{Tr}\tau$.
 
-**Dependencies and story role:** Uses [M04](#m04), [M05](#m05), [M06](#m06), and [M08](#m08). It joins instruments, conditioning, classical control, and local geometry.
+**Dependencies:** M02, M09.
 
-**Conceptual connection:** The converse covers arbitrary adaptive public feedforward. Its fixed-history analysis is the route to local factorization without imposing a false locality bound on classical communication.
+**Story role and connection:** A linear witness can be averaged over noise patterns and selected transcripts. This avoids replacing a weighted heralded output by its conditional fidelity alone.
 
-**Source pointers:** Wilde §§4.6, 5.3–5.4, and 19.2 through [the blind-strip bridge](WILDE_BRIDGE.md#blind-strip); [public control](../science/model.md#3-classical-control-and-physical-output); [refinement of the public record](../science/blind_strip.md#1-refine-the-public-record-without-selecting-an-inside-outcome).
+**Sources:** [Watrous §3.2, Definition 3.11, p. 139](https://cs.uwaterloo.ca/~watrous/TQI/TQI.3.pdf), fidelity convention; [§6.1.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), separability; [the project's Bell witness](../science/converse.md#from-separability-to-a-heralded-fidelity-bound).
 
-<a id="m10"></a>
-### M10. Independent binary readout
+### M12. The complete depth-minimization task
 
-**Phase:** Background/preliminaries.
+**Central question:** Which resources are fixed or charged when comparing all adaptive protocols?
 
-**Central question:** What information does an unflagged binary symmetric detector provide on each use?
+**Understanding target:** Assemble the synchronous model: disjoint local quantum operations in each round, at most one readout per qubit per round, and reports available to control the next round. Include perfect local quantum operations, fresh independent report errors, free reliable classical processing, no initial shared entanglement, and fixed physical outputs. Define $D_{\min}(L;p,F_0)$ with fixed $p\in(0,1/2)$ and $F_0\in(1/2,1)$.
 
-**Understanding target:** Interpret $`y=x\oplus e`$, the crossover probability $`p`$, and the bias $`\delta=1-2p`$. Explain independence across potential report slots and independence from initial resources and controller randomness. Distinguish knowing the detector parameter from knowing a realized flip or an auxiliary erasure flag.
+**Dependencies:** M06, M07, M08, M10, M11.
 
-**Dependencies and story role:** Uses [M01](#m01) and [M04](#m04). It identifies the local classical channel that will be repeated in the construction and changed in the converse.
+**Story role and connection:** This makes the optimization a physical circuit question. The locality, timing, width, and fidelity conventions are project assumptions added to the textbook formalism.
 
-**Conceptual connection:** The prescribed detector supplies only its public binary output. Timing, measurement presence, and hidden flags cannot carry additional ideal outcome information.
+**Sources:** [Watrous §§2.2–2.3](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), channels and measurements; [the full model](../science/model.md), especially [a circuit round](../science/model.md#a-circuit-round) and [the optimization problem](../science/model.md#the-optimization-problem).
 
-**Source pointers:** Wilde §4.6 through [notation and interface assumptions](WILDE_BRIDGE.md#notation-and-assumptions); [the exact BSC interface](../science/model.md#2-the-report-interface); [potential-slot noise tables](../science/information_bound.md#a-common-protocol-map-for-every-readout-table).
+## Phase II: Narrative and innovation (M13–M30)
 
-<a id="m11"></a>
-### M11. Repetition and detector information
+The converse begins with one noisy report and grows to a statement about every adaptive circuit on a long chain. The construction begins with one Bell link and grows to a complete physical schedule. Their final comparison identifies the optimal depth and the assumptions on which it depends.
 
-**Phase:** Background/preliminaries.
+### M13. Parallel swapping and its two global parities
 
-**Central question:** What controls the reliability obtained by repeatedly reading the same latent bit?
+**Central question:** How do many local Bell links become one distant Bell pair when all reports are reliable?
 
-**Understanding target:** Relate independent reports to a binomial decoding error, including the tie convention. Interpret $`D(p)=-\tfrac12\log[4p(1-p)]`$ as the coefficient in the repeated-report error exponent. Explain why a small bias requires a number of reports proportional to its inverse square for a fixed exponent.
+**Understanding target:** Follow the two-link swapping identity and its iteration. Identify the uniform junction bits $u_j,v_j$ and the endpoint label $X^VZ^U$, where $U$ and $V$ are their respective parities. Understand why simultaneous local junction operations and free classical parity computation give constant depth with perfect reports, while independent errors in unprotected reports accumulate in those parities.
 
-**Dependencies and story role:** Uses [M10](#m10). It turns the detector description into a quantitative reliability resource.
+**Dependencies:** M07, M11, M12.
 
-**Conceptual connection:** The book's classical information concepts provide background; the project explicitly derives the finite Chernoff estimate. The same coefficient will reappear in the converse's likelihood moments.
+**Story role and connection:** This establishes the task's noiseless advantage and identifies the classical information that the construction must protect. It does not restrict the converse to swapping protocols.
 
-**Source pointers:** Wilde §§10.5 and 10.7 through [the local-construction bridge](WILDE_BRIDGE.md#local-construction); [the finite Chernoff derivation](../science/construction.md#4-chernoff-estimate); [attribution of the detector coefficient](../references/RELATED_WORK.md#danjou2021).
+**Sources:** [Watrous §6.3.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), teleportation; [the two-link identity and junction labels](../science/construction.md#joining-the-links-and-creating-disjoint-banks), [decoding](../science/construction.md#decoding-the-noisy-records), and [three readout regimes](../science/interpretation.md#three-readout-regimes).
 
-<a id="m12"></a>
-### M12. Statistical distance and data processing
+### M14. A report channel with a forgotten-outcome component
 
-**Phase:** Background/preliminaries.
+**Central question:** Which exact decomposition of a binary reporting error exposes complete loss of outcome information?
 
-**Central question:** How does closeness of two noise distributions constrain the difference between their physical output fidelities?
+**Understanding target:** Interpret $\mathcal I_y=(1-2p)\mathcal M_y+p(\mathcal M_0+\mathcal M_1)$ as truthful reporting with probability $1-2p$ and an independent fair report with probability $2p$. Conditional on the latter event and its replacement coin, the physical map is the trace-preserving sum of the true-outcome maps. The measured qubit retains the correct instrument backaction.
 
-**Understanding target:** Connect a bounded test's bias to total variation, and connect a processed binary test to classical relative entropy. Preserve the normalization: Wilde uses unhalved trace distance, while the operational half-norm and classical total variation contain $`1/2`$. Translate Wilde's base-two information units to the project's natural logarithms, and keep relative entropy's argument order explicit.
+**Dependencies:** M04, M06, M08.
 
-**Dependencies and story role:** Uses [M03](#m03), [M05](#m05), and [M10](#m10). It links statistical comparisons to the physical output criterion.
+**Story role and connection:** The refinement removes information from a report without inserting a quantum gate fault. This distinction determines the geometry required by the converse.
 
-**Conceptual connection:** The implemented proof uses a classical Bell-test kernel, log-sum, and Jensen inequalities. It does not require a separate quantum relative-entropy argument.
+**Sources:** [Watrous §2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), instruments and summing outcomes; [refining a noisy report](../science/converse.md#refining-a-noisy-report).
 
-**Source pointers:** Wilde §§9.1–9.3, 10.5, and 10.7 through [notation translation](WILDE_BRIDGE.md#notation-and-assumptions); [Bell fidelity as a statistical test](../science/information_bound.md#bell-fidelity-as-a-statistical-test); [the reverse-relative-entropy step](../science/information_bound.md#reverse-relative-entropy-gives-the-accuracy-dependence).
+### M15. Potential readout slots and revealed flags
 
-<a id="m13"></a>
-### M13. Product likelihoods and mixtures
+**Central question:** How can independent noise events be defined before an adaptive protocol chooses where to measure?
 
-**Phase:** Background/preliminaries.
+**Understanding target:** Index potential slots by column, physical qubit, and round, including unused slots. Pre-sample independent erasure flags and replacement coins on this whole array. Understand why this realizes the original noise law when the arrays are hidden, and why proving a bound for a controller that knows them in advance also bounds the original controller. The enhanced controller may choose its schedule using the arrays.
 
-**Central question:** Why can a mixture of localized alternatives be harder to distinguish than an alternative at a known location?
+**Dependencies:** M05, M12, M14.
 
-**Understanding target:** Interpret a likelihood ratio as a change of probability measure. Explain why independent table blocks produce independent ratio fluctuations, why ratios multiply across slots, and why a mixture averages ratios. Distinguish this statistical closeness from an exact common positive component of two channels.
+**Story role and connection:** Independence belongs to the externally sampled slots, rather than to a random list of measurements chosen adaptively. This is what later permits independent corridor events.
 
-**Dependencies and story role:** Uses [M10](#m10) and [M12](#m12). It supplies the final statistical ingredient before the full physical task is assembled.
+**Sources:** [Watrous §§2.1.1 and 2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), classical registers and instruments; [potential slots and adaptive schedules](../science/converse.md#potential-slots-and-adaptive-schedules).
 
-**Conceptual connection:** The elementary moment calculation is supplied in the project. The book's relative-entropy and inequality sections support its language without supplying the particular blind-strip alternative.
+### M16. Fixed transcripts without hidden conditioning
 
-**Source pointers:** Wilde §§10.5 and 10.7 through [the statistical-mixture bridge](WILDE_BRIDGE.md#statistical-mixture); [the likelihood-moment calculation](../science/information_bound.md#exact-chi-square-calculation); [methodological attribution](../references/RELATED_WORK.md#chen2022).
+**Central question:** What becomes fixed when an adaptive circuit is analyzed on one accessible transcript?
 
-<a id="m14"></a>
-### M14. The complete report-limited task
+**Understanding target:** Condition on the sampled arrays and independent controller seed, then fix a complete accessible transcript. This fixes the chosen gates and instruments under the same policy, including its definition on zero-probability histories. Keep truthful outcome maps selected, erased true outcomes summed, and all branch weights unnormalized. Distinguish conditioning on a replacement coin from revealing the hidden physical outcome.
 
-**Phase:** Background/preliminaries.
+**Dependencies:** M04, M05, M15.
 
-**Central question:** Which resources, outputs, and quantifiers define the optimization problem?
+**Story role and connection:** The fixed branch is a definite composition of local CP maps. This permits an adjoint proof without granting access to hidden outcomes that could themselves enable entanglement swapping.
 
-**Understanding target:** Assemble product inputs conditional on shared randomness, fixed local memory and range, a fixed report density, an unflagged independent detector, and arbitrary public feedforward. Identify worst-case operation depth, the physical corrected Bell output, target infidelity, and the optional fixed success requirement. Distinguish this task from a channel-capacity problem or an estimator of ideal data.
+**Sources:** [Watrous §2.3.2, Eqs. (2.258)–(2.262)](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), weighted outcome maps; [proof of equality of the output instruments](../science/converse.md#proof-of-equality-of-the-output-instruments).
 
-**Dependencies and story role:** Integrates [M06](#m06), [M08](#m08)–[M13](#m13). This closes the background phase with a complete model rather than another isolated prerequisite.
+### M17. A corridor beyond every accessible support seed
 
-**Conceptual connection:** Quantum resource definitions and statistical information now specify one physical preparation problem. These conditions determine which textbook ideas transfer and which project-specific arguments remain necessary.
+**Central question:** How wide must a region of forgotten reports be to isolate its central cut for $D$ rounds?
 
-**Source pointers:** Wilde §§4.6, 6.1, 9.1–9.2, 10.5, and 19.2 through [notation and assumptions](WILDE_BRIDGE.md#notation-and-assumptions); [the authoritative model](../science/model.md#scientific-route); [initial resources](../science/model.md#1-sites-time-and-initial-resources) and [physical output](../science/model.md#3-classical-control-and-physical-output).
+**Understanding target:** Track backward support from the endpoints and every truthful outcome map. Trace-preserving maps cannot seed support on an identity factor; truthful selected maps can. Place an erased corridor on $2D+2$ interior columns, whose two central cut columns lie at distance at least $D+1$ from all outside sites. Disjoint local operations expand support by at most one column per round.
 
-<a id="narrative-innovation"></a>
-## Narrative/innovation: M15–M30
+**Dependencies:** M08, M12, M14, M16.
 
-<a id="m15"></a>
-### M15. Creating and fusing local Bell links
+**Story role and connection:** A single erased site is insufficient because perfect gates can transport a hidden value coherently. The depth-wide corridor accounts for every charged path to an accessible outcome or endpoint.
 
-**Phase:** Narrative/innovation.
+**Sources:** [Watrous §2.2.2, Theorem 2.26](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), unital adjoints; [separation by an erased corridor](../science/converse.md#separation-by-an-erased-corridor) and [coherent copies and adaptive choices](../science/converse.md#coherent-copies-and-adaptive-choices).
 
-**Central question:** How can a chain be assembled from short Bell links using only local quantum gates?
+### M18. Deleting the cut preserves the full output instrument
 
-**Understanding target:** Explain central Bell creation, outward SWAPs, and the local Bell-basis change at a boundary. Follow the four-qubit fusion example to its conditional endpoint state and identify the two latent correction bits. Count quantum layers under the stated gate convention.
+**Central question:** Why does removing every quantum operation across the central cut leave all accessible predictions unchanged?
 
-**Dependencies and story role:** Uses [M07](#m07), [M08](#m08), and [M14](#m14). It begins the research narrative with a concrete local circuit component.
+**Understanding target:** Use backward induction to compare the original and cut-deleted branch maps on every endpoint observable. Each deleted operation sees an identity factor and has a unital adjoint. Obtain equality of the unnormalized endpoint state for every transcript, including its probability by taking the identity observable. Scalar probability factors do not enlarge support. Retaining the classical transcript labels gives equality of the full classical-quantum output.
 
-**Conceptual connection:** The familiar Bell-resource conversion is now embedded in a spatial line. This supplies the component whose outcomes must become reliable before the links yield a useful corrected output.
+**Dependencies:** M16, M17.
 
-**Source pointers:** Wilde §§6.1–6.2 through [the four-qubit example](WILDE_BRIDGE.md#four-qubit-example); [block preparation and layers](../science/construction.md#1-equal-blocks-and-layer-conventions); [Bell byproducts](../science/construction.md#2-the-two-bell-byproducts).
+**Story role and connection:** This is the central separator statement. Its branchwise strength is what protects the argument against arbitrary later success decisions and adaptive choices based on records outside the corridor.
 
-<a id="m16"></a>
-### M16. Spatial pointer copying at fixed memory
+**Sources:** [Watrous §1.1.2, Eq. (1.112)](https://cs.uwaterloo.ca/~watrous/TQI/TQI.1.pdf), adjoints; [§2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), output instruments; [the complete equality proof](../science/converse.md#proof-of-equality-of-the-output-instruments).
 
-**Phase:** Narrative/innovation.
+### M19. Separation survives accessible postselection
 
-**Central question:** How can each boundary outcome acquire spatial redundancy without increasing memory per site with distance?
+**Central question:** What does the deleted-cut circuit imply about each retained endpoint branch?
 
-**Understanding target:** Explain the coherent CNOT copying of an orthogonal pointer into a reserved half-block. Account for disjoint copying domains, reuse of the qubits that previously carried the Bell link, and exclusion of the retained endpoints from readout. Relate the number of pointer copies to the local propagation depth.
+**Understanding target:** Regard the two sides of the cut as parties connected only by classical communication. From the allowed separable initialization, every transcript branch of the modified circuit has a separable endpoint state. Transfer this property through the output-instrument equality. Summing any selected set of positive branch operators preserves separability, including when success uses the revealed arrays.
 
-**Dependencies and story role:** Uses [M01](#m01), [M05](#m05), [M08](#m08), and [M15](#m15). It develops the construction's spatial resource before readout time is added.
+**Dependencies:** M09, M10, M18.
 
-**Conceptual connection:** Coherent records support redundancy, but moving their information through a line costs depth. The one-qubit-per-site schedule makes that cost explicit.
+**Story role and connection:** LOCC supplies a separability conclusion even when the endpoints remain classically correlated. The argument addresses conditional outputs directly instead of assuming that postselection preserves an averaged statement.
 
-**Source pointers:** Wilde §§5.3–5.4, with optional §§7.1–7.2, through [the local-construction bridge](WILDE_BRIDGE.md#local-construction); [the disjoint pointer domains](../science/construction.md#1-equal-blocks-and-layer-conventions).
+**Sources:** [Watrous §§6.1.1–6.1.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), separable operators and LOCC; [why the cut implies separability](../science/converse.md#why-the-cut-implies-separability).
 
-<a id="m17"></a>
-### M17. Repeated readout and bit reliability
+### M20. Independent corridors along the whole chain
 
-**Phase:** Narrative/innovation.
+**Central question:** How does one separating region become a distance-dependent obstruction?
 
-**Central question:** How do spatial copies and repeated reads combine into reliable knowledge of one latent Bell bit?
+**Understanding target:** Pack $K=\lfloor(L-1)/(2D+2)\rfloor$ disjoint interior corridors. With width $w$, each contains $2wD(D+1)$ potential readout slots and is fully erased with probability $q=(2p)^{2wD(D+1)}$. Recognize independence from disjoint slot sets, even under flag-informed scheduling. Any erased corridor gives a separable contribution on the same retained pair $A:B$, although its spatial cut may vary.
 
-**Understanding target:** Explain why QND Z readout preserves a pointer value while each report receives a fresh independent flip. Relate $`m=bt/2`$ reports to one decoded bit and its error bound $`e_m(p)\le e^{-D(p)m}`$. State the additional fixed resources needed when readout is destructive instead.
+**Dependencies:** M15, M17, M19.
 
-**Dependencies and story role:** Uses [M10](#m10), [M11](#m11), and [M16](#m16). It completes the local amplification mechanism by combining spatial redundancy with time.
+**Story role and connection:** The proof now combines local geometry with repeated probabilistic opportunities across a long device. The relevant exponent counts space and time together.
 
-**Conceptual connection:** Spatial copying and temporal repetition contribute multiplicatively to report count, while their operation depths add.
+**Sources:** [Watrous §6.1.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), closure of the separable cone; [packing independent corridors](../science/converse.md#packing-independent-corridors).
 
-**Source pointers:** Wilde §§10.5 and 10.7 through [the local-construction bridge](WILDE_BRIDGE.md#local-construction); [majority decoding](../science/construction.md#3-decoding-and-exact-output-fidelity); [Chernoff estimate](../science/construction.md#4-chernoff-estimate); [readout implementation](../science/construction.md#6-readout-implementation-and-finite-verification).
+### M21. The finite deterministic and heralded theorem
 
-<a id="m18"></a>
-### M18. Corrected global fidelity and the finite construction
+**Central question:** How does the probability of avoiding all separating corridors bound useful endpoint entanglement?
 
-**Phase:** Narrative/innovation.
+**Understanding target:** Average the Bell witness over flag patterns and success-selected branches. Flag patterns with at least one fully erased corridor contribute a nonpositive expectation; all remaining patterns contribute at most their probability mass. Obtain $P_S(2F_S-1)\leq(1-q)^K\leq e^{-Kq}$ and the deterministic specialization $F\leq[1+(1-q)^K]/2$. Interpret $P_S=0$, the trivial $K=0$ bound, and the separately separable depth-zero case.
 
-**Central question:** How do the boundary decoding errors determine the physical endpoint fidelity of the assembled circuit?
+**Dependencies:** M11, M19, M20.
 
-**Understanding target:** Connect the two final Pauli errors to parities of the decoded boundary errors. Explain their independence and the equal-block expression $`F=[1+(1-2e_m)^M]^2/4`$. Relate the finite union bound to $`T=b+t+3`$ and $`m=bt/2`$ under the native equal-even-block convention, and recognize that arbitrary lengths require the stated separate partition.
+**Story role and connection:** Keeping success probability on the left prevents arbitrarily rare favorable records from being mistaken for deterministic preparation. The finite theorem is the quantitative form of the separator.
 
-**Dependencies and story role:** Integrates [M15](#m15)–[M17](#m17). It establishes finite fidelity and resource bookkeeping for a particular construction, without yet claiming optimality among all protocols.
+**Sources:** [Watrous §6.1.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), separability; [finite-size theorem](../science/converse.md#finite-size-theorem) and [heralded witness argument](../science/converse.md#from-separability-to-a-heralded-fidelity-bound).
 
-**Conceptual connection:** A small fusion example scales into a complete finite circuit by tracking its physical byproducts and report errors.
+### M22. The square-root logarithmic lower scale
 
-**Source pointers:** Wilde §§6.2 and 9.2 through [the worked example](WILDE_BRIDGE.md#four-qubit-example) and [construction bridge](WILDE_BRIDGE.md#local-construction); [exact corrected fidelity](../science/construction.md#3-decoding-and-exact-output-fidelity); [arbitrary chain lengths](../science/construction.md#5-an-explicit-partition-for-every-chain-length).
+**Central question:** Which total depth can sustain a fixed Bell advantage over the separable threshold as the chain grows?
 
-<a id="m19"></a>
-### M19. What changes when a strip becomes blind
+**Understanding target:** With fixed $p\in(0,1/2)$, $w$, and $F_0\in(1/2,1)$, compare $K$ of order $L/D$ when $D=o(L)$ with $q$ exponentially small in $wD^2$. Read the finite condition $Kq\leq-\log(2F_0-1)$ and its implication $D=\Omega(\sqrt{\log L})$. The same obstruction applies with success probability bounded below. At fixed depth it gives an upper bound on accessible separation exponential in $D^2$.
 
-**Phase:** Narrative/innovation.
+**Dependencies:** M12, M21.
 
-**Central question:** What remains physically possible inside a region whose reports reveal no measurement outcomes?
+**Story role and connection:** The lower exponent comes from a depth-wide erased region repeated over the duration of the circuit. A matching range or depth claim still requires a physical construction.
 
-**Understanding target:** Explain the counterfactual replacement of reports by independent fair coins while retaining every permitted local quantum operation. Show why summing the hidden inside outcomes gives nonselective CPTP maps. Distinguish a blind report interface from deleting quantum wires or making every internal cut entanglement breaking.
+**Sources:** [Watrous §2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), the instrument foundation, and [§6.1.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), separability; [fixed-target consequence](../science/converse.md#consequence-for-fixed-target-fidelity) and [finite range](../science/interpretation.md#finite-size-statements-and-accessible-range).
 
-**Dependencies and story role:** Uses [M04](#m04), [M05](#m05), [M09](#m09), and [M14](#m14). It begins the local obstruction complementary to the construction.
+### M23. Local Bell links with reusable interiors
 
-**Conceptual connection:** The same outcome/report separation that permits readout amplification also identifies what the comparison experiment removes.
+**Central question:** How can the same physical chain provide both entangled links and space for protecting their measurement records?
 
-**Source pointers:** Wilde §§4.4–4.6 and 5.3 through [the blind-strip bridge](WILDE_BRIDGE.md#blind-strip); [the comparison premise](../science/blind_strip.md#blind-strip-lemma); [inside-outcome summation](../science/blind_strip.md#1-refine-the-public-record-without-selecting-an-inside-outcome).
+**Understanding target:** Partition the existing $N$ sites into balanced contiguous segments of minimum length $2r+2$, when at least two segments fit. Prepare a Bell pair on the first two sites of each segment, then move one half to its far boundary by SWAPs. Track the displaced zero states to see that every interior site returns to zero. The parallel link stage costs the largest segment length $B\leq3r+3$.
 
-<a id="m20"></a>
-### M20. Retaining outside records before cancellation
+**Dependencies:** M03, M07, M12, M13.
 
-**Phase:** Narrative/innovation.
+**Story role and connection:** The construction obtains its ancillary space from the specified array. Returning the link interiors to zero makes the later banks compatible with width one.
 
-**Central question:** Why must the proof retain outside measurement outcomes before tracing away unobserved parts of the circuit?
+**Sources:** [Watrous §§2.2.1–2.2.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), unitary channels; [chain and bank parameters](../science/construction.md#chain-and-bank-parameters) and [link preparation](../science/construction.md#preparing-the-links-and-returning-their-interiors-to-zero).
 
-**Understanding target:** Explain the obstruction caused by selected, trace-decreasing outside branches. Replace each by a CPTP instrument with a retained local outcome register, and postpone projection of that register. Identify why this construction preserves the refined branch while making trace-preserving cancellation legitimate.
+### M24. Coherent banks for the two swapping records
 
-**Dependencies and story role:** Uses [M05](#m05), [M09](#m09), and [M19](#m19). It supplies the technical step that makes the adaptive geometric argument valid.
+**Central question:** How can each junction's two basis labels be distributed locally without consuming the endpoint qubits?
 
-**Conceptual connection:** The textbook instrument representation becomes a proof device for local histories. A mathematical record retains conditioning without becoming a new physical information resource.
+**Understanding target:** Apply all junction Bell-basis rotations in parallel, then fan each $u_j$ leftward and each $v_j$ rightward through $r$ adjacent zero qubits. Verify the disjointness of the two banks in every internal segment and their exclusion of the global endpoints. Interpret fanout coherently in the computational-basis branches, preserving their probabilities and endpoint Bell labels. Only orthogonal labels are copied.
 
-**Source pointers:** Wilde §§4.6 and 5.3–5.4 through [the blind-strip bridge](WILDE_BRIDGE.md#blind-strip); [outside outcome registers](../science/blind_strip.md#2-retain-every-outside-outcome-register); [the subsequent cancellation](../science/blind_strip.md#3-the-two-retained-quantum-histories-are-disjoint).
+**Dependencies:** M06, M13, M23.
 
-<a id="m21"></a>
-### M21. Disjoint histories and conditional separability
+**Story role and connection:** Spatial redundancy costs local depth. The explicit layout makes that cost visible and avoids assuming free distant copies or cloning an arbitrary state.
 
-**Phase:** Narrative/innovation.
+**Sources:** [Watrous §6.3.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), Bell-measurement labels; [joining links and creating disjoint banks](../science/construction.md#joining-the-links-and-creating-disjoint-banks).
 
-**Central question:** Why does a strip wider than twice the available quantum cone radius force separability even after public heralding?
+### M25. Repeated reports and majority decoding
 
-**Understanding target:** Trace the retained left and right histories backward and use $`w>2rT`$ to keep them disjoint. Combine product initial resources, CPTP cancellation, and final local record projections into a positive product branch. Explain why summing refined histories or selecting a public acceptance event preserves separability despite global classical correlations.
+**Central question:** Which samples are independent when many readouts refer to the same physical basis value?
 
-**Dependencies and story role:** Integrates [M06](#m06), [M08](#m08), and [M19](#m19)–[M20](#m20). It completes the quantum obstruction that the statistical comparison will use.
+**Understanding target:** Read every bank qubit for $s$ QND rounds, obtaining $(r+1)s$ reports per junction bit. Keep the largest odd sample count $M$ by discarding one predetermined report when necessary. Identify the majority error as the binomial tail $q_M(p)$. Conditional on all true junction bits, decoding errors are independent across banks and have the same probability for either true value.
 
-**Conceptual connection:** Locality and correct conditioning place the comparison state in a resource-constrained set. This is the quantum input to the later classical calculation.
+**Dependencies:** M06, M24.
 
-**Source pointers:** Wilde §§4.3 and 19.2 through [the blind-strip bridge](WILDE_BRIDGE.md#blind-strip); [disjoint retained histories](../science/blind_strip.md#3-the-two-retained-quantum-histories-are-disjoint); [positive product branches](../science/blind_strip.md#4-select-the-refined-record-and-sum-positive-product-branches).
+**Story role and connection:** The basis values within a bank agree; the fresh report flips supply the independent trials. This connects the physical QND schedule to an ordinary repetition decoder without assuming independent quantum outcomes.
 
-<a id="m22"></a>
-### M22. One algorithm for every noise table
+**Sources:** [Watrous §2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), repeated instrument use; [the project's exact majority decoder](../science/construction.md#decoding-the-noisy-records).
 
-**Phase:** Narrative/innovation.
+### M26. Exact physical fidelity from the two error parities
 
-**Central question:** How can the actual and counterfactual detectors be compared without changing an adaptive protocol's rules?
+**Central question:** How do local decoding errors determine the averaged corrected endpoint state?
 
-**Understanding target:** Explain the fixed array of potential flip slots, including idle positions, and the normalized output $`\rho(e)`$ for a fixed table. Interpret $`\mathcal P(R)=\sum_eR(e)\rho(e)`$ as one common map. Keep the controller's rule unchanged and the realized table hidden when its probability distribution is changed.
+**Understanding target:** Track the residual phase and bit labels after the endpoint correction. Each is the parity of $m-1$ independent decoded errors, and the two parities are independent. Relate the probability that both are even to the exact Bell overlap $F_{m,M}(p)=[(1+(1-2q_M(p))^{m-1})/2]^2$. Distinguish the cancellations captured by this formula from the simpler union bound used for achievability.
 
-**Dependencies and story role:** Uses [M09](#m09), [M10](#m10), [M13](#m13), and [M14](#m14). It connects the local blind-strip experiment to a comparison of complete adaptive executions.
+**Dependencies:** M11, M13, M25.
 
-**Conceptual connection:** A classical distribution can control a quantum-output channel. The project-specific table representation makes this statement exact despite adaptive choices and stopping.
+**Story role and connection:** This calculation concerns the actual retained pair averaged over every true outcome and report error. It does not assume successful decoding or a favorable postselected transcript.
 
-**Source pointers:** Wilde §§4.6 and 10.5 through [the noise-table bridge](WILDE_BRIDGE.md#noise-table); [the common protocol map](../science/information_bound.md#a-common-protocol-map-for-every-readout-table).
+**Sources:** [Watrous §6.3.1](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), Pauli corrections; [§3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.3.pdf), fidelity convention; [exact decoding and fidelity](../science/construction.md#decoding-the-noisy-records).
 
-<a id="m23"></a>
-### M23. Hiding the randomized strip
+### M27. Balancing spatial and temporal repetition
 
-**Phase:** Narrative/innovation.
+**Central question:** How does a quadratic number of independent noisy reports fit into a depth that grows only as their square root?
 
-**Central question:** How does an unknown strip location convert many local obstructions into a strong statistical comparison?
+**Understanding target:** Use $q_M(p)\leq e^{-c_pM}$ with $c_p=-\log(2\sqrt{p(1-p)})>0$ and $1-F\leq2(m-1)e^{-c_pM}$. Count the complete native-SWAP schedule as $B+r+s+3$ rounds. Choose $r=s=t$ with $t$ of order $\sqrt{\log(N/(1-F_0))}$ for fixed $p$, yielding $M=t(t+1)-1\geq t^2$ and a fixed-target upper depth of order $\sqrt{\log L}$.
 
-**Understanding target:** Form $`Q=M^{-1}\sum_jQ_j`$, with each $`Q_j`$ blinding one strip. Explain separability of the mixture output and independence of the disjoint likelihood-ratio fluctuations under $`P`$. Account for both the single-strip factor and the location factor in
+**Dependencies:** M12, M23, M25, M26.
 
-```math
-\chi^2(Q\Vert P)=\frac{e^{2kD(p)}-1}{M}.
-```
+**Story role and connection:** Both local copying and repeated readout are charged. Their product supplies the sample count while their sum determines depth, matching the spacetime structure seen in the converse.
 
-**Dependencies and story role:** Uses [M13](#m13), [M21](#m21), and [M22](#m22). It assembles the local quantum obstruction into a global alternative distribution.
+**Sources:** [Watrous §2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), the underlying measurement formalism; [the project's probability bound](../science/construction.md#decoding-the-noisy-records), [exact quantum costs](../science/construction.md#exact-quantum-costs), and [fixed-fidelity parameter choice](../science/construction.md#choosing-the-parameters-for-a-fixed-fidelity).
 
-**Conceptual connection:** The mixture hides where information was removed. Its usefulness comes from statistical indistinguishability, without requiring a large exact blind component in every physical detector channel.
+### M28. Completing the construction on every finite chain
 
-**Source pointers:** Wilde §§10.5 and 10.7 as foundations through [the statistical-mixture bridge](WILDE_BRIDGE.md#statistical-mixture); [random-strip alternatives](../science/information_bound.md#random-strip-alternatives); [the exact moment identity](../science/information_bound.md#exact-chi-square-calculation).
+**Central question:** Does the upper bound remain a valid physical circuit when segment lengths are unequal or too few segments fit?
 
-<a id="m24"></a>
-### M24. Bell fidelity forces statistical separation
+**Understanding target:** Account for balanced unequal segments without adding sites, all disjoint layers, total physical count $N$, and the constant-factor change when SWAPs use three CNOTs. When fewer than two segments fit, follow centered Bell preparation and simultaneous outward SWAPs, with exact output and depth $1+\lceil N/2\rceil$. Understand why this fallback stays within the stated fixed-target bound. Distinguish finite layout and state checks from the analytical proof for all lengths.
 
-**Phase:** Narrative/innovation.
+**Dependencies:** M23, M24, M27.
 
-**Central question:** Why must a successful preparation distinguish the real detector from the separable comparison experiment?
+**Story role and connection:** Resource accounting completes the upper bound at finite size. The measurement-free route will also bound what can be claimed at very high target precision.
 
-**Understanding target:** Use the Bell projector as a bounded test with expectation at most $`1/2`$ under the comparison. Connect its bias to total variation and the mixture's chi-square moment. Explain why reverse relative entropy $`D_{\mathrm{KL}}(Q\Vert P)`$ captures the additional cost as actual fidelity approaches one, and why this test adds no operation to the protocol.
+**Sources:** [Watrous §§2.2.1–2.2.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf), channel composition; [exact costs](../science/construction.md#exact-quantum-costs), [short chains and the unitary fallback](../science/construction.md#short-chains-and-a-unitary-fallback), and [verification scope](../verification/README.md#scope).
 
-**Dependencies and story role:** Uses [M03](#m03), [M06](#m06), [M12](#m12), and [M23](#m23). It turns the comparison construction into finite universal fidelity inequalities.
+### M29. Boundary channels and resource limits
 
-**Conceptual connection:** The quantum resource boundary supplies the test threshold; classical information inequalities transfer that threshold to a constraint on available readout information.
+**Central question:** Which changes in noise or task definition alter the claimed depth law?
 
-**Source pointers:** Wilde §§9.1–9.3, 10.5, and 10.7 through [the statistical-mixture bridge](WILDE_BRIDGE.md#statistical-mixture); [the Bell test](../science/information_bound.md#bell-fidelity-as-a-statistical-test); [the accuracy inequality](../science/information_bound.md#reverse-relative-entropy-gives-the-accuracy-dependence).
+**Understanding target:** Separate the three regimes: constant depth at $p=0$, the interior theorem for fixed $p$, and linear depth at $p=1/2$. In the last regime, conditioning on the report coins and controller seed leaves predetermined local trace-preserving maps, whose disjoint endpoint cones cannot entangle a product input. Recognize the exact linear-depth unitary route at fidelity one and why the main result is not a uniform vanishing-error law. Keep gate noise, growing-width optimality, distance-dependent classical latency, and mitigated estimators outside the established statement.
 
-<a id="m25"></a>
-### M25. Success probability and conditional accuracy
+**Dependencies:** M08, M10, M12, M22, M28.
 
-**Phase:** Narrative/innovation.
+**Story role and connection:** These boundaries connect the fixed-parameter theorem to its operational assumptions. They prevent an optimum for one physical task from being treated as a general fault-tolerance or communication-speed theorem.
 
-**Central question:** What resource cost remains when the protocol is allowed to reject some executions?
+**Sources:** [Watrous §§2.2.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf) and [6.1.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), channels and LOCC; [three readout regimes](../science/interpretation.md#three-readout-regimes) and [resources determining the statement](../science/interpretation.md#the-resources-that-determine-the-statement).
 
-**Understanding target:** Keep success probability and conditional Bell infidelity separate. Explain why a blind comparison can have a different acceptance probability, and how the two likelihood-moment orientations control this change. Relate the resulting $`\epsilon\ge s^3e^{-6kD(p)}/4`$ bound to the geometric success-dependent bound. State why fixed positive success preserves the depth order while vanishing yield remains a different optimization.
+### M30. One optimal law from two complementary mechanisms
 
-**Dependencies and story role:** Uses [M09](#m09), [M12](#m12)–[M13](#m13), [M21](#m21), and [M24](#m24). It completes the finite converse's treatment of both output accuracy and acceptance.
+**Central question:** What has been established for all allowed protocols, and why does the explicit circuit attain the same depth order?
 
-**Conceptual connection:** Conditional separability and change of measure prevent postselection from removing the information cost at fixed success probability.
+**Understanding target:** Combine the adaptive converse and width-one construction to obtain $D_{\min}(L;p,F_0)=\Theta_{p,F_0}(\sqrt{\log L})$ for fixed $p\in(0,1/2)$ and $F_0\in(1/2,1)$. Relate the largest fixed-fidelity range to $\exp[\Theta_{p,F_0}(D^2)]$. Identify the full transcript-output separator as the universal step and charged spatial-temporal repetition as the matching mechanism. Distinguish inherited locality and rare-cut methods from the result for this independent readout-only model, and distinguish proof from finite executable verification.
 
-**Source pointers:** Wilde §§9.2, 10.5, 10.7, and 19.2 through [accuracy and heralding](WILDE_BRIDGE.md#accuracy-and-heralding); [accepted output functions](../science/heralding.md#accepted-output-as-a-function-of-the-error-table); [the two moment comparisons](../science/heralding.md#conditional-accuracy-from-two-likelihood-ratio-moments).
+**Dependencies:** M18, M21, M22, M27, M28, M29.
 
-<a id="m26"></a>
-### M26. The two competing spatial counts
+**Story role and connection:** The complete route connects one noisy instrument to a global optimum. Both mechanisms account for the space and time needed to make measurement records reliable under the specified independent reporting noise.
 
-**Phase:** Narrative/innovation.
-
-**Central question:** Which spatial quantities must be counted before the construction and converse can be compared?
-
-**Understanding target:** Relate strip width $`w=2rT+1`$ to $`k=\nu wT=O(T^2)`$ potential reports and $`M=\lfloor(L-1)/w\rfloor`$ disjoint alternatives. Compare this with the construction's $`O(bt)`$ reports per boundary and $`O(L/b)`$ boundaries. Keep the two meanings of $`M`$ within their separate arguments, and retain the changing factor $`L/T`$.
-
-**Dependencies and story role:** Integrates [M08](#m08), [M18](#m18), [M21](#m21), and [M24](#m24)–[M25](#m25). It places the lower and upper bounds in the same geometric resource units.
-
-**Conceptual connection:** Fixed spatial density turns available space and time into an area-like report budget. The remaining number of interfaces determines the logarithmic reliability requirement.
-
-**Source pointers:** Wilde §§4.6, 6.1, and 10.5 as foundations through [the uniform-depth bridge](WILDE_BRIDGE.md#uniform-depth); [finite strip packing](../science/blind_strip.md#finite-strip-count); [arbitrary-length construction](../science/construction.md#5-an-explicit-partition-for-every-chain-length); [packing in the converse](../science/depth_law.md#5-strip-packing-and-inversion).
-
-<a id="m27"></a>
-### M27. The uniform depth law and its caps
-
-**Phase:** Narrative/innovation.
-
-**Central question:** How do finite bounds become one optimal-depth statement valid when distance, detector quality, and accuracy all vary?
-
-**Understanding target:** Connect balanced spatial and temporal amplification to the converse's necessary information budget. Interpret the unique positive solution of $`D(p)\tau^2=\log[L/(\epsilon\tau)]`$ and the matched scale
-
-```math
-T_{\mathrm{opt}}
-=\Theta\!\left(\max\{1,\min\{L,\tau\}\}\right).
-```
-
-Explain the microscopic floor, the exact coherent linear-depth alternative, integer block choices, and the fixed-success dependence of constants. Distinguish uniform quantifiers from a limit taken at fixed detector quality.
-
-**Dependencies and story role:** Uses [M14](#m14), [M18](#m18), and [M24](#m24)–[M26](#m26). It combines the finite mechanisms into the project's principal resource theorem.
-
-**Conceptual connection:** The implicit scale summarizes a constructive-converse match. Its geometry and inversion are supplied by the project, not by a textbook channel-capacity theorem.
-
-**Source pointers:** Wilde §§6.1, 9.2, and 10.5 as foundations through [the uniform-depth bridge](WILDE_BRIDGE.md#uniform-depth); [the uniform statement](../science/depth_law.md#1-statement); [the inverse scale](../science/depth_law.md#2-the-inverse-scale); [uniform upper construction](../science/depth_law.md#3-uniform-constructive-upper-bound) and [lower inversion](../science/depth_law.md#5-strip-packing-and-inversion).
-
-<a id="m28"></a>
-### M28. Detector and accuracy crossovers
-
-**Phase:** Narrative/innovation.
-
-**Central question:** When does measurement assistance retain a sublinear-depth advantage over coherent propagation?
-
-**Understanding target:** Explain the fixed-quality $`\sqrt{\log L}`$ regime and the weak-bias behavior $`D(p)\sim\delta^2/2`$. Interpret the variable-accuracy criterion $`D(p)L^2/\log(1/\epsilon)\to\infty`$ for sublinear depth. Use the example $`D(p_L)=\log L/L^2`$ to identify why discarding $`T`$ inside the logarithm gives the wrong crossover.
-
-**Dependencies and story role:** Uses [M11](#m11) and [M27](#m27). It translates the uniform theorem into physical parameter regimes.
-
-**Conceptual connection:** Detector information, geometric distance, and output accuracy jointly determine whether the coherent cap is active. A fixed-quality asymptotic estimate does not contain this full information.
-
-**Source pointers:** Wilde §§10.5 and 10.7 as background through [the uniform-depth bridge](WILDE_BRIDGE.md#uniform-depth); [detector and accuracy regimes](../science/depth_law.md#6-detector-and-accuracy-regimes); [the coherent crossover](../science/depth_law.md#7-the-coherent-crossover); [its physical interpretation](../science/interpretation.md#5-detector-quality-and-the-crossover).
-
-<a id="m29"></a>
-### M29. Scope, attribution, and verification
-
-**Phase:** Narrative/innovation.
-
-**Central question:** Which conclusions are established by the theorem, the construction, the cited foundations, and the finite computation?
-
-**Understanding target:** Keep the unflagged independent report model, fixed local resources, and free classical-communication convention attached to the result. Distinguish the ideal-control construction from the broader local-CPTP converse, and a heterogeneous-detector obstruction from a matched general law. Identify imported research ingredients and explain why the finite layout check supports circuit details without proving the universal or asymptotic statements.
-
-**Dependencies and story role:** Uses [M14](#m14), [M18](#m18), [M21](#m21), and [M24](#m24)–[M28](#m28). It establishes the boundaries required for a faithful global explanation.
-
-**Conceptual connection:** Resource definitions, mathematical proof, primary attribution, and finite verification provide different kinds of support. Their roles must remain distinguishable when applying the theorem.
-
-**Source pointers:** Wilde §§4.4, 6.1, 9.2, and 19.2 through [scope and the complete story](WILDE_BRIDGE.md#scope-and-complete-story); [implementation assumptions](../science/interpretation.md#7-ideal-coherent-control-and-physical-implementations); [research ingredients](../references/RELATED_WORK.md#ingredients-and-their-roles) and [attribution limits](../references/RELATED_WORK.md#scope-of-the-comparison); [finite verification scope](../verification/README.md#analytical-scope).
-
-<a id="m30"></a>
-### M30. The complete information-resource explanation
-
-**Phase:** Narrative/innovation.
-
-**Central question:** Why does noisy access to local outcomes impose the matched global cost for physically delivering distant entanglement?
-
-**Understanding target:** Connect the full argument: local Bell fusion creates outcome-dependent corrections; spatial copying and repeated readout make their information reliable; a blind strip forces conditional separability; a mixture of possible strip locations constrains any adaptive algorithm; and the constructive and converse counts match uniformly. Explain why only two final correction parities can still require information acquired throughout the chain, and carry the detector, accuracy, success, and implementation boundaries into that explanation.
-
-**Dependencies and story role:** Integrates [M14](#m14), [M18](#m18), [M21](#m21), and [M24](#m24)–[M29](#m29). This closes the narrative phase with the complete resource statement rather than another isolated technique.
-
-**Conceptual connection:** The project joins quantum locality to classical statistical information through a physical entanglement task. The educational anchor supplies the common language; the linked scientific account supplies the particular mechanism, proof, construction, and scope.
-
-**Source pointers:** Wilde §§4.6, 6.1, 9.1–9.2, 10.5, and 19.2 through [the complete bridge synthesis](WILDE_BRIDGE.md#scope-and-complete-story); [the main theorem](../science/model.md#5-uniform-optimal-depth-theorem); [its consequences](../science/model.md#6-consequences-and-interpretation); [the resulting resource statement](../science/interpretation.md#8-the-resulting-resource-statement).
+**Sources:** [Watrous §2.3.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.2.pdf) and [§6.1.2](https://cs.uwaterloo.ca/~watrous/TQI/TQI.6.pdf), foundational instruments and LOCC; [scientific account](../science/README.md), [optimal depth and interpretation](../science/interpretation.md), [attribution and closest models](../references/RELATED_WORK.md), and [verification scope](../verification/README.md#scope).

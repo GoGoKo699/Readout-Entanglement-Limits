@@ -1,85 +1,84 @@
-# Readout Entanglement Limits
+# Adaptive Entanglement Depth
 
-**How much local operation depth is needed to distribute a Bell pair when every measurement report is noisy?** This repository gives matching lower and upper bounds for a one-dimensional chain with fixed local resources, independent binary readout errors, and unrestricted ideal classical feedforward.
+**How does noisy readout change the minimum depth needed to create long-range entanglement?**
 
-The target is a physically corrected Bell pair between fixed endpoints. Using measurements to reduce the depth below coherent propagation requires sufficiently reliable information about local outcomes, even when the classical controller can communicate across the whole chain instantaneously. The complete scientific account is organized by topic under [science/](science/model.md).
-
-## Principal result
-
-Let $`L\ge2`$ be the endpoint distance, $`p\in(0,1/2)`$ the independent report-flip probability, and $`\epsilon\in(0,1/4]`$ the target Bell infidelity. Define
+On a one-dimensional nearest-neighbor chain, independent measurement-report noise changes the optimal depth from constant to square-root logarithmic. For a fixed report-flip probability $0<p<1/2$ and fixed target Bell overlap $1/2<F_0<1$,
 
 ```math
-D(p)=-\frac12\log[4p(1-p)],
+D_{\min}(L;p,F_0)
+=\Theta_{p,F_0}\!\left(\sqrt{\log L}\right).
+```
+
+Here $L$ is the separation of two designated output qubits. The circuit starts from a product state, has one qubit per site, and uses perfect local quantum operations with unrestricted reliable classical feedforward. **Depth includes quantum gates and readout rounds.**
+
+| Measurement reports | Optimal depth at fixed target fidelity |
+|---|---:|
+| Perfect, $p=0$ | $\Theta(1)$ |
+| Independently noisy, fixed $0<p<1/2$ | $\Theta(\sqrt{\log L})$ |
+| Completely uninformative, $p=1/2$ | $\Theta(L)$ |
+
+## The obstruction and the construction
+
+A noisy binary report admits an exact representation as a truthful outcome or an independent random bit whose underlying measurement outcome is forgotten. If every potential readout in a depth-wide corridor is forgotten, all operations across its central cut can be removed without changing the accessible transcript or endpoint state. The resulting endpoint state is separable.
+
+For depth $D\geq1$, define
+
+```math
+K=\left\lfloor\frac{L-1}{2D+2}\right\rfloor,
 \qquad
-D(p)\tau^2=\log\frac{L}{\epsilon\tau}.
+q=(2p)^{2D(D+1)}.
 ```
 
-The second equation has a unique positive solution. The minimum depth satisfies
+Every allowed adaptive protocol obeys
 
 ```math
-T_{\mathrm{opt}}(L,\epsilon,p)
-=\Theta\!\left(\max\{1,\min\{L,\tau\}\}\right).
+F_{\mathrm{Bell}}
+\leq\frac12+\frac12(1-q)^K.
 ```
 
-The constants are independent of distance, detector quality, and accuracy. The same order holds for heralded preparation whose success probability has a fixed positive lower bound. The [model](science/model.md) states the complete quantifiers, and the [depth-law proof](science/depth_law.md) supplies the finite bounds, uniform constants, integer rounding, and limiting regimes.
+The same argument gives the heralded bound
+$\Pr(S)(2F_S-1)\leq(1-q)^K$.
 
-| Result | Scientific meaning | Account |
-|---|---|---|
-| At fixed detector quality and accuracy, $`T_{\mathrm{opt}}=\Theta(\sqrt{\log L})`$ | Both spatial copies and repeated readout contribute to reliability. | [Construction](science/construction.md), [depth law](science/depth_law.md) |
-| In the intermediate regime, $`D(p)T^2\asymp\log[L/(T\epsilon)]`$ | A depth-$`T`$ neighborhood supplies order $`T^2`$ reports, while order $`L/T`$ neighborhoods must be connected. | [Information bound](science/information_bound.md), [interpretation](science/interpretation.md) |
-| At fixed accuracy near uninformative readout, sublinear depth occurs precisely when $`(1-2p)L\to\infty`$ | The weak-detector crossover follows from the uniform law. | [Depth law](science/depth_law.md) |
-| A fixed success requirement preserves the same depth order | Postselection can change constants without removing the distance or accuracy cost. | [Heralding](science/heralding.md) |
+The matching protocol prepares local Bell links, performs Bell-basis gates at their junctions, and protects each junction outcome with nearby copying qubits and repeated readout. Spatial replication over $r+1$ qubits and $s$ readout rounds provides order $rs$ independent samples at depth order $r+s$. Choosing both resources of order $\sqrt{\log L}$ attains the lower-bound scaling.
 
-The universal converse allows arbitrary adaptive protocols in the stated model. It does not assume a particular swapping circuit, bitwise decoder, or majority rule. The matching upper bound is an explicit local circuit.
+The locality, rare-cut, and repetition ingredients have established precedents. The [related-work account](references/RELATED_WORK.md) identifies those ingredients and compares the sharp readout-only depth law with the closest quantum-bus and measurement-mitigation results.
 
 ## Read the science
 
-| Reader's question | Authoritative page |
+Start with the [scientific route](science/README.md) and [exact model and claims](science/model.md).
+
+| To understand or check | Read |
 |---|---|
-| What exactly is the physical task, noise interface, and theorem? | [Model and main theorem](science/model.md) |
-| Why does replacing one strip's reports by fair bits force separability? | [Blind-strip lemma](science/blind_strip.md) |
-| How does the detector-information coefficient enter the lower bound? | [Random-strip information comparison](science/information_bound.md) |
-| How are conditional accuracy and success probability controlled together? | [Heralded preparation](science/heralding.md) |
-| Which gates, memories, reports, and corrections attain the bound? | [Local construction](science/construction.md) |
-| How are the lower and upper bounds matched uniformly? | [Optimal depth and crossover](science/depth_law.md) |
-| What does the result imply for measurement-assisted entanglement? | [Physical interpretation](science/interpretation.md) |
-| Which ingredients and nearby results come from prior work? | [Related work](references/RELATED_WORK.md), [bibliography](references/references.bib) |
+| Why arbitrary adaptive control cannot evade the bound | [Converse and full transcript-output proof](science/converse.md) |
+| How to attain the depth on an arbitrary chain length | [Construction and resource counts](science/construction.md) |
+| Physical meaning, limiting cases, and charged resources | [Interpretation](science/interpretation.md) |
+| Inherited methods and closest comparisons | [Related work](references/RELATED_WORK.md) and [bibliography](references/references.bib) |
+| Reproducible finite calculations | [Verification](verification/README.md) |
+| A question-directed map of the repository | [LLM reading guide](llms.txt) |
 
-For the connected argument, read the model, the blind-strip and information bounds, heralding, the construction, and the depth law, then the interpretation. For a circuit-first route, follow the model with the construction before returning to the converse. The [LLM guide](llms.txt) maps more specific questions to these files.
+## Learn the argument
 
-## Study the project
+The [learning route](learning/README.md) connects John Watrous's *The Theory of Quantum Information* (2018) to this project. Its [source guide](learning/ANCHOR.md) identifies the relevant sections and notation. The [bridge](learning/BRIDGE.md) develops the measurement-report model, the separator mechanism, and a complete eight-site example.
 
-The single educational anchor is **Mark M. Wilde, *Quantum Information Theory*, second edition (2017)**. The [Wilde bridge](learning/WILDE_BRIDGE.md) gives selective source readings, translates the book's conventions, and connects them to the project's arguments. It includes a complete four-qubit example with noisy reports, majority decoding, and physical endpoint correction.
+The [30-milestone map](learning/MILESTONES.md) has two phases: 12 milestones establish the mathematical and operational foundations, and 18 follow the converse and construction through to the optimal-depth law and its limits. Each phase moves from individual objects and operations to their role in the complete argument.
 
-The [30-milestone map](learning/MILESTONES.md) organizes the understanding route for every reader, including LLMs. Fourteen background milestones connect quantum states, instruments, and locality with the required classical statistics. Sixteen research milestones assemble the construction and blind-strip mechanism into the global resource law.
+## Reproduce the checks
 
-| Phase | Route | Understanding developed |
-|---|---|---|
-| Background/preliminaries | [M01–M14](learning/MILESTONES.md#background-preliminaries) | Physical registers and measurement records, local quantum control, independent readout errors, and statistical comparison |
-| Narrative/innovation | [M15–M21](learning/MILESTONES.md#m15) | The Bell circuit, reliable pointer reports, and the separability mechanism inside a blind strip |
-| Narrative/innovation | [M22–M30](learning/MILESTONES.md#m22) | The common adaptive comparison, accuracy and heralding bounds, uniform optimum, crossover, and physical interpretation |
+From the repository root, run:
 
-Use the listed Wilde sections alongside the bridge and milestone explanations. Each milestone points to the authoritative scientific statements and proofs; the source bridge identifies the steps developed specifically for this project.
-
-## Reproduce the finite construction check
-
-From the repository root, using Python 3.12:
-
-```sh
-python3 -m pip install -r verification/requirements.txt
-python3 verification/verify_bell_layout.py
+```bash
+python3 verification/verify_construction.py
 ```
 
-The deterministic state-vector check examines a twelve-qubit circuit with three blocks, two swapping boundaries, and all sixteen true Bell-outcome strings. It checks nearest-neighbor scheduling, disjoint pointer-copy domains, branch probabilities, and the corrected endpoint density matrix. A successful run prints JSON with `"passed": true` and numerical errors below $`10^{-12}`$.
+The checks use Python's standard library. They inspect actual nearest-neighbor circuits, parallel scheduling, measurement branches, endpoint corrections, and the noisy-decoding fidelity. The universal lower bound and asymptotic optimum rest on the written proofs. See [Verification](verification/README.md) for the executed checks and their limits.
 
-The [verification guide](verification/README.md) records the executed environment, expected counts, and acceptance tolerances. This finite calculation checks the circuit and Pauli convention. The general converse, arbitrary-size construction, and asymptotic depth law are established by the written analytical arguments.
+## Scope
 
-## Consequential assumptions
+The result isolates independent noise in the classical measurement reports. Gates, initialization, storage, and measurement backaction are ideal. The output is a retained physical endpoint Bell pair. Readout samples and quantum operations are charged, while classical communication and computation are free.
 
-The input is a product over sites, conditional on any shared classical randomness. Quantum memory per site, gate range, and binary reports per site and layer are fixed. All measurement information entering the controller passes through independent, **unflagged** binary symmetric report channels. Coherent local pointers remain quantum resources and obey the local propagation and memory limits.
-
-The matching construction assumes ideal coherent gates, memories, and repeatable pointer readout. Depth counts gate and readout layers under instantaneous classical communication; it does not model geographic communication latency. The heralded theorem holds at a fixed positive success requirement. These assumptions and their role in the proofs are specified in the [model](science/model.md) and [interpretation](science/interpretation.md).
+The headline fixes the noise rate and target fidelity strictly inside their stated intervals. It does not give optimal constants as these parameters vary, a full noisy-gate threshold, or a joint optimum for growing transverse width. A measurement-free unitary protocol prepares an exact Bell pair in linear depth and bounds any extension toward vanishing infidelity.
 
 ## Purpose and contact
 
 This repository serves as a record of the work and a guide for the author’s self-directed learning. For discussion or potential collaboration, please contact Ruge Lin at [gogoko699@gmail.com](mailto:gogoko699@gmail.com).
+

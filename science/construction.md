@@ -1,238 +1,255 @@
-# Spatial and temporal readout amplification
+# Bell links with spatially repeated readout
 
-The construction gives each Bell-measurement pointer both spatial copies and repeated readout time. It uses one quantum memory qubit per chain site. The same qubits first distribute short Bell links and then store the pointers needed to join those links.
+The construction prepares a Bell pair between the prescribed endpoints of a chain using depth $O(\sqrt{\log L})$ at any fixed readout error rate $0<p<1/2$ and fixed target fidelity $F_0\in(1/2,1)$. It first creates independent Bell links, then joins them by entanglement swapping. Each of the two classical bits produced by a swap is distributed across a small bank of qubits and read repeatedly. Spatial copies and repeated measurements supply a quadratic number of noisy samples in the available depth.
 
-The [model](model.md) specifies ideal coherent gates, independent BSC report errors with probability $`p`$, and free global classical processing. This page proves the finite protocol and its fidelity. The [depth law](depth_law.md) chooses its parameters and matches it to the universal converse.
+The [model](model.md) counts every quantum gate and every readout round. Classical decoding and feedforward have no depth cost. Coherent gates, reset operations and measurement backaction are ideal. The [converse](converse.md) proves that the resulting depth scaling is optimal for fixed $p\in(0,1/2)$ and fixed $F_0\in(1/2,1)$.
 
-Entanglement swapping and repetition-based readout are established ingredients. The [related-work account](../references/RELATED_WORK.md) identifies the measurement-locality and readout-amplification sources. The resource accounting below combines those ingredients at fixed spatial density.
+## Chain and bank parameters
 
-## 1. Equal blocks and layer conventions
+Write $N=L+1\geq 2$ for the number of sites, numbered $0,\ldots,N-1$. Every site initially holds $|0\rangle$. Choose integers $r\geq 0$ and $s\geq 1$. Each outcome bank will contain its original qubit and $r$ additional copies; each bank qubit will undergo $s$ readouts.
 
-Take $`n=L+1=Kb`$ sites, where $`b\ge2`$ is even. Block $`j`$ has left endpoint $`a_j`$ and right endpoint $`b_j`$. The symbol $`b_j`$ labels a qubit; the unindexed $`b`$ denotes the block length. There are $`M=K-1`$ boundaries. All qubits start in $`|0\rangle`$.
-
-Each layer contains disjoint nearest-neighbor gates or site-local operations. A native SWAP counts as one two-qubit gate, a one-qubit gate counts as one layer, and one QND readout of every selected site counts as one readout layer. Classical processing between layers is free. These conventions are needed for the exact depth below. Compiling a SWAP into several elementary gates changes its constant prefactor.
-
-For a block starting at site $`s`$, the two central sites are $`s+b/2-1`$ and $`s+b/2`$. Prepare a Bell pair on them with a Hadamard followed by CNOT. Then swap its two halves outward in parallel until they reach the block endpoints. The remaining qubits are again in $`|0\rangle`$: each SWAP moves the Bell half into a zero state and leaves a zero state behind.
-
-The complete schedule is as follows. Different blocks and boundaries operate in parallel.
-
-| Stage | Operations | Layers |
-|---|---|---:|
-| Block Bell links | Central Hadamard, central CNOT, then outward SWAPs | $`b/2+1`$ |
-| Boundary decoding | CNOT from $`b_j`$ to $`a_{j+1}`$, then Hadamard on $`b_j`$ | $`2`$ |
-| Pointer copying | Nearest-neighbor CNOT chains away from each boundary | $`b/2-1`$ |
-| Repeated readout | QND Z readout of every pointer copy, repeated $`t\ge1`$ times | $`t`$ |
-| Endpoint correction | One Pauli gate selected by the decoded global parities | $`1`$ |
-
-The left half of a block is reserved for its left endpoint pointer, and the right half for its right endpoint pointer. At each internal boundary, the decoded left qubit is copied leftward into the right half of its block; the decoded right qubit is copied rightward into the left half of the next block. The two domains in an internal block are disjoint. A CNOT chain of depth $`b/2-1`$ creates $`b/2`$ copies of each pointer, including the original.
-
-The outer endpoints $`a_1`$ and $`b_K`$ are retained as the output and are never read. The unused outer half-blocks do not enter the correction. There is no additional quantum memory hidden in the copying step.
-
-Consequently the specified schedule has
+Set
 
 ```math
-\boxed{T=b+t+3,\qquad m=\frac{bt}{2},}
-```
-
-where $`m`$ is the number of independent reports per latent boundary bit. If $`K=1`$, no swapping measurement is required; the block Bell-link preparation alone gives an exact output.
-
-## 2. The two Bell byproducts
-
-Let $`u_j`$ denote the Z-basis value of $`b_j`$ after its Hadamard, and let $`v_j`$ denote the value of $`a_{j+1}`$ after the boundary CNOT. Thus $`u_j`$ is the first, left Bell-measurement bit and $`v_j`$ the second, right bit. Define
-
-```math
-U=\bigoplus_{j=1}^{M}u_j,
+\ell=2r+2,
 \qquad
-V=\bigoplus_{j=1}^{M}v_j.
+m=\left\lfloor\frac{N}{\ell}\right\rfloor.
 ```
 
-The conditional endpoint state is
+When $m\geq 2$, divide the chain into $m$ contiguous segments with balanced lengths $n_1,\ldots,n_m$: each length is either $\lfloor N/m\rfloor$ or $\lceil N/m\rceil$, and their sum is $N$. Thus each segment has at least $2r+2$ sites. Let $a_j$ and $b_j=a_j+n_j-1$ be its first and last sites, and let
 
 ```math
-\boxed{
-|\psi_{u,v}\rangle_{a_1b_K}
-=(I\otimes X^V Z^U)|\Phi^+\rangle
-}
+B=\max_j n_j=\left\lceil\frac{N}{m}\right\rceil.
 ```
 
-up to a global phase. This fixes the convention: the first bit contributes Z and the second bit contributes X.
+The largest segment satisfies $B\leq 3r+3$. Indeed, write $N=m\ell+h$ with $0\leq h<\ell$. Then $B=\ell+\lceil h/m\rceil\leq 2r+2+(r+1)$ because $m\geq 2$.
 
-To prove the formula, write the product of block links as
+The case $m<2$ uses the [unitary fallback](#short-chains-and-a-unitary-fallback) below. No extra sites are introduced to make a segment fit.
+
+## Preparing the links and returning their interiors to zero
+
+For each segment $j$, apply $H$ at $a_j$, followed by $\mathrm{CNOT}_{a_j\to a_j+1}$. This creates a Bell pair on the first two sites. Move its second half to $b_j$ using the sequence
 
 ```math
-\bigotimes_{j=1}^{K}|\Phi^+\rangle_{a_jb_j}
-=2^{-K/2}\sum_{x_1,\ldots,x_K}
-\bigotimes_{j=1}^{K}|x_j\rangle_{a_j}|x_j\rangle_{b_j}.
+\mathrm{SWAP}_{a_j+1,a_j+2},\;
+\mathrm{SWAP}_{a_j+2,a_j+3},\;\ldots,\;
+\mathrm{SWAP}_{b_j-1,b_j}.
 ```
 
-Boundary decoding followed by selection of $`u_j,v_j`$ imposes
+Each SWAP moves the entangled qubit into a site holding zero and leaves zero behind. Execute the sequences for different segments in parallel, padding shorter sequences with idle layers. After $B$ layers in total, the state is
 
 ```math
-v_j=x_j\oplus x_{j+1}
-```
-
-and contributes the Hadamard phase $`(-1)^{u_jx_j}/\sqrt2`$. Therefore
-
-```math
-x_j=x_1\oplus\bigoplus_{\ell=1}^{j-1}v_\ell,
+\bigotimes_{j=1}^{m}|\Phi^+\rangle_{a_jb_j}
+\;\otimes\!
+\bigotimes_{q\notin\{a_1,b_1,\ldots,a_m,b_m\}}|0\rangle_q,
 \qquad
-\sum_{j=1}^{M}u_jx_j
-=Ux_1+\chi(u,v)\pmod{2},
+|\Phi^+\rangle=\frac{|00\rangle+|11\rangle}{\sqrt 2}.
 ```
 
-where
+The segment interiors are available for the readout banks. Their return to zero follows from the explicit SWAP sequence; it is not an additional initialization resource.
+
+## Joining the links and creating disjoint banks
+
+At each junction $j=1,\ldots,m-1$, the qubits $b_j$ and $a_{j+1}$ are nearest neighbors. In one layer, apply the gate
 
 ```math
-\chi(u,v)=\sum_{j=1}^{M}u_j
-                 \left(\bigoplus_{\ell=1}^{j-1}v_\ell\right)\pmod{2}.
+\mathrm{CNOT}_{b_j\to a_{j+1}}
 ```
 
-Only the two terms $`x_1=0,1`$ remain. If $`\mathcal B`$ denotes the product of the boundary CNOT-Hadamard decoders, their unnormalized endpoint vector is exactly
+at every junction. In the next layer, apply $H$ at every $b_j$. Computational-basis measurement of these qubits would now be a Bell measurement. Denote its two true bits by
 
 ```math
-\langle u,v|\mathcal B
-\bigotimes_{j=1}^{K}|\Phi^+\rangle_{a_jb_j}
-=2^{-M}(-1)^{\chi(u,v)}
- (I\otimes X^VZ^U)|\Phi^+\rangle.
-```
-
-Every one of the $`4^M`$ outcome strings has probability $`4^{-M}`$. In particular, the $`2M`$ latent bits are independent and uniform.
-
-Pointer copying maps a basis state $`|x\rangle|0\cdots0\rangle`$ to $`|x\cdots x\rangle`$. It introduces no phase and does not change the preceding probabilities or conditional endpoint states. Reading the copies therefore produces repeated noisy reports of the same latent bit.
-
-## 3. Decoding and exact output fidelity
-
-For $`m`$ reports of one latent bit, use majority decoding. Break an even-size tie with an independent fair classical bit. The decoding error is
-
-```math
-e_m(p)
-=\Pr\!\left[\mathrm{Bin}(m,p)>\frac m2\right]
-+\frac12\Pr\!\left[\mathrm{Bin}(m,p)=\frac m2\right].
-```
-
-The BSC symmetry makes this error probability independent of the latent bit's value. Distinct pointers use disjoint report slots and independent tie breakers, so their decoding errors are independent. Let $`\widehat U,\widehat V`$ be the parities of the decoded bits. Apply
-
-```math
-Z^{\widehat U}X^{\widehat V}
-```
-
-to the right output qubit. The residual Pauli is, up to a global phase,
-
-```math
-X^{\widehat V\oplus V}Z^{\widehat U\oplus U}.
-```
-
-The four residual Paulis produce four orthogonal Bell states. Thus the corrected output has fidelity one on a noise realization precisely when both error parities vanish.
-
-For $`M`$ independent Bernoulli($`e_m`$) errors, the probability of even parity is
-
-```math
-\Pr(\text{even})
-=\frac{1+(1-2e_m)^M}{2}.
-```
-
-The X and Z parities use disjoint error sets. The exact physical output fidelity is therefore
-
-```math
-\boxed{
-F_{\mathrm{Bell}}
-=\left[\frac{1+(1-2e_m(p))^M}{2}\right]^2.
-}
-```
-
-This expression is for the corrected two-qubit state after every other quantum register is discarded. It is not a fidelity estimate obtained by reweighting measurement data.
-
-## 4. Chernoff estimate
-
-Define the detector coefficient as in the [model](model.md):
-
-```math
-D(p)=-\frac12\log[4p(1-p)]>0.
-```
-
-For $`S\sim\mathrm{Bin}(m,p)`$ and $`\lambda\ge0`$,
-
-```math
-e_m(p)\le\Pr(S\ge m/2)
-\le\left[e^{-\lambda/2}(1-p+pe^\lambda)\right]^m.
-```
-
-Choosing $`\lambda=\log[(1-p)/p]`$ gives
-
-```math
-e_m(p)\le[2\sqrt{p(1-p)}]^m=e^{-D(p)m}.
-```
-
-A union bound over the $`2M`$ decoded bits then yields
-
-```math
-\boxed{
-1-F_{\mathrm{Bell}}
-\le2M e_m(p)
-\le2M\exp\!\left[-D(p)\frac{bt}{2}\right].
-}
-```
-
-Several bit errors can cancel in a global parity, which is why the exact fidelity can exceed this lower estimate. The bound is sufficient for the uniform depth theorem.
-
-## 5. An explicit partition for every chain length
-
-No divisibility assumption is needed for the asymptotic result. Fix an even integer $`b\ge2`$ and suppose $`n=L+1\ge2b`$. Set
-
-```math
-K=\left\lfloor\frac nb\right\rfloor,
-\qquad R=n-Kb,
-\qquad 0\le R<b.
-```
-
-Use one block of length $`b+R`$ and $`K-1`$ blocks of length $`b`$. Every block length $`\ell_j`$ lies between $`b`$ and $`2b-1`$, and $`K\ge2`$. The longer block may be odd.
-
-Split a length-$`\ell_j`$ block into a left domain of size $`\lfloor\ell_j/2\rfloor`$ and a right domain of size $`\lceil\ell_j/2\rceil`$. Create the central Bell pair at the adjacent sites where those domains meet. Its two halves reach the block endpoints after at most $`\lceil\ell_j/2\rceil-1`$ SWAP layers. After boundary decoding, copy each endpoint pointer inward through its own domain. This takes at most the same number of CNOT layers.
-
-Let $`c=\max_j\lceil\ell_j/2\rceil\le b`$. Padding the stages by idle gates where necessary gives
-
-```math
-T=2c+t+3\le2b+t+3.
-```
-
-At boundary $`j`$, the report counts are
-
-```math
-m_{j,u}=t\left\lceil\frac{\ell_j}{2}\right\rceil,
+u_j=\text{the computational-basis bit at }b_j,
 \qquad
-m_{j,v}=t\left\lfloor\frac{\ell_{j+1}}{2}\right\rfloor.
+v_j=\text{the computational-basis bit at }a_{j+1}.
 ```
 
-Both are at least $`bt/2`$. Writing $`e_{j,u}=e_{m_{j,u}}(p)`$ and $`e_{j,v}=e_{m_{j,v}}(p)`$, the parity proof gives the unequal-block fidelity
+The bits have not yet been read out. First distribute their computational-basis values into the zero interiors by CNOT fanout. The two banks for junction $j$ are
 
 ```math
-F_{\mathrm{Bell}}
-=\frac{1+\prod_{j=1}^{M}(1-2e_{j,u})}{2}
- \frac{1+\prod_{j=1}^{M}(1-2e_{j,v})}{2}.
+\mathcal B^u_j=\{b_j,b_j-1,\ldots,b_j-r\},
+\qquad
+\mathcal B^v_j=\{a_{j+1},a_{j+1}+1,\ldots,a_{j+1}+r\}.
 ```
 
-In particular,
+In fanout layer $k=1,\ldots,r$, apply
 
 ```math
-\boxed{
-1-F_{\mathrm{Bell}}
-\le 2M e^{-D(p)bt/2},
-\qquad M=K-1<\frac nb.
-}
+\mathrm{CNOT}_{b_j-k+1\to b_j-k},
+\qquad
+\mathrm{CNOT}_{a_{j+1}+k-1\to a_{j+1}+k}
 ```
 
-The homogeneous squared expression and exact depth $`b+t+3`$ belong to equal even blocks. The formulas in this section specify the different constants for arbitrary lengths.
+at every junction. All these gates are nearest-neighbor gates. Within an internal segment, the bank from its left junction occupies its first $r+1$ sites, and the bank from its right junction occupies its last $r+1$ sites. The condition $n_j\geq 2r+2$ makes the banks disjoint, including when the segment has the minimum length. Neither endpoint of the full chain belongs to a bank.
 
-If fewer than two length-$`b`$ blocks fit, prepare a Bell pair centrally in the whole chain and swap its halves to the two outputs. This produces the Bell state exactly in
+To see the state being produced, consider the computational-basis branches of the junction qubits after the Bell-basis rotations. The $2(m-1)$ bits $(u_1,v_1,\ldots,u_{m-1},v_{m-1})$ have a uniform distribution. Conditional on one branch, the endpoint state is, up to a global phase,
 
 ```math
-T_{\mathrm{unit}}=\left\lceil\frac n2\right\rceil+1=O(L)
+|\Phi_{U,V}\rangle
+=\left(I\otimes X^{V}Z^{U}\right)|\Phi^+\rangle,
+\qquad
+U=\bigoplus_{j=1}^{m-1}u_j,
+\quad
+V=\bigoplus_{j=1}^{m-1}v_j.
 ```
 
-layers under the same gate convention. No readout is required.
+For two links, the identity follows directly from
 
-## 6. Readout implementation and finite verification
+```math
+\left(H_b\mathrm{CNOT}_{b\to a}\right)
+|\Phi^+\rangle_{Ab}|\Phi^+\rangle_{aC}
+=\frac12\sum_{u,v=0}^{1}
+|u\rangle_b|v\rangle_a\otimes
+\left(I_A\otimes X_C^vZ_C^u\right)|\Phi^+\rangle_{AC}.
+```
 
-The one-qubit-per-site construction uses repeatable Z readout: after the first projection, a pointer remains a computational-basis value, while each public report receives a fresh independent flip. If the device's readout is destructive, retain a pointer register and use a separate resettable readout register at each site. Copying into that register, measuring it, and resetting it introduces fixed overhead in memory and layers. The exact depth $`b+t+3`$ is not assigned to that modified schedule, but its asymptotic order is unchanged.
+Joining the next link adds its two labels modulo two; reordering the Paulis can only produce a global phase in a fixed branch. Iteration gives the stated parity labels and uniform branch probabilities. The fanout replaces each branch bit by identical computational-basis values on its bank. It preserves the endpoint state in that branch and its probability. The first simultaneous readout of all banks selects a branch; every subsequent ideal QND readout of a bank has the same true bit.
 
-The [verification guide](../verification/README.md) packages a deterministic twelve-qubit state-vector check. It verifies the actual disjoint nearest-neighbor layers, all sixteen latent Bell-outcome branches, the copied pointer values, and the corrected endpoint density matrices. That calculation checks the layout and Pauli convention. The arbitrary-size construction and the uniform optimum follow from the analytical arguments here and in [the depth law](depth_law.md).
+## Decoding the noisy records
+
+Read every bank qubit in the computational basis in each of $s$ layers. There are $n_{\mathrm{raw}}=(r+1)s$ reported samples for each true bit. By the assumed readout model, every report is independently flipped with probability $p$, including reports from repeated measurements of the same qubit.
+
+Use the largest odd number $M\leq n_{\mathrm{raw}}$ of samples, discarding one predetermined report if $n_{\mathrm{raw}}$ is even. Majority decoding then has no tie. Its error probability is exactly
+
+```math
+q_M(p)
+=\sum_{k=(M+1)/2}^{M}
+\binom{M}{k}p^k(1-p)^{M-k}.
+```
+
+The error probability is the same for true bit zero and true bit one. The decoded-bit errors are independent across banks, since different banks use disjoint independent readout noise variables. These statements also hold conditional on all the true junction bits.
+
+Let $\widehat u_j,\widehat v_j$ be the decoded bits. Apply the single-qubit Pauli $X^{\widehat V}Z^{\widehat U}$ to the right endpoint, where
+
+```math
+\widehat U=\bigoplus_j\widehat u_j,
+\qquad
+\widehat V=\bigoplus_j\widehat v_j.
+```
+
+The residual error is a Bell-state label determined by the two decoded-error parities. A parity of $m-1$ independent errors, each occurring with probability $q$, is even with probability $[1+(1-2q)^{m-1}]/2$. The phase and bit-error parities are independent. Consequently the endpoint Bell fidelity is exactly
+
+```math
+F_{m,M}(p)
+=\left[
+\frac{1+\left(1-2q_M(p)\right)^{m-1}}{2}
+\right]^2.
+```
+
+This formula concerns the physical corrected endpoint state after averaging over all true outcomes and all reporting errors. It does not condition on successful decoding or postselect a favorable transcript.
+
+For the depth bound, a simpler estimate is useful. Define
+
+```math
+c_p=-\log\!\left(2\sqrt{p(1-p)}\right)>0,
+\qquad 0<p<\frac12,
+```
+
+with natural logarithms. Applying the exponential Markov inequality to a binomial variable and choosing the parameter $\log((1-p)/p)$ gives
+
+```math
+q_M(p)\leq e^{-c_p M}.
+```
+
+An endpoint error requires at least one incorrectly decoded junction bit, so
+
+```math
+1-F_{m,M}(p)
+\leq 2(m-1)q_M(p)
+\leq 2(m-1)e^{-c_pM}.
+```
+
+The union bound is sufficient for achievability; the exact fidelity formula shows how multiple errors can also cancel in the two parities.
+
+## Exact quantum costs
+
+The following schedule counts a native SWAP as one nearest-neighbor two-qubit gate. It starts from the specified product input.
+
+| Stage | Layers |
+|---|---:|
+| Hadamards starting the $m$ Bell links | $1$ |
+| Initial CNOTs for the links | $1$ |
+| Moving one half of each link to the segment boundary | $B-2$ |
+| Junction CNOTs | $1$ |
+| Junction Hadamards | $1$ |
+| Outward bank fanout | $r$ |
+| Repeated bank readout | $s$ |
+| Endpoint Pauli correction | $1$ |
+| **Total depth** | **$B+r+s+3$** |
+
+Every layer contains disjoint quantum operations. The construction uses exactly $N$ physical qubits, one per original site. The gate and readout counts are
+
+| Operation | Count |
+|---|---:|
+| Hadamard | $2m-1$ |
+| CNOT, excluding a possible decomposition of SWAPs | $2m-1+2r(m-1)$ |
+| SWAP | $N-2m$ |
+| Binary readout | $2(m-1)(r+1)s$ |
+| Final single-qubit Pauli | At most $1$ |
+
+If only CNOT is native among the used two-qubit gates, replace each SWAP by three alternating-direction CNOTs. The resulting depth is
+
+```math
+D_{\mathrm{CNOT}}=3B+r+s-1,
+```
+
+and the CNOT count increases by $3(N-2m)$. This constant-factor change leaves the depth scaling unchanged.
+
+No reset is required to produce the endpoint state. If clean final work qubits are desired, reset every non-endpoint qubit to $|0\rangle$ in the final correction layer. These $N-2$ perfect local resets act on sites disjoint from the correction and do not change the endpoint state. This optional cleanup uses the reset operation already allowed by the model.
+
+## Choosing the parameters for a fixed fidelity
+
+Fix $0<p<1/2$ and $F_0\in(1/2,1)$, and set $\varepsilon_0=1-F_0$. Choose
+
+```math
+t=\max\left\{
+1,\left\lceil\sqrt{\frac{\log(N/\varepsilon_0)}{c_p}}\right\rceil
+\right\},
+\qquad r=s=t.
+```
+
+If the balanced partition has $m\geq 2$, the number of retained samples is
+
+```math
+M=t(t+1)-1\geq t^2.
+```
+
+Since $2(m-1)\leq N$, the fidelity obeys
+
+```math
+1-F_{m,M}(p)
+\leq N e^{-c_p t^2}
+\leq\varepsilon_0.
+```
+
+The schedule therefore reaches $F\geq F_0$, with
+
+```math
+D\leq 5t+6,
+\qquad
+D_{\mathrm{CNOT}}\leq 11t+8.
+```
+
+For fixed $p$ and fixed $F_0$, this is $O(\sqrt{\log L})$ as $L$ grows. The constants depend on those fixed parameters. In particular, the statement does not claim uniform constants as $p$ approaches $1/2$.
+
+## Short chains and a unitary fallback
+
+When $m<2$, a bank partition is unnecessary. Set $a=\lfloor(N-2)/2\rfloor$, apply $H_a$, and apply $\mathrm{CNOT}_{a\to a+1}$. In outward round $k=0,1,\ldots$, swap sites $a-k$ and $a-k-1$ if $a-k>0$, and simultaneously swap sites $a+1+k$ and $a+2+k$ if $a+2+k<N$. Stop when both halves reach the physical endpoints. The two gates in any such round are disjoint. Every site traversed by a Bell half initially holds zero, so all intermediate sites return to zero. This produces the exact endpoint Bell pair with no readout and depth
+
+```math
+D_{\mathrm{unitary}}
+=2+\left\lceil\frac{L-1}{2}\right\rceil
+=1+\left\lceil\frac N2\right\rceil.
+```
+
+The counts are one Hadamard, one CNOT and $N-2$ SWAPs. With the three-CNOT implementation of SWAP, the depth is $2+3\lceil(L-1)/2\rceil$.
+
+For the parameter choice above, $m<2$ implies $N<4t+4$. The fallback then has depth at most $2t+3$, so it also satisfies the displayed overall depth bound. This covers arbitrary chain lengths, including the two-site case, without padding the physical array.
+
+The same fallback explains a boundary on possible precision extensions: arbitrarily small target error can always be reached by an ideal unitary circuit of linear depth. The fixed-fidelity result does not claim an unrestricted lower bound proportional to $\sqrt{\log(L/\varepsilon)}$ for all vanishing errors $\varepsilon$.
+
+## Limiting cases and verification
+
+At $p=0$, choose $r=0$ and $s=1$. Ideal swapping gives constant depth, at most seven layers for the balanced construction, with the unitary fallback handling very short chains. At $p=1/2$, a majority decoder has error probability $1/2$ regardless of the number of samples. The bank construction with at least two links then has fidelity $1/4$; the linear-depth unitary route remains exact. The [converse](converse.md) and [interpretation](interpretation.md) explain why uninformative classical records cannot supply the constant-depth advantage.
+
+The [verification script](../verification/verify_construction.py) implements the gate schedule, checks disjoint nearest-neighbor layers for chains with unequal segment lengths, and simulates all true measurement branches of small instances. It independently enumerates noisy reports and compares the quantum endpoint state with the exact majority/parity formula. The [verification guide](../verification/README.md) specifies the scope of these finite checks. The general argument above supplies the analytical construction and its asymptotic bound.

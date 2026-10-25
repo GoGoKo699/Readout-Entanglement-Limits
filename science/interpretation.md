@@ -1,139 +1,100 @@
-# The information cost of measurement-assisted entanglement
+# What readout noise changes
 
-The [optimal-depth theorem](model.md#5-uniform-optimal-depth-theorem) identifies a specific resource in a dynamic quantum circuit: reliable classical information about local measurement outcomes. Using measurements to improve on coherent propagation requires this information even with perfect coherent control and instantaneous classical communication. Spatial pointer copies and repeated readout can supply it, and their local cost determines the achievable entanglement range.
+A long chain can contain many short Bell links prepared in parallel. With ideal measurement records, simultaneous Bell measurements connect these links, and two classically computed parity corrections determine the final Bell state. The number of quantum layers can remain constant as the chain grows. This is the operational advantage addressed by measurement-assisted locality bounds and dynamic-circuit protocols; see [the source comparison](../references/RELATED_WORK.md).
 
-## 1. Why reported outcomes matter
+The question here is the minimum quantum-and-readout depth when every reported measurement bit is independently wrong with a fixed probability. The [model](model.md) retains perfect quantum operations and unrestricted reliable classical processing so that the effect of this one noise source can be identified.
 
-Consider a sequence of short Bell links. A Bell measurement between two adjacent links joins their distant endpoints. Its two outcome bits determine a Pauli correction. Repeating this operation along the line leaves only two global parities to correct, even though the intermediate measurement record contains many bits.
+## The optimal depth
 
-The number of final correction bits therefore does not determine their acquisition cost. Each is a parity of many locally generated outcomes. One unrecognized report flip can reverse a parity and apply the wrong endpoint correction.
-
-For a simple unamplified swapping protocol with $`M`$ independent fusion boundaries, suppose each latent Bell bit is reported once through a binary symmetric channel with error $`p`$. The probability that a parity of $`M`$ report errors is even is
+Let $L$ be the separation of the designated endpoints. Fix a readout error probability $0<p<1/2$ and a target Bell overlap $1/2<F_0<1$. The [converse](converse.md) and [construction](construction.md) give
 
 ```math
-P_{\mathrm{even}}=\frac{1+(1-2p)^M}{2}.
+D_{\min}(L;p,F_0)
+=\Theta_{p,F_0}\!\left(\sqrt{\log L}\right).
 ```
 
-The two Pauli parities have independent error patterns, so the final Bell fidelity is
+This statement compares all allowed adaptive protocols with an explicit nearest-neighbor protocol. The constants may depend on $p$ and $F_0$. The result is not uniform as either parameter approaches a boundary.
+
+The lower bound has a geometric origin. Between accessible measurement ports, local quantum propagation advances at most one site per round. If a corridor of width proportional to $D$ has no informative reports during those $D$ layers, every operation across its central cut can be removed without changing the complete accessible transcript and endpoint state. The remaining circuit uses local quantum operations and classical communication across the cut, so its endpoint state is separable.
+
+A corridor contains order $D^2$ potential readout locations in space and time. The probability of losing all its quantum-dependent records is exponentially small in $D^2$, but a chain has order $L/D$ independent opportunities for such a corridor. This competition yields the square-root logarithm.
+
+The construction uses the same two resources. Distributing an outcome to $r+1$ adjacent qubits takes order $r$ local layers. Reading those qubits for $s$ rounds gives order $rs$ independent reports at a total depth of order $r+s$. Taking both $r$ and $s$ of order $\sqrt{\log L}$ suppresses the probability of any relevant decoding error along the chain.
+
+Only orthogonal basis labels are copied. The copying circuit acts coherently before the measurement, and does not clone an arbitrary unknown quantum state.
+
+## Finite-size statements and accessible range
+
+For one qubit per site, define
 
 ```math
-F_{\mathrm{simple}}
-=\left[\frac{1+(1-2p)^M}{2}\right]^2.
+K=\left\lfloor\frac{L-1}{2D+2}\right\rfloor,
+\qquad
+q_D=(2p)^{2D(D+1)}.
 ```
 
-For any fixed nonzero $`p`$, this particular protocol approaches fidelity $`1/4`$ as the number of boundaries grows. That calculation diagnoses an unprotected correction rule. The universal converse needs a different argument because a more capable protocol can amplify, encode or adapt its measurements rather than accept those raw errors.
-
-The [information bound](information_bound.md) permits all such processing. It proves that every fixed-depth protocol in the model eventually loses its fixed Bell-fidelity advantage above the separable threshold $`1/2`$. Preparing the product state $`|00\rangle`$ already attains that threshold, so the converse is about an actual entanglement advantage.
-
-## 2. The quantum role of an unread strip
-
-The central comparison removes all measurement information from one sufficiently wide interior strip. The strip is not deleted, and its qubits may still undergo arbitrary allowed local quantum operations. Its reports simply become independent fair bits.
-
-If the strip is wider than twice the quantum cone radius available in depth $`T`$, endpoint entanglement cannot pass through it by coherent propagation alone. With no informative outcomes from inside, conditioning the public record does not supply the missing connection. The precise statement is [blind-strip separability](blind_strip.md), including states conditioned on a public success event.
-
-This step distinguishes the argument from a classical reliability calculation. It places the comparison output inside the separable set for every adaptive quantum protocol. The Bell projector then provides a common operational test: its expectation is at most one half for every comparison state, while the actual protocol aims for a value close to one.
-
-The quantum operations in the original protocol are left unchanged in every comparison. Its controller does not receive the index of the blinded strip and is not retuned for a different detector model. The single common map from the complete report-flip table to the output state makes this condition exact.
-
-## 3. Why the local information budget scales as depth squared
-
-A depth-$`T`$ quantum causal cone has spatial radius of order $`T`$. A candidate strip that interrupts the two retained cones therefore has width of order $`T`$. With at most a fixed number of reports per site and layer, this strip contains only order $`T^2`$ potential reports over the entire execution.
-
-When $`T`$ is below a fixed sufficiently small fraction of $`L`$, the number of disjoint candidate strips is of order $`L/T`$. The information converse compares the real noise distribution with a mixture in which one of those candidates is fully unread. For equal strip report count $`k`$ and count $`M`$, the exact identity is
+For integer $D\geq1$, the finite converse is
 
 ```math
-\chi^2(Q\Vert P)=\frac{e^{2kD(p)}-1}{M}.
+F_{\mathrm{Bell}}
+\leq \frac12+\frac12(1-q_D)^K
+\leq \frac12+\frac12\exp(-Kq_D).
 ```
 
-The numerator is the statistical cost of making one strip uninformative. The denominator reflects the unknown location of that change. If the two experiments remain close in statistical distance, a high-fidelity Bell output in the real experiment would also occur with substantial probability in a separable comparison experiment. The Bell witness rules that out.
+The expression is valid but uninformative when $K=0$. It is an analytical bound with conservative constants, not a prediction of a particular device's fidelity.
 
-Within this depth regime, the resulting necessary condition at high accuracy is of the same order as
+Write $\eta=2F_0-1$. A necessary condition for achieving $F_0$ is $Kq_D\leq-\log\eta$. In particular,
 
 ```math
-D(p)T^2\gtrsim\log\frac{L}{T\epsilon}.
+L<
+1+(2D+2)\left[
+1+(-\log\eta)(2p)^{-2D(D+1)}
+\right].
 ```
 
-The [uniform depth proof](depth_law.md) treats the microscopic floor and the coherent linear-depth cap explicitly.
+Together with the construction, this means that the largest attainable separation at fixed fidelity grows as $\exp[\Theta_{p,F_0}(D^2)]$ at large $D$, up to changes in the constants in the exponent. Readout noise therefore sets a finite useful range at every fixed depth. The range is still much larger than the distance reachable by a purely unitary circuit of the same depth.
 
-This expression has an operational interpretation, but the proof does not assign independently readable hidden Bell bits to an arbitrary protocol. It compares whole adaptive experiments through their physical output.
-
-The mixture and second-moment methods are standard statistical tools. The quantum geometric constraint is what makes each localized alternative an entanglement obstruction. The [related-work account](../references/RELATED_WORK.md) separates these ingredients from the resulting resource theorem.
-
-## 4. How the construction uses space and time
-
-The [attaining circuit](construction.md) creates an ideal Bell link across each block of length $`b`$ and fuses adjacent links locally. It then stores the two latent Bell bits from each fusion as orthogonal quantum pointer states.
-
-Each pointer is copied to order $`b`$ sites within its neighboring block. This is an ordinary controlled copying operation on basis states. It does not copy an unknown quantum state. Every copy is read $`t`$ times, giving order $`bt`$ independent noisy reports of the same latent bit.
-
-The spatial propagation and pointer copying take order $`b`$ gate layers. The repeated reads take $`t`$ layers. Thus
+The probability law also controls heralding. If a protocol declares success using its accessible records, retains the endpoint qubits, and has conditional Bell overlap $F_S$, then
 
 ```math
-T=\Theta(b+t),
-\qquad m=\Theta(bt).
+\Pr(S)(2F_S-1)\leq(1-q_D)^K.
 ```
 
-Balancing spatial and temporal resources gives $`b\asymp t\asymp T`$ and $`m=\Theta(T^2)`$. The detector's binary discrimination exponent controls majority-decoding error:
+A success probability bounded away from zero and a conditional Bell overlap bounded above $1/2$ require the same asymptotic depth. The success probability is part of the resource statement.
 
-```math
-e_m(p)\le e^{-D(p)m}.
-```
+## Three readout regimes
 
-There remain only order $`L/b`$ fusion boundaries. Combining their error probabilities gives the sufficient condition with the same $`\log[L/(T\epsilon)]`$ dependence as the converse.
+| Readout channel | Optimal depth for fixed $1/2<F_0<1$ | Reason |
+|---|---:|---|
+| Perfect reports, $p=0$ | $\Theta(1)$ | Parallel local Bell preparation, swapping, and reliable frame correction |
+| Fixed informative noisy reports, $0<p<1/2$ | $\Theta(\sqrt{\log L})$ | Erased-corridor obstruction and matching spatial and temporal repetition |
+| Completely uninformative reports, $p=1/2$ | $\Theta(L)$ | Classical records convey no quantum-dependent information; local quantum propagation determines the range |
 
-Temporal repetition alone would allocate only order $`T`$ reports per bit and miss this optimum. Conversely, copying a pointer to distant sites takes local quantum depth; spatial redundancy is not free. The balanced construction respects both costs while using a fixed number of qubits per site.
+At $p=1/2$, all reported bits are independent fair coins. Condition on these coins and any other classical randomness. Every quantum operation is then a predetermined local trace-preserving map. If the two endpoint backward cones are disjoint, their reduced state factorizes for product initialization. Averaging the coins can create classical correlations but preserves separability. Thus depth proportional to $L$ is necessary for Bell overlap above $1/2$.
 
-## 5. Detector quality and the crossover
+For the matching linear upper bound, prepare a Bell pair near the center of the chain and move its two halves outward using simultaneous nearest-neighbor SWAP layers. This circuit uses no measurements and prepares an exact Bell pair. With $N=L+1$ sites and native SWAP gates, its depth is $1+\lceil N/2\rceil$ for $N\geq2$.
 
-The coefficient
+This measurement-free circuit also limits any extension toward very small target infidelity. An upper bound of order $\sqrt{\log(L/\epsilon)}$ is useful when it is smaller than the linear unitary cost. It cannot be an unrestricted optimal law as $\epsilon$ tends to zero: exact unitary preparation remains available in order $L$ depth. The main theorem fixes $F_0<1$ and makes no claim of matching dependence on a vanishing $\epsilon$.
 
-```math
-D(p)=-\frac12\log[4p(1-p)]
-```
+## The resources that determine the statement
 
-is the established Chernoff information of the symmetric binary readout laws. Near random reporting, write $`\delta=1-2p`$. Then $`D(p)\sim\delta^2/2`$. A weak bias therefore requires an inverse-square increase in the number of independent reports needed to achieve a fixed discrimination error exponent.
+**Quantum operations and reporting are separated.** A measurement has ideal quantum backaction, while its binary classical output passes through a noisy channel. Repeated quantum nondemolition readout therefore measures the same underlying basis value. Gate errors, storage errors, and disturbances introduced by imperfect repeated measurements can change this behavior. Their fault-tolerant treatment is a different model.
 
-The exact BSC decomposition into a truthful report with probability $`\delta`$ and an independent fair report otherwise can obscure this distinction. If an extra flag reveals which component occurred, an informative result arrives with probability of order $`\delta`$. The unflagged detector considered here does not reveal that event. Its small information per use is of order $`\delta^2`$.
+**Every readout round costs depth.** Counting only entangling gates while allowing unlimited free readout would remove the temporal cost central to this problem. The model allows at most one elementary operation per qubit in a layer. Fixed ratios between elementary gate times and readout times change constants, provided those ratios do not grow with $L$.
 
-The [erasure-component bound](blind_strip.md#an-elementary-bound-at-fixed-detector-quality) and the sharp information bound consequently answer related but different finite questions. A positive fully erased component is useful for proving separability events. The mixture comparison is needed to obtain the uniform unflagged detector coefficient.
+**The quantum width is fixed.** There is one qubit at each site of the chain. The converse also permits any fixed number $w$ per column, with $q_D=(2p)^{2wD(D+1)}$. The matching headline already holds at $w=1$. This does not establish an optimal joint width-depth tradeoff when $w$ grows with distance. Additional transverse dimensions or growing verification registers are physical resources, as in fault-tolerant quantum-bus and single-shot state-preparation protocols.
 
-At fixed target accuracy, the sharp crossover is particularly simple:
+**The classical controller is unrestricted.** It can receive all accessible records, compute the decoding and Pauli corrections, and send control instructions without a depth charge. The theorem concerns quantum-and-readout circuit depth under this convention. A physical communication delay that grows with separation must be added in an implementation; the result does not assert distance-independent wall-clock classical communication.
 
-- If $`\delta L\to\infty`$, the optimal depth is sublinear in $`L`$.
-- If $`\delta L`$ is bounded, the optimum is of order $`L`$.
+**The output is a physical state.** Bell overlap is evaluated on two retained, designated endpoint qubits after the correction. An unbiased estimator obtained by readout-error mitigation does not by itself prepare this state. Likewise, destructive measurement of the two outputs is a different task from retaining an entangled pair for later use.
 
-For example, take $`D(p_L)=\log L/L^2`$ at fixed accuracy. Then
+**The preparation starts without shared entanglement.** Local product inputs and local reset states are available. A pre-established long-range entangled resource would already supply part of the task and is excluded from the depth minimization.
 
-```math
-T_{\mathrm{opt}}
-=\Theta\!\left(L\sqrt{\frac{\log\log L}{\log L}}\right).
-```
+## What is inherited and what is established here
 
-This is still sublinear. Dropping the $`T`$ inside the logarithm of the intermediate-depth law would incorrectly predict linear depth. The [uniform theorem](depth_law.md) keeps the changing number of fusion interfaces and includes the exact coherent $`O(L)`$ alternative when measurement assistance ceases to improve the asymptotic order.
+The proof uses established ideas from measurement-assisted locality and from decomposing noise into separable components at rare cuts. Repetition encoding and majority decoding of measurement outcomes are also established. Their attribution and the distinctions between their operational models appear in [Related work](../references/RELATED_WORK.md).
 
-With variable accuracy, the criterion becomes $`D(p)L^2/\log(1/\epsilon)\to\infty`$. Very demanding accuracy can activate the coherent linear-depth alternative even for a detector that is useful at fixed fidelity.
+The contribution is the sharp optimal depth for a fixed, independent readout channel in a fixed-width one-dimensional circuit. Perfect quantum gates can carry information through a locally uninformative measurement region, which is why a single spatial cut of corrupted reports is insufficient. The depth-wide corridor accounts for this coherent transport and produces the quadratic spacetime exponent. The explicit construction attains the resulting depth order while charging the geometry of the repetition registers.
 
-## 6. What constant-success postselection can change
+[Scientific route](README.md) · [Exact model](model.md) · [Converse](converse.md) · [Construction](construction.md)
 
-Postselection may substantially improve a finite experiment's conditional fidelity. The cost is its probability of success. A universal comparison must track both.
-
-The blind-strip comparison state stays separable after a public acceptance event. The mixture witness gives a finite constraint on $`s(2f-1)`$, while a separate two-sided likelihood-moment argument controls the high-accuracy limit. Together they yield the same optimal order whenever $`s\ge s_0>0`$ independently of distance, detector quality and target error.
-
-This does not identify the optimal constant prefactor or rule out a useful finite-size improvement from error detection. It states that fixed-yield postselection cannot change the asymptotic depth order in this model. If yield is allowed to vanish with the problem parameters, it is a different optimization problem. The exact inequalities in [the heralding account](heralding.md) retain the success probability for assessing that distinction.
-
-## 7. Ideal coherent control and physical implementations
-
-The matching construction isolates measurement-report noise. It assumes ideal coherent gates and memories, together with reliable storage of a basis pointer between repeated reads. A larger block increases coherent propagation and storage time. On hardware with nonzero gate or memory noise, those operations introduce additional error and can require further protection.
-
-The theorem therefore gives a fundamental resource cost after coherent control has been idealized. It does not assign numerical crossover distances to a specific device. A hardware implementation must supply its gate, memory, readout and communication models before converting the asymptotic law into a performance prediction.
-
-The converse has a broader robustness role. Additional local quantum channels cannot remove the readout-information obstruction while the initial-resource, propagation, density and reporting assumptions remain unchanged. Fault-tolerance resources that increase local density, introduce a different graph, or supply initially encoded entanglement must be counted in the model used for that implementation.
-
-Similarly, instantaneous classical communication is a deliberate convention. It allows a clean comparison of quantum operation depths. A finite signal speed contributes its own physical latency to delivering and using a distant Bell pair; that elapsed-time problem is not the quantity optimized here.
-
-## 8. The resulting resource statement
-
-The main theorem connects three descriptions of the same task. The geometry identifies a strip whose unavailable measurement information forces separability. The statistical comparison measures how difficult it is to distinguish such a strip from the real noisy detector. The constructive circuit invests local space and readout time to reach precisely that information scale.
-
-At fixed detector quality, useful distance grows exponentially in depth squared up to the polynomial interface factor and fixed constants. As readout approaches random guessing, the uniform coefficient locates the transition back to linear coherent preparation. High target accuracy and fixed-success heralding fit the same resource law.
-
-Read [the exact model](model.md), [finite information bounds](information_bound.md), and [constructive uniform proof](depth_law.md) together when applying these conclusions. The [finite verification](../verification/README.md) checks the circuit's implemented branch structure and corrections; the universal and asymptotic statements follow from the analytical arguments.

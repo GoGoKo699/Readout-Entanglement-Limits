@@ -1,131 +1,48 @@
-# Readout Entanglement Limits
+# Adaptive Entanglement Depth
 
-This repository studies the minimum local operation depth for a physically
-corrected Bell pair between distant endpoints of a one-dimensional chain when
-all measurement reports have independent binary errors. The complete scientific
-account is organized by topic under science/.
+This repository establishes the optimal depth of one-dimensional adaptive Bell-pair preparation with independent noisy measurement reports. The central result is Theta(sqrt(log L)) at fixed report-flip probability 0<p<1/2 and fixed target Bell overlap 1/2<F0<1.
 
-Canonical entrypoints:
+## Essential contract
 
-- README.md: scientific question, uniform optimal-depth statement, result table,
-  reading routes, reproduction command, consequential assumptions, and contact.
-- science/model.md: authoritative task, initial resources, local operation and
-  report interface, squared Bell-fidelity convention, quantifiers, main theorem,
-  and connected scientific route.
-- science/blind_strip.md: separability after blinding an interior strip; the
-  adaptive proof retains outside outcome registers before projecting them;
-  finite strip packing and the separate erasure-component bound.
-- science/information_bound.md: one common channel from complete noise tables
-  to adaptive outputs; the exact chi-squared random-strip identity; deterministic
-  fidelity and high-accuracy converses; an independent heterogeneous-detector
-  lower bound with optimal comparison weights.
-- science/heralding.md: public acceptance and Bell-error response functions;
-  the random-strip witness for heralded outputs; two-sided likelihood moments
-  controlling conditional infidelity; fixed-success uniform consequences.
-- science/construction.md: central Bell creation, outward SWAPs, boundary Bell
-  decoding, coherent pointer copying, repeated QND readout, majority decoding,
-  physical Pauli correction, exact output fidelity, and arbitrary-length blocks.
-- science/depth_law.md: finite-to-uniform lower and upper proofs, explicit
-  constants, microscopic floor, coherent linear cap, Lambert-W expression,
-  variable-quality and variable-accuracy crossover, and a nonuniform-formula
-  counterexample.
-- science/interpretation.md: the relation between locality and readout
-  information; space and time as reliability resources; weak-detector behavior;
-  heralding, physical output, and implementation limits.
-- references/RELATED_WORK.md: established ingredients, precise comparisons of
-  nearby resource and noise models, primary locators, and attribution limits.
-- references/references.bib: structured research-source and selected-anchor
-  metadata.
-- verification/README.md: the finite check, executed environment, commands,
-  expected counts, acceptance tolerances, and analytical scope.
-- verification/verify_bell_layout.py: deterministic twelve-qubit state-vector
-  check enumerating all sixteen Bell-outcome strings.
-- verification/expected/bell_layout.json: case definition, exact counts, and
-  floating-point acceptance tolerances.
-- verification/requirements.txt: pinned NumPy dependency for the finite check.
+- Product initialization; one qubit per site on a nearest-neighbor line.
+- Perfect quantum gates, storage, reset, and measurement backaction.
+- Every actual binary report passes through an independent BSC(p).
+- At most one elementary operation per qubit per layer; readout rounds count.
+- Arbitrary reliable classical computation and communication are free.
+- Two designated physical endpoint qubits remain available after correction.
+- Fixed-fidelity and fixed-noise asymptotics; no full noisy-gate fault-tolerance claim.
 
-Learning entrypoints:
+## Authoritative routes
 
-- learning/MILESTONES.md: the project-defined map of exactly M01–M30, with
-  14 background/preliminaries and 16 narrative/innovation milestones. Each
-  milestone records a central question, understanding target, prerequisites,
-  story role, conceptual connection, and source pointers. Stable fragments
-  #m01 through #m30 identify the milestones.
-- learning/WILDE_BRIDGE.md: the sole educational anchor, Mark M. Wilde's
-  Quantum Information Theory, second edition (2017); verified printed section
-  locators and explicitly labeled author-draft locators; notation translation;
-  the four-qubit worked example; and the missing source-to-project arguments.
+- Overview: README.md
+- Complete scientific route: science/README.md
+- Definitions, assumptions, and exact statements: science/model.md
+- Universal converse and unnormalized transcript-output proof: science/converse.md
+- Physical layout, schedule, decoder, and resource accounting: science/construction.md
+- Spacetime mechanism, finite range, heralding, boundaries: science/interpretation.md
+- Closest primary results and attribution: references/RELATED_WORK.md
+- Structured bibliography: references/references.bib
+- Reproduction commands and validation scope: verification/README.md
+- Learning entry point and two-phase structure: learning/README.md
+- Single educational anchor, source sections, and notation: learning/ANCHOR.md
+- Source-to-project bridge and complete eight-site example: learning/BRIDGE.md
+- Settled 30-milestone conceptual map: learning/MILESTONES.md
 
-Reader routes:
+## Questions and destinations
 
-- To understand the story: read science/model.md, then the introductions and
-  conclusions of the converse and construction pages, followed by
-  science/interpretation.md.
-- For self-directed study: follow learning/MILESTONES.md alongside
-  learning/WILDE_BRIDGE.md and its selective Wilde readings. M01–M14 assemble
-  the prerequisites, M15–M21 establish the circuit and blind-strip mechanisms,
-  and M22–M30 connect them to the global information-resource theorem.
-- To inspect the universal converse: use science/model.md, blind_strip.md,
-  information_bound.md, heralding.md, and the lower-bound part of depth_law.md.
-  Keep the adaptive conditioning and report-interface assumptions explicit.
-- To inspect achievability: use science/model.md, construction.md, and the
-  upper-bound part of depth_law.md. Check gate layers, memory, pointer reports,
-  integer partitions, and the physical correction together.
-- To understand detector quality or a limiting regime: start from the uniform
-  theorem in science/model.md and its inversion in science/depth_law.md. Use
-  science/interpretation.md for the physical explanation of the crossover.
-- To assess prior work: follow references/RELATED_WORK.md and its primary
-  source locators; do not replace model comparison with title similarity.
-- To reproduce the finite ingredient: read verification/README.md, install
-  verification/requirements.txt, and run python3 verification/verify_bell_layout.py
-  from the repository root. Distinguish an actual run from an earlier report.
+To assess arbitrary adaptive protocols, inspect the erased-corridor separator in science/converse.md. The entire accessible transcript must be preserved, not only the unconditional endpoint state.
 
-Preserve these distinctions when explaining or editing:
+To verify achievability, inspect the exact gate layers and arbitrary-length partition in science/construction.md, then run python3 verification/verify_construction.py.
 
-- The task delivers an actual corrected two-qubit Bell state. A noisy Pauli
-  frame or a mitigated expectation-value estimator is a different output.
-- Bell fidelity is Tr(Phi rho), the squared overlap with the pure target.
-  Heralding success and conditional fidelity are separate quantities.
-- All logarithms are natural. D(p) = -0.5 log[4p(1-p)] is an established
-  symmetric-readout Chernoff coefficient; introducing it is not the new claim.
-- The theorem is uniform in L, p, and epsilon. Its implicit time tau solves
-  D(p) tau^2 = log[L/(epsilon tau)], with a depth-one floor and a linear cap.
-  The time inside the logarithm cannot be discarded when p varies with L.
-- Local memory, quantum range, and report density stay fixed as the displayed
-  parameters vary. Classical computation and communication are instantaneous.
-- The entire independent flip table is independent of initial resources and
-  controller randomness. All true outcome information reaching the controller
-  uses the unflagged BSC interface; timing or measurement presence supplies no
-  noiseless side channel. The controller cannot inspect hypothetical erasure
-  flags or the index of the blinded comparison strip.
-- Blinding a strip replaces its public reports by fair bits. It preserves
-  coherent local wires and pointers. The proof obtains separability by local
-  CPTP dilation and disjoint quantum histories, not by deleting those wires.
-- The comparison distributions all use one unchanged adaptive algorithm.
-  Classical log-sum, Jensen, and second-moment inequalities supply the
-  statistical step; quantum relative entropy is not required by this proof.
-- The exact equal-even-block formulas T = b + t + 3 and m = bt/2 use the
-  stated native SWAP and QND conventions. Arbitrary chain lengths use the
-  separately specified integer partition and fixed-factor schedule.
-- Achievability assumes ideal coherent control and storage. The converse
-  allows extra local CPTP processing within the same geometry and interface.
-- Heralded constants may depend on the specified fixed lower bound s0 > 0.
-  A success-independent optimum for vanishing yield is not established.
-- The heterogeneous-detector calculation is a converse. A matched general
-  heterogeneous or correlated-noise resource law is not established here.
-- Finite verification checks finite circuit ingredients. Universal and
-  asymptotic claims rest on the analytical proofs; internal review and a
-  successful script are not external replication or peer review.
-- Wilde's squared fidelity agrees with the project's Bell overlap. His
-  unhalved trace norm differs by a factor of two from normalized trace
-  distance and total variation. The book uses base-two logarithms; the project
-  uses natural logarithms. Follow the bridge's explicit conversion rules.
-- The selected edition is Wilde 2017. Its publisher contents provide printed
-  section/page locators; explicitly labeled arXiv:1106.1445v8 locators refer
-  to the related 2019 author draft and have different pagination.
-- The one educational anchor supplies foundations. The blind-strip mixture,
-  fixed-success accuracy argument, local resource accounting, and matched
-  uniform theorem are supplied by the project. Primary research citations
-  retain their attribution role without becoming additional assigned books.
-- The 30-milestone map expresses common project understanding. Its phase
-  allocation and targets are independent of a particular reader's background.
+To compare with noisy quantum buses, read references/RELATED_WORK.md. The closest full-circuit converse permits quantum-gate faults absent from this readout-only model. Rare-cut decompositions and repetition decoding are inherited ideas.
+
+To interpret postselection, use the success-weighted Bell witness in science/converse.md. Conditional fidelity alone omits a charged resource.
+
+To consider very high fidelity, read the unitary bypass in science/interpretation.md. An unrestricted square-root-logarithmic formula in inverse infidelity would miss exact preparation in O(L) depth.
+
+To learn the result from its foundations, begin at learning/README.md. The single educational anchor is John Watrous, The Theory of Quantum Information (2018). The map has 12 background/preliminaries milestones and 18 narrative/innovation milestones, each phase progressing from local ingredients to global understanding. The bridge supplies project-specific reasoning; the source is not being cited as proving this repository's depth law.
+
+## Evidence boundaries
+
+Written proofs establish general inequalities and asymptotic claims. Executable checks establish finite circuit, schedule, correction, and probability consistency. Neither source comparison nor numerical tests certify exhaustive priority.
+

@@ -1,179 +1,129 @@
-# Noisy readout and distant entanglement
+# Circuit model and preparation task
 
-Measurement-assisted circuits can connect distant qubits through local entanglement swapping and a global classical correction. With perfect measurement records, the quantum operations can have constant depth. If every record is unreliable, the correction depends on information that must first be recovered from noisy reports. This project asks for the minimum local operation depth needed to deliver a high-fidelity physical Bell pair under that constraint.
+We study the preparation of a Bell pair between two distant physical qubits on a line. The processor can use local quantum operations, measurements during the circuit, and unrestricted classical feedback. Quantum operations and measurement backaction are ideal. The only noise is an independent error in each reported measurement bit. The question is how many circuit rounds are required when both quantum gates and repeated readouts take time.
 
-The result is a matched law in distance, detector quality, and target accuracy. The classical controller may communicate instantaneously across the entire chain. The obstruction therefore concerns the information supplied by local readout and the quantum resources needed to make that information reliable.
+The [converse](converse.md) applies to arbitrary adaptive protocols in this model. The [construction](construction.md) attains its distance scaling with a nearest-neighbor Clifford circuit and repeated quantum nondemolition readout. The [interpretation](interpretation.md) explains the operational scope of the resulting depth law.
 
-## Scientific route
+## Geometry, initial state, and retained memory
 
-| Question | Authoritative account |
-|---|---|
-| What resources and output are specified? | The model and theorem below |
-| Why does one unread interior strip destroy endpoint entanglement? | [Blind-strip separability](blind_strip.md) |
-| How does readout information enter a universal converse? | [The random-strip information bound](information_bound.md) |
-| Can postselection change the accuracy or distance dependence? | [Heralding at fixed success probability](heralding.md) |
-| Which local circuit attains the bound? | [Spatial and temporal readout amplification](construction.md) |
-| How do the finite bounds give a uniform optimum and crossover? | [The optimal depth law](depth_law.md) |
-| What physical limitation does the theorem identify? | [Resource interpretation](interpretation.md) |
-| Which ingredients are established prior work? | [Related work](../references/RELATED_WORK.md) |
+Let $L\geq1$ be an integer. The main model is a chain with one physical qubit at each site $x=0,1,\ldots,L$. The designated output qubits are $A$ at site $0$ and $B$ at site $L$. Their separation is $L$ nearest-neighbor edges. Their locations are fixed before the protocol starts.
 
-The geometric lemma supplies the quantum step in the converse. An exact comparison of classical noise distributions then gives its detector and accuracy dependence. The independent construction saturates the resulting order. The theorem does not assume that an arbitrary competing protocol uses entanglement swapping or decodes individual Bell-measurement bits.
+For the converse, we also allow a strip with at most $w\geq1$ physical qubits in each column $x$, where $w$ is an integer. The main chain is the case $w=1$. Quantum operations may connect qubits in the same column or in two neighboring columns. They have no direct quantum connection between nonadjacent columns. The two outputs remain single physical qubits in columns $0$ and $L$.
 
-## 1. Sites, time, and initial resources
-
-The sites of a one-dimensional line are $`0,1,\ldots,L`$, with fixed output qubits at sites $`0`$ and $`L`$. The distance $`L\ge2`$ is measured in lattice edges. Each site has at most a fixed number $`q\ge1`$ of quantum memory qubits. Local preparation and reset are allowed within that memory bound.
-
-Initially, the quantum state is a product over sites. A shared classical random variable $`\lambda`$ may select the product state and protocol:
+The initial state is a product across columns:
 
 ```math
-\rho_{\mathrm{in}}
-=\sum_\lambda \pi(\lambda)
-  \bigotimes_{x=0}^{L}\rho_x^{(\lambda)}.
+\rho_{\mathrm{in}}=\bigotimes_{x=0}^{L}\rho_x.
 ```
 
-One can prove every converse after fixing $`\lambda`$ and then average. Local environments and fresh ancillas do not supply initially shared quantum entanglement. Any quantum system retained for later use is subject to the local memory and propagation constraints.
+Within a column, $\rho_x$ may be arbitrary. Shared classical randomness may also select a mixture of such product states. Conditioning on that randomness recovers the displayed form, so the converse covers all states separable across the columns. The construction starts with every qubit in $|0\rangle$.
 
-The depth $`T`$ is a worst-case bound on the number of synchronous operation layers. Adaptive stopping is allowed within that bound and is padded by idle layers. A gate layer consists of parallel local quantum channels with disjoint supports of diameter at most a fixed integer $`r\ge1`$. Its quantum backward cone expands by at most $`r`$ lattice sites in one layer. A readout layer consists of site-local instruments and is counted in $`T`$. Sequential overlapping operations require separate layers. Replacing these elementary layers by a fixed-size local gate schedule only changes fixed constants in the asymptotic result.
+All quantum memory retained between rounds counts toward the physical width $w$. A fresh ancilla can occupy an unused physical slot, and an existing slot can be reset and reused. These operations preserve the same width limit. An environment used to implement a local quantum channel is discarded; an environment that remains available for later quantum processing is part of the retained memory and must be counted. In particular, the processor starts without entanglement shared across columns.
 
-Local channels may be arbitrary completely positive trace-preserving maps. Thus local coherent processing, discarding, reset, and additional local noise are allowed in the converse. The operation set for the matching upper bound contains ideal nearest-neighbor CNOT and SWAP gates, one-qubit gates, and local readout. This ideal set already fits one memory qubit per site with repeatable pointer measurements.
+Depth is measured after the initial product state is available. Including its parallel initialization adds a constant layer. Subsequent resets, gates, and readouts are included in the circuit depth.
 
-The microscopic parameters $`q,r`$ and the report density defined next are held fixed as $`L,p,\epsilon`$ vary. The resource restriction is spatial density as well as gate range: arbitrary amounts of instantaneous parallel local readout are not supplied.
+## A circuit round
 
-## 2. The report interface
+A protocol of depth $D$ consists of $D$ synchronous rounds. The operations in a round act on disjoint sets of physical qubits. Each operation is one of the following:
 
-A local binary instrument has completely positive outcome maps $`\mathcal M_0,\mathcal M_1`$ whose sum is trace preserving. A physical outcome $`x\in\{0,1\}`$ is converted to a public report
+- An ideal quantum gate or trace-preserving quantum channel supported within one column or across two neighboring columns.
+- An ideal single-qubit binary instrument, followed by one noisy report of its outcome.
+- An idle operation on a physical qubit.
+
+A reset is a local trace-preserving channel. Allowing general local channels makes the converse at least as permissive as the usual unitary gate model. The explicit construction uses single-qubit Clifford gates, nearest-neighbor two-qubit gates, and single-qubit readouts.
+
+Each physical qubit participates in at most one operation per round. In particular, it supplies at most one reported measurement bit in that round. A joint observable is measured by first coupling it to a readout qubit through the charged local circuit. Its classical report is then a single-qubit outcome port.
+
+All operations for round $t$ are selected using records available before that round. Reports produced during round $t$ become available for round $t+1$. Thus there is no within-round chain of quantum operations hidden inside instantaneous classical feedback. Gates selected from the previous history may vary arbitrarily with that history, subject to the same locality and depth conditions.
+
+Classical memory, computation, communication, and independent randomness are otherwise unrestricted, reliable, and free. Classical messages may travel across the whole line between consecutive rounds. This gives the controller the strongest possible classical processing capability while keeping the physical quantum operations local.
+
+## Noise acts on the report
+
+A binary instrument on a physical qubit consists of completely positive maps $\mathcal M_0$ and $\mathcal M_1$ whose sum is trace preserving. The instrument can depend on the earlier accessible history. For an input state $\rho$, the unnormalized state conditioned on the true outcome $b$ is $\mathcal M_b(\rho)$, and its trace is the probability of that outcome.
+
+The true outcome is reported through a binary symmetric channel with fixed error probability $p$:
 
 ```math
-y=x\oplus e,
-\qquad
-\Pr(e=1)=p,
+\Pr(y\mid b)=
+\begin{cases}
+1-p,&y=b,\\
+p,&y\ne b.
+\end{cases}
 \qquad 0<p<\frac12.
 ```
 
-Every potential report slot has its own independent flip bit. The full flip table is independent of the initial quantum resources and the controller's shared randomness. The controller may know $`p`$ and choose its protocol for the specified $`L,p,\epsilon`$, but it does not know the realized flips. There are at most $`\nu\ge1`$ binary slots per site and layer, with fixed $`\nu`$. A slot is indexed by site, layer, and a local report index. Unused slots can be assigned independent unused flip bits for the proof. A flip bit cannot be reused in another slot.
-
-The instrument, basis, later operations, and choice of which slots are used may depend arbitrarily on previously available public reports. All outcome information entering the classical controller passes through the specified binary symmetric channels. A measurement's presence, duration, reset flag, or other interface cannot carry an additional noiseless copy of its true outcome. Classical choices based only on the public history and shared randomness obey this requirement.
-
-The true outcome can be retained as a local quantum pointer. Such pointers are quantum memory, and any movement or processing of them obeys the local gate rules. This permits coherent copying of orthogonal pointer states before readout. It does not grant the controller an ideal copy of the true outcome.
-
-The physical report channel is **unflagged**. In particular, the controller receives neither the flip bit $`e`$ nor a label identifying a truthful component in an auxiliary erasure decomposition. That qualification matters near $`p=1/2`$: a flagged erasure channel with the same binary marginal is a stronger information resource.
-
-The authoritative model uses site-local reported instruments. A fixed-range instrument implemented by a fixed-depth local circuit and site-local readout inherits the asymptotic theorem with the corresponding depth and memory constants. The exact strip width and report count must then be applied to that implemented circuit. A nonlocal measurement interface cannot be added without accounting for its quantum support and reports.
-
-## 3. Classical control and physical output
-
-Classical computation and global classical communication are ideal and instantaneous. The controller can process the entire public transcript, use shared randomness, adapt the next layer, and determine the final endpoint correction. Physical correction gates are quantum operations and count toward the depth. The stated time is therefore circuit-operation depth, including readout layers, under a free classical-communication convention.
-
-The target Bell state and projector are
+Consequently, the physical operation conditioned on the accessible report $y$ is
 
 ```math
-|\Phi^+\rangle=\frac{|00\rangle+|11\rangle}{\sqrt2},
+\mathcal I_y
+=(1-p)\mathcal M_y+p\mathcal M_{1-y}.
+```
+
+At each actual readout, a fresh flip $Z$ with Bernoulli distribution of parameter $p$ is drawn and the accessible report is $y=b\oplus Z$. This flip is independent of the prior history, the current true instrument outcome, and the controller's independent random seed. Repeated readouts of the same qubit receive fresh independent flips under the same rule. Future quantum states and true outcomes may depend on past reported bits through feedback. The instrument backaction is ideal; no additional quantum fault is inserted by the reporting channel. The true outcome and the apparatus environment are unavailable as separate classical inputs to the controller.
+
+The measured qubit can remain in the processor. A later gate may act coherently on its post-measurement state, and the qubit may be measured again. Both operations are charged to later rounds. For example, ideal quantum nondemolition measurement of $Z$ has
+
+```math
+\mathcal M_b(\rho)=P_b\rho P_b,
+\qquad P_b=|b\rangle\langle b|.
+```
+
+After the first such measurement, repeated ideal $Z$ measurements have the same true outcome. Their reports still contain independent errors. This distinction between physical backaction and assignment error is the resource used by the matching construction.
+
+General quantum instruments are useful for the converse because they include changes of measurement basis and outcome-dependent local backaction. No particular gate set, stabilizer description, or classical decoder is assumed in the lower bound.
+
+## Bell fidelity and success
+
+The target is the two-qubit state
+
+```math
+|\Phi^+\rangle_{AB}
+=\frac{|00\rangle+|11\rangle}{\sqrt2},
 \qquad
-\Pi=|\Phi^+\rangle\langle\Phi^+|.
+\Phi_{AB}=|\Phi^+\rangle\langle\Phi^+|.
 ```
 
-For deterministic preparation, the two endpoint qubits after all corrections have density operator $`\rho_{AB}`$ and Bell fidelity
+After all charged quantum operations, trace out every physical system except $A$ and $B$. Let $c$ denote the accessible classical transcript, including any declared classical randomness. The unnormalized conditional endpoint state is $\rho_{AB}^{c}$. The actual output state and its fidelity are
 
 ```math
-F=\mathrm{Tr}(\Pi\rho_{AB})\ge1-\epsilon,
-\qquad 0<\epsilon\le\frac14.
-```
-
-This convention uses the squared overlap with the pure Bell state. All other registers are discarded. A record of a possibly incorrect Pauli frame alone is not the required output; the physical corrected endpoint state must meet the fidelity target. Nor is a signed estimator of Bell observables, assembled over several executions, an entangled output state.
-
-A heralded protocol also produces a public success flag. Let $`s`$ be its probability of success and $`f`$ the Bell fidelity conditioned on success. The fixed-success version requires
-
-```math
-s\ge s_0>0,
-\qquad f\ge1-\epsilon,
-```
-
-where $`s_0`$ is fixed independently of $`L,p,\epsilon`$. Failure runs still respect the same worst-case depth budget. The dependence of constants on $`s_0`$ is explicit below.
-
-## 4. Detector information and notation
-
-All logarithms are natural. Define the detector bias and information coefficient by
-
-```math
-\delta=1-2p,
+\rho_{AB}=\sum_c\rho_{AB}^{c},
 \qquad
-D(p)=-\frac12\log[4p(1-p)]
-     =-\frac12\log(1-\delta^2).
+F=\mathrm{Tr}(\Phi_{AB}\rho_{AB}).
 ```
 
-The same scalar is the relative entropy $`D_{\mathrm{KL}}(\mathrm{Ber}(1/2)\Vert\mathrm{Ber}(p))`$ and the Chernoff information between the two symmetric output laws for latent inputs zero and one. Repeated-readout Chernoff information is an established detector-quality concept; see [D'Anjou](../references/RELATED_WORK.md#danjou2021). The resource theorem connects it to a spatial entanglement-preparation task.
+Here fidelity means the Bell overlap itself. For this pure target it equals the square of the convention in which fidelity is defined as a square root. Every separable two-qubit state has $F\leq1/2$, so $F>1/2$ certifies endpoint entanglement.
 
-Near an uninformative detector,
-
-```math
-D(p)=\frac{\delta^2}{2}+O(\delta^4).
-```
-
-| Symbol | Meaning |
-|---|---|
-| $`L`$ | Endpoint separation in lattice edges |
-| $`T`$ | Maximum number of local gate and readout layers |
-| $`q,r,\nu`$ | Fixed local memory, gate range, and report-slot density |
-| $`p,\delta,D(p)`$ | Report-flip probability, detector bias, and information coefficient |
-| $`\epsilon`$ | Target Bell infidelity |
-| $`s,s_0`$ | Actual heralding success and a fixed required lower bound |
-| $`w,M,k`$ | Width, number, and potential report count of comparison strips |
-| $`b,t,m`$ | Construction block length, readout repetitions, and reports per pointer bit |
-
-The strip count and the number of construction boundaries are both denoted $`M`$ within their respective arguments. Each page defines its count before using it. Their common asymptotic order is $`L/T`$ in the intermediate-depth regime.
-
-## 5. Uniform optimal-depth theorem
-
-Let $`T_{\mathrm{det}}(L,\epsilon,p)`$ be the minimum depth over all deterministic protocols in the model. Let $`T_{\mathrm{her}}(L,\epsilon,p;s_0)`$ be the corresponding minimum with success at least $`s_0`$. Define $`\tau>0`$ by
+The protocol can also declare a success event $S$ based on the accessible transcript. The endpoints remain quantum outputs when success is declared. Define
 
 ```math
-D(p)\tau^2=\log\frac{L}{\epsilon\tau}.
-```
-
-The left side is strictly increasing and the right side strictly decreasing, so the solution is unique. Equivalently,
-
-```math
-\tau
-=\sqrt{\frac{W_0\!\left(2D(p)(L/\epsilon)^2\right)}{2D(p)}},
+\tau_{AB}^{S}=\sum_{c\in S}\rho_{AB}^{c},
 \qquad
-\mathcal T(L,\epsilon,p)=\max\{1,\min\{L,\tau\}\},
-```
-
-where $`W_0`$ is the nonnegative principal branch of the Lambert W function.
-
-**Theorem.** For all $`L\ge2`$, $`0<p<1/2`$, and $`0<\epsilon\le1/4`$,
-
-```math
-T_{\mathrm{det}}(L,\epsilon,p)=\Theta(\mathcal T(L,\epsilon,p)),
+P_S=\mathrm{Tr}\tau_{AB}^{S},
 \qquad
-T_{\mathrm{her}}(L,\epsilon,p;s_0)=\Theta_{s_0}(\mathcal T(L,\epsilon,p)).
+F_S=\frac{\mathrm{Tr}(\Phi_{AB}\tau_{AB}^{S})}{P_S}
+\quad(P_S>0).
 ```
 
-The implicit constants in the first relation are independent of all three displayed parameters. They may depend on the fixed local operation and reporting conventions. In the second relation they may additionally depend on $`s_0`$. The converse covers every adaptive protocol in the model; the construction is deterministic and hence also meets every $`s_0\le1`$ requirement.
+A local quantum filter used to generate a success flag is part of the charged circuit, and its report obeys the same noise rule. Selecting a classical estimate after destructively measuring the endpoints is a different output task. The quantity bounded in the converse is the fidelity of the retained physical pair.
 
-The [depth-law proof](depth_law.md) combines finite lower bounds with the local construction and handles the microscopic floor, integer block sizes, and coherent linear-depth cap. The concise intermediate-regime form is
+## The optimization problem
+
+For the width-one chain, fix $p\in(0,1/2)$ and a target $F_0\in(1/2,1)$ independently of $L$. Write
 
 ```math
-D(p)T^2\asymp\log\frac{L}{T\epsilon},
-\qquad 1\ll T\ll L.
+D_{\min}(L;p,F_0)
+=\min\left\{
+D:\text{a permitted depth-}D\text{ protocol has }F\geq F_0
+\right\}.
 ```
 
-It is not an equality to be applied after either cap becomes active. In particular, the factor $`T`$ in the logarithm cannot be dropped uniformly when the detector quality varies with distance.
-
-## 6. Consequences and interpretation
-
-At fixed detector quality and fixed accuracy, the theorem gives $`T=\Theta(\sqrt{\log L})`$. The construction devotes both spatial copies and repeated readout time to each latent Bell bit. It obtains order $`T^2`$ independent reports per boundary while retaining order $`L/T`$ boundaries.
-
-At fixed accuracy, near uninformative readout, sublinear depth occurs along asymptotic parameter families precisely when $`\delta L\to\infty`$. If $`\delta L`$ stays bounded, optimal depth is linear in $`L`$. With variable accuracy, the corresponding criterion is
+The target excludes both the separable threshold and exact fidelity one. Combining the universal [lower bound](converse.md) with the explicit [upper bound](construction.md) gives
 
 ```math
-\frac{D(p)L^2}{\log(1/\epsilon)}\longrightarrow\infty.
+D_{\min}(L;p,F_0)
+=\Theta_{p,F_0}\!\left(\sqrt{\log L}\right)
+\qquad(L\longrightarrow\infty).
 ```
 
-These crossover statements follow from the uniform theorem, not from extrapolating a fixed-$`p`$ estimate. The same order survives postselection at fixed success probability because the [heralding bounds](heralding.md) control both the number of candidate cuts and the target accuracy.
-
-The matching construction assumes ideal coherent operations and storage. Its role is to isolate and saturate the remaining readout-information cost. Additional gate and memory errors can increase the resources needed by a physical implementation. The converse still applies when those errors are described by additional local channels within the same report interface.
-
-The geometric framework has explicit antecedents in [measurement-assisted locality](../references/RELATED_WORK.md#friedman2023), and rare-cut converses occur in [quantum-bus analysis](../references/RELATED_WORK.md#choe2024). The distinction of the present resource statement is noise confined to reported classical records at fixed spatial density. The [related-work account](../references/RELATED_WORK.md) identifies imported ingredients and the precise comparison models.
-
-Continue with [blind-strip separability](blind_strip.md) for the quantum reduction, or [the local construction](construction.md) for the protocol that attains the optimum.
+The constants may depend on the fixed noise rate and target fidelity. Logarithms are natural unless stated otherwise; their base changes only the constants in this asymptotic statement. The statement is a depth law in the endpoint separation. Its finite-size converse also tracks physical width and heralding probability. The [related-work account](../references/RELATED_WORK.md) compares the precise noise and resource assumptions with measurement-assisted locality, noisy quantum buses, and single-shot state preparation.
