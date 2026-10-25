@@ -4,7 +4,7 @@ Place qubits in a line. Adjacent qubits can interact, and a classical computer c
 
 This bridge develops that question from the language of states, instruments, teleportation, and statistical distinguishability in **Mark M. Wilde, *Quantum Information Theory*, second edition (2017)**. It supplies the project-specific geometry, noise comparison, and resource accounting alongside those foundations. The [30-milestone map](MILESTONES.md) gives the common understanding targets; the [scientific model](../science/model.md) and its linked proofs remain authoritative for the theorem.
 
-The [four-qubit example](#four-qubit-example) shows the mechanism before the universal lower bound. The later sections explain why an arbitrary adaptive protocol faces the same resource constraint, even if its circuit looks entirely different. The section map below is selective reference material, not a requirement to finish the book first.
+The [four-qubit example](#four-qubit-example) shows repeated readout, and the [eight-qubit example](#eight-qubit-example) adds spatial pointer copies within the same chain. The later sections explain why an arbitrary adaptive protocol faces the same resource constraint, even if its circuit looks entirely different. The section map below is selective reference material, not a requirement to finish the book first.
 
 <a id="edition-and-access"></a>
 ## Edition and access
@@ -184,10 +184,57 @@ The example's one fusion boundary is also distinct from the converse's number of
 
 The general mechanics appear in [M15–M18](MILESTONES.md#m15), with the Pauli convention prepared in [M07](MILESTONES.md#m07).
 
+<a id="eight-qubit-example"></a>
+## Eight qubits: spatial copies and repeated readout
+
+Now take sites $`0,\ldots,7`$, initially in $`|0\rangle^{\otimes8}`$, and use two blocks of length $`b=4`$. There is again one fusion boundary, but each pointer can occupy two sites before it is read. Set $`t=2`$ and $`p=1/5`$. The centered link preparation and fair-tie decoder follow the same [construction conventions](../science/construction.md) as the four-qubit example.
+
+| Layer | Simultaneous operations | Purpose |
+|---:|---|---|
+| 1 | $`H_1,H_5`$ | Start the two central Bell pairs. |
+| 2 | CNOT $`1\to2`$ and $`5\to6`$ | Create the adjacent pairs. |
+| 3 | SWAP $`0\leftrightarrow1`$, $`2\leftrightarrow3`$, $`4\leftrightarrow5`$, $`6\leftrightarrow7`$ | Move both halves to the block endpoints. |
+| 4 | CNOT $`3\to4`$ | Start the boundary Bell decoder. |
+| 5 | $`H_3`$ | Expose the two boundary basis labels. |
+| 6 | CNOT $`3\to2`$ and $`4\to5`$ | Copy each label into a disjoint two-qubit bank. |
+| 7–8 | QND Z readout of sites $`2,3,4,5`$ | Read every bank qubit twice. |
+| 9 | $`Z^{\widehat u}X^{\widehat v}`$ on site 7 | Apply the decoded endpoint correction. |
+
+Each layer has disjoint supports. After layer 3 the Bell links occupy $`(0,3)`$ and $`(4,7)`$, and all four interior qubits are zero. Write $`u`$ for the pointer at site 3 and $`v`$ for the pointer at site 4 after the Bell decoder. After copying, the state is
+
+```math
+\frac12\sum_{u,v=0}^1
+|u,u\rangle_{2,3}|v,v\rangle_{4,5}
+\otimes(I\otimes X^vZ^u)|\Phi^+\rangle_{0,7}
+\otimes|0,0\rangle_{1,6},
+```
+
+with tensor factors grouped as labeled. The first readout round selects each true pair $`(u,v)`$ with probability $`1/4`$. The bank values agree; the four detector flips for each pointer are independent. All four reports enter majority decoding, with a separate independent fair bit used for each two-against-two tie. Thus
+
+```math
+e_4(p)
+=4p^3(1-p)+p^4+\frac12\binom42p^2(1-p)^2,
+\qquad
+e_4(1/5)=\frac{13}{125}.
+```
+
+For this one boundary, both decoded bits must be correct. Defining $`\Pi_{uv}`$ as the projector onto $`(I\otimes X^vZ^u)|\Phi^+\rangle`$, the delivered state is
+
+```math
+\rho_{0,7}
+=\frac{12544}{15625}\Pi_{00}
++\frac{1456}{15625}(\Pi_{10}+\Pi_{01})
++\frac{169}{15625}\Pi_{11},
+\qquad
+F=\frac{12544}{15625}=0.802816.
+```
+
+The complete count is eight physical qubits, four reports per pointer, eight performed readouts, and $`T=b+t+3=9`$ layers. Every report is counted, and the output qubits are never measured. The example makes the product of spatial copies and readout rounds explicit. A measurement-free central Bell pair reaches these endpoints exactly in five layers, so this small example illustrates the mechanism rather than an asymptotic depth advantage.
+
 <a id="local-construction"></a>
 ## Using space and readout time together
 
-The four-qubit circuit gives only temporal repetition. A long chain also supplies nearby qubits that can hold spatial copies of each pointer. The [construction proof](../science/construction.md) shows how to use the same one-qubit-per-site memory for both purposes.
+The examples separate temporal repetition from the added benefit of nearby pointer copies. The [construction proof](../science/construction.md) extends their common schedule to a long chain using the same one-qubit-per-site memory for both purposes.
 
 First divide $`n=L+1=Kb`$ sites into even blocks of length $`b`$. In parallel, prepare a Bell pair at each block's center and swap its halves to that block's ends. This takes $`b/2+1`$ layers. Each SWAP leaves a zero state behind, making the block's interior available for the next stage.
 

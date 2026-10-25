@@ -10,7 +10,10 @@ This account separates the established ingredients from their use in the [readou
 | Rare entanglement-breaking cuts in a noisy quantum bus | [Choe and König](#choe2024) | A close converse strategy, with quantum noise and repeater resources different from the report-only model. |
 | Readout Chernoff information and repeated binary decoding | [D'Anjou](#danjou2021), [Chernoff](#chernoff1952) | The detector coefficient and the exponential reliability of repeated reports are established ingredients. |
 | Coherent processing to improve imperfect measurements | [Kim et al.](#kim2025), [Byrne et al.](#byrne2026) | Amplification is known. The construction here accounts for its local space and time cost. |
+| Spatial repetition encoding and temporal readout voting | [Günther et al., Hicks et al., and Hartung et al.](#repetition-readout) | Established primitives protect individual outcomes before feedforward; both kinds of redundancy are charged in the present schedule. |
+| Repetition-protected Bell generation on a cluster chain | [Huang](#huang2026) | A direct precedent for improving the physical endpoint Bell state, distinct from a universal depth optimum at fixed density. |
 | Block fusion with majority-voted boundary records | [Waring et al.](#waring2026) | A close construction antecedent for preparing local entangled blocks and fusing them through redundant reports. |
+| Fault-tolerant single-shot logical-state preparation | [Bergamaschi and Liu](#bergamaschi2025) | Constant-depth encoded entanglement uses a different graph and spatial overhead, so output type and geometry must both be compared. |
 | Mixtures of alternatives and likelihood second moments | [Chen, Li, and O'Donnell](#chen2022) | The statistical comparison method is standard; the proof evaluates it for disjoint blinded strips. |
 | Classical data processing and comparison with order-two divergence | [van Erven and Harremoës](#vanerven2014); explicit log-sum and Jensen arguments in the proof | Established information inequalities connect a separable comparison output to Bell fidelity. |
 | Readout mitigation and postselected dynamic circuits | [Koh et al.](#koh2026), [Smith et al.](#smith2026) | These motivate a precise distinction between delivered states, mitigated estimates, and success-conditioned outputs. |
@@ -86,6 +89,35 @@ Section II and Eq. (4) of the inspected arXiv version use controlled operations 
 **James Byrne, Noah Linden, and Paul Skrzypczyk, “Reducing measurement error with adaptivity.”** [arXiv:2606.21283v2](https://arxiv.org/abs/2606.21283v2), revised August 21, 2026; first submitted June 19, 2026.
 
 This work shows that adaptive circuits combining uses of a noisy measuring device can outperform nonadaptive measurement circuits and establishes limits for such processing. It concerns device-use resources without the spatial entanglement-distribution constraint imposed here. The present converse permits adaptive quantum processing and therefore cannot be justified by assuming every protocol repeats or independently decodes the construction's Bell bits. Its common noise-table channel handles that freedom directly.
+
+<a id="repetition-readout"></a>
+## Repetition encoding and repeated readout
+
+**Jakob M. Günther, Francesco Tacchino, James R. Wootton, Ivano Tavernelli, and Panagiotis Kl. Barkoutsos, “Improving readout in quantum simulations with repetition codes.”** *Quantum Science and Technology* **7**, 015009 (2022). [DOI](https://doi.org/10.1088/2058-9565/ac3386), [arXiv:2105.13377v2](https://arxiv.org/abs/2105.13377v2), revised June 14, 2021. Section II.1, Eq. (1), encodes a basis label through CNOT gates and explicitly distinguishes that redundancy from cloning an unknown state.
+
+**Rebecca Hicks, Bryce Kobrin, Christian W. Bauer, and Benjamin Nachman, “Active readout-error mitigation.”** *Physical Review A* **105**, 012419 (2022). [DOI](https://doi.org/10.1103/PhysRevA.105.012419), [arXiv:2108.12432v3](https://arxiv.org/abs/2108.12432v3), revised September 7, 2022. Section II of the [accepted manuscript](https://link.aps.org/accepted/10.1103/PhysRevA.105.012419) describes encoding immediately before measurement to improve individual reported outcomes. It is a physical encoding primitive, so the general distinction between delivered states and mitigated expectation values should not be used to dismiss it.
+
+**Tobias Hartung, Stephan Schuster, Joachim von Zanthier, and Karl Jansen, “Real-time measurement error mitigation for one-way quantum computation.”** *Scientific Reports* (2026), published September 19, 2026. [DOI](https://doi.org/10.1038/s41598-026-70209-x), [arXiv:2411.09084v2](https://arxiv.org/abs/2411.09084v2), revised September 2, 2026. Sections 3–5 distinguish report errors from projection errors, analyze repeated readout when backaction permits it, and introduce a verification register with majority voting.
+
+These works establish the amplification ingredients. The present [construction](../science/construction.md) additionally places the banks inside the fixed-density chain, reuses the Bell-link interiors, and charges their propagation and readout time. The matching [converse](../science/information_bound.md) addresses arbitrary adaptive protocols under the specified report interface; it is not supplied by the amplification primitive alone.
+
+<a id="huang2026"></a>
+## Huang: repetition-protected physical Bell generation
+
+**He-Liang Huang, “Exponential measurement error mitigation in quantum sampling.”** *npj Unconventional Computing* **3**, 47 (2026). [Published article](https://doi.org/10.1038/s44335-026-00094-0), [publisher PDF](https://www.nature.com/articles/s44335-026-00094-0.pdf).
+
+Figure 3 applies repetition encoding to measurements on a one-dimensional cluster chain used to generate an endpoint Bell pair. The Methods discussion, Eqs. (15)–(20), follows the measurement parities through physical feedforward corrections and evaluates the resulting Bell overlap. This is a direct application precedent for readout-protected Bell delivery, not only for correcting estimates of observables.
+
+The inspected treatment varies the encoding size and includes faults in its encoding gates. It does not establish a minimum total preparation depth on the fixed-density line over all adaptive protocols. The present distinction is the local resource accounting and matched converse, including detector and accuracy dependence. Repetition-protecting Bell-generation records is therefore an inherited idea; the [depth theorem](../science/depth_law.md) does not claim priority for that application.
+
+<a id="bergamaschi2025"></a>
+## Bergamaschi and Liu: single-shot encoded entanglement
+
+**Thiago Bergamaschi and Yunchao Liu, “On Fault Tolerant Single-Shot Logical State Preparation and Robust Long-Range Entanglement.”** *ITCS 2025*, LIPIcs **325**, 16:1–16:9. [Proceedings record](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITCS.2025.16), [full manuscript, arXiv:2411.04405v1](https://arxiv.org/abs/2411.04405v1), submitted November 7, 2024.
+
+The full manuscript's introduction and Theorem 1.1 give constant-depth preparation with one measurement round and feedforward for CSS quantum LDPC codes, using $`O(nT)`$ ancillas for an $`n`$-qubit code and their parameter $`T`$. Their $`T`$ controls the number of alternating-Tanner-graph layers; it is not the operation depth defined in this repository. Figure 1 and Section 3 describe the graph construction; the encoded GHZ application supplies robust long-range entanglement.
+
+This is a spatial-resource distinction as well as an output distinction. A bounded-degree graph with growing ancillary layers is not automatically a fixed-width nearest-neighbor line. Conversely, physical Bell output alone is insufficient to separate the models: the [Choe–König bus](#choe2024) also delivers a physical pair with different repeater resources. The present result fixes local density and report bandwidth before optimizing depth.
 
 <a id="waring2026"></a>
 ## Waring, Le Beux, and Pere: block fusion with redundant reports

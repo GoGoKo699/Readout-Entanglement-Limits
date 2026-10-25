@@ -24,11 +24,12 @@ Canonical entrypoints:
   controlling conditional infidelity; fixed-success uniform consequences.
 - science/construction.md: central Bell creation, outward SWAPs, boundary Bell
   decoding, coherent pointer copying, repeated QND readout, majority decoding,
-  physical Pauli correction, exact output fidelity, and arbitrary-length blocks.
+  physical Pauli correction, exact output fidelity, arbitrary-length blocks,
+  exact operation counts, CNOT compilation and optional local cleanup.
 - science/depth_law.md: finite-to-uniform lower and upper proofs, explicit
   constants, microscopic floor, coherent linear cap, Lambert-W expression,
-  variable-quality and variable-accuracy crossover, and a nonuniform-formula
-  counterexample.
+  variable-quality and variable-accuracy crossover, every fixed target F0>1/2,
+  and a nonuniform-formula counterexample.
 - science/interpretation.md: the relation between locality and readout
   information; space and time as reliability resources; weak-detector behavior;
   heralding, physical output, and implementation limits.
@@ -40,6 +41,11 @@ Canonical entrypoints:
   expected counts, acceptance tolerances, and analytical scope.
 - verification/verify_bell_layout.py: deterministic twelve-qubit state-vector
   check enumerating all sixteen Bell-outcome strings.
+- verification/verify_construction.py: additional quantum layouts, exact noisy
+  output probabilities, geometry/cost accounting and CNOT compilation, and
+  finite uniform-parameter checks; includes the eight-qubit bridge example.
+- verification/expected/construction.json: fixed cases, expected coverage and
+  tolerances for the expanded checks.
 - verification/expected/bell_layout.json: case definition, exact counts, and
   floating-point acceptance tolerances.
 - verification/requirements.txt: pinned NumPy dependency for the finite check.
@@ -54,7 +60,9 @@ Learning entrypoints:
 - learning/WILDE_BRIDGE.md: the sole educational anchor, Mark M. Wilde's
   Quantum Information Theory, second edition (2017); verified printed section
   locators and explicitly labeled author-draft locators; notation translation;
-  the four-qubit worked example; and the missing source-to-project arguments.
+  the four- and eight-qubit worked examples; and the missing source-to-project
+  arguments. The eight-qubit example uses this account's centered-link schedule
+  and fair ties.
 
 Reader routes:
 
@@ -78,7 +86,11 @@ Reader routes:
   source locators; do not replace model comparison with title similarity.
 - To reproduce the finite ingredient: read verification/README.md, install
   verification/requirements.txt, and run python3 verification/verify_bell_layout.py
-  from the repository root. Distinguish an actual run from an earlier report.
+  and python3 verification/verify_construction.py from the repository root.
+  Distinguish an actual run from an earlier report.
+- To inspect the preserved Adaptive source, original Git history and the
+  file-by-file integration map: maintenance/ADAPTIVE_MIGRATION.md. This archive
+  is provenance; main remains the canonical scientific account and learning route.
 
 Preserve these distinctions when explaining or editing:
 

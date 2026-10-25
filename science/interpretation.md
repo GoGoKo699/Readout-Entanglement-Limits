@@ -112,6 +112,16 @@ This is still sublinear. Dropping the $`T`$ inside the logarithm of the intermed
 
 With variable accuracy, the criterion becomes $`D(p)L^2/\log(1/\epsilon)\to\infty`$. Very demanding accuracy can activate the coherent linear-depth alternative even for a detector that is useful at fixed fidelity.
 
+The endpoint channels can be treated directly, separately from the theorem's open interval $`0<p<1/2`$:
+
+| Readout channel | Optimal depth at fixed $`F_0\in(1/2,1)`$ | Mechanism |
+|---|---:|---|
+| Perfect reports, $`p=0`$ | $`\Theta(1)`$ | Fixed-size Bell links, simultaneous swapping, exact correction |
+| Fixed informative noise, $`0<p<1/2`$ | $`\Theta_{p,F_0}(\sqrt{\log L})`$ | Spatial copies and repeated reports match the converse |
+| Independent fair reports, $`p=1/2`$ | $`\Theta(L)`$ | Only local coherent propagation can supply endpoint entanglement |
+
+For $`p=0`$, fixed-size blocks and one readout layer make the [construction](construction.md) exact. At $`p=1/2`$, fix every independent report coin, the controller's randomness, and the initial shared random variable $`\lambda`$. The selected operations are then a predetermined local CPTP circuit: true outcomes are summed out, and any retained quantum pointer remains part of that circuit. Disjoint endpoint backward cones factor on the resulting product input. Averaging the fixed classical variables preserves separability, including for any accepted subset of public records. Thus fidelity above $`1/2`$ requires linear depth. Central Bell preparation followed by outward SWAPs provides the exact linear-depth upper bound without using readout. The middle row includes the lower-fidelity targets by the [fixed-fidelity corollary](depth_law.md#every-fixed-target-above-the-separable-threshold).
+
 ## 6. What constant-success postselection can change
 
 Postselection may substantially improve a finite experiment's conditional fidelity. The cost is its probability of success. A universal comparison must track both.

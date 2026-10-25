@@ -231,8 +231,44 @@ T_{\mathrm{unit}}=\left\lceil\frac n2\right\rceil+1=O(L)
 
 layers under the same gate convention. No readout is required.
 
+### Exact operation counts and CNOT compilation
+
+For the block construction with $`K\ge2`$, define the number of sites in the two unused outer pointer domains by
+
+```math
+d_{\mathrm{out}}
+=\left\lfloor\frac{\ell_1}{2}\right\rfloor
+ +\left\lceil\frac{\ell_K}{2}\right\rceil.
+```
+
+There are $`n-d_{\mathrm{out}}`$ pointer sites. Every pointer domain begins with one of the $`2M`$ boundary qubits, so copying requires $`n-d_{\mathrm{out}}-2M`$ CNOTs. Adding link preparation and boundary decoding gives the following exact counts for the stated schedule.
+
+| Operation | Arbitrary blocks | Equal even blocks |
+|---|---:|---:|
+| Hadamard | $`2K-1`$ | $`2K-1`$ |
+| CNOT, excluding a SWAP decomposition | $`n-d_{\mathrm{out}}+1`$ | $`Mb+1`$ |
+| Native SWAP | $`n-2K`$ | $`K(b-2)`$ |
+| Binary readout | $`t(n-d_{\mathrm{out}})`$ | $`Mbt`$ |
+| Final one-qubit Pauli | At most $`1`$ | At most $`1`$ |
+
+The circuit uses exactly the $`n`$ original qubits. If SWAP is compiled into three alternating-direction CNOTs, its disjoint supports remain disjoint in each of the three sublayers. With $`c=\max_j\lceil\ell_j/2\rceil`$, the padded schedule then has
+
+```math
+T_{\mathrm{CNOT}}=4c+t+1,
+\qquad
+N_{\mathrm{CNOT}}=n-d_{\mathrm{out}}+1+3(n-2K).
+```
+
+For equal even blocks this depth is $`2b+t+1`$, compared with $`b+t+3`$ for native SWAP. These are constants for the centered-link schedule used here. The asymptotic depth law is unchanged.
+
+The measurement-free fallback instead uses one Hadamard, one initial CNOT and $`n-2`$ SWAPs. Its CNOT-compiled depth is $`2+3\lceil(L-1)/2\rceil`$.
+
+No reset is needed to produce the endpoint state. If clean final work qubits are desired, the $`n-2`$ non-endpoint sites can be reset to $`|0\rangle`$ in the final correction layer: those local operations are disjoint from the endpoint correction and do not change the endpoint state. This optional cleanup uses only the ideal local reset already allowed by the model.
+
 ## 6. Readout implementation and finite verification
 
 The one-qubit-per-site construction uses repeatable Z readout: after the first projection, a pointer remains a computational-basis value, while each public report receives a fresh independent flip. If the device's readout is destructive, retain a pointer register and use a separate resettable readout register at each site. Copying into that register, measuring it, and resetting it introduces fixed overhead in memory and layers. The exact depth $`b+t+3`$ is not assigned to that modified schedule, but its asymptotic order is unchanged.
 
-The [verification guide](../verification/README.md) packages a deterministic twelve-qubit state-vector check. It verifies the actual disjoint nearest-neighbor layers, all sixteen latent Bell-outcome branches, the copied pointer values, and the corrected endpoint density matrices. That calculation checks the layout and Pauli convention. The arbitrary-size construction and the uniform optimum follow from the analytical arguments here and in [the depth law](depth_law.md).
+The [verification guide](../verification/README.md) packages the original deterministic twelve-qubit state-vector check and an expanded construction harness. The original check verifies the actual disjoint nearest-neighbor layers, all sixteen latent Bell-outcome branches, the copied pointer values, and the corrected endpoint density matrices. The expanded harness checks unequal blocks, native and CNOT-compiled schedule costs, optional cleanup, exact fair-tie decoding and heterogeneous parity probabilities, additional finite quantum instances, and sampled choices from the uniform upper-bound proof.
+
+These finite calculations check the implemented layout, correction, resource counts, and probability identities. The arbitrary-size construction and the universal uniform optimum follow from the analytical arguments here and in [the depth law](depth_law.md).
