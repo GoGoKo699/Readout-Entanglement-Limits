@@ -35,6 +35,8 @@ One can prove every converse after fixing $`\lambda`$ and then average. Local en
 
 The depth $`T`$ is a worst-case bound on the number of synchronous operation layers. Adaptive stopping is allowed within that bound and is padded by idle layers. A gate layer consists of parallel local quantum channels with disjoint supports of diameter at most a fixed integer $`r\ge1`$. Its quantum backward cone expands by at most $`r`$ lattice sites in one layer. A readout layer consists of site-local instruments and is counted in $`T`$. Sequential overlapping operations require separate layers. Replacing these elementary layers by a fixed-size local gate schedule only changes fixed constants in the asymptotic result.
 
+All operations in layer $`t`$ are selected from the public history available before that layer. Reports produced in layer $`t`$ become available for layer $`t+1`$. Free classical processing therefore does not hide a sequence of quantum operations or repeated readouts inside one layer.
+
 Local channels may be arbitrary completely positive trace-preserving maps. Thus local coherent processing, discarding, reset, and additional local noise are allowed in the converse. The operation set for the matching upper bound contains ideal nearest-neighbor CNOT and SWAP gates, one-qubit gates, and local readout. This ideal set already fits one memory qubit per site with repeatable pointer measurements.
 
 The microscopic parameters $`q,r`$ and the report density defined next are held fixed as $`L,p,\epsilon`$ vary. The resource restriction is spatial density as well as gate range: arbitrary amounts of instantaneous parallel local readout are not supplied.
@@ -89,6 +91,8 @@ s\ge s_0>0,
 ```
 
 where $`s_0`$ is fixed independently of $`L,p,\epsilon`$. Failure runs still respect the same worst-case depth budget. The dependence of constants on $`s_0`$ is explicit below.
+
+A local quantum filter used to generate a success flag is part of the charged circuit, and its outcome reaches the controller through the same noisy report interface. The endpoints must remain quantum outputs when success is declared; selecting an estimate after destructively measuring them is a different task.
 
 ## 4. Detector information and notation
 
@@ -163,6 +167,8 @@ It is not an equality to be applied after either cap becomes active. In particul
 ## 6. Consequences and interpretation
 
 At fixed detector quality and fixed accuracy, the theorem gives $`T=\Theta(\sqrt{\log L})`$. The construction devotes both spatial copies and repeated readout time to each latent Bell bit. It obtains order $`T^2`$ independent reports per boundary while retaining order $`L/T`$ boundaries.
+
+The fixed-detector conclusion also holds for every fixed Bell-fidelity target $`F_0\in(1/2,1)`$, including targets below $`3/4`$. The [fixed-fidelity corollary](depth_law.md#every-fixed-target-above-the-separable-threshold) gives $`\Theta_{p,F_0}(\sqrt{\log L})`$ for deterministic preparation and the same order, with constants also depending on $`s_0`$, at fixed success probability. This corollary does not extend the uniform constants to targets approaching the separable threshold.
 
 At fixed accuracy, near uninformative readout, sublinear depth occurs along asymptotic parameter families precisely when $`\delta L\to\infty`$. If $`\delta L`$ stays bounded, optimal depth is linear in $`L`$. With variable accuracy, the corresponding criterion is
 

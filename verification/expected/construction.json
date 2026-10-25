@@ -1,0 +1,139 @@
+{
+  "tolerance": 3e-12,
+  "geometry": {
+    "sites_min": 2,
+    "sites_max": 64,
+    "block_sizes": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "readout_rounds": 3
+  },
+  "probabilities": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      49,
+      100
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "raw_votes_max": 9,
+  "quantum_layouts": [
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      7,
+      2
+    ],
+    [
+      8,
+      4
+    ],
+    [
+      9,
+      4
+    ],
+    [
+      11,
+      4
+    ],
+    [
+      12,
+      4
+    ],
+    [
+      16,
+      4
+    ],
+    [
+      17,
+      6
+    ],
+    [
+      19,
+      6
+    ]
+  ],
+  "quantum_readout_rounds": [
+    1,
+    2,
+    3
+  ],
+  "uniform_parameters": {
+    "distances": [
+      2,
+      3,
+      7,
+      31,
+      99,
+      999,
+      999999
+    ],
+    "detector_coefficients": [
+      1e-12,
+      1e-06,
+      0.001,
+      0.1,
+      1,
+      1000
+    ],
+    "errors": [
+      0.25,
+      0.1,
+      0.01,
+      1e-12
+    ]
+  },
+  "exact": {
+    "geometry_parameter_cases": 441,
+    "raw_report_cases_exact": 72,
+    "parity_cases_exact": 12,
+    "uniform_parameter_cases": 168,
+    "quantum_layouts": 13,
+    "noisy_quantum_cases": 120,
+    "eight_site_example": {
+      "reports_per_pointer": 4,
+      "error_probability": [
+        13,
+        125
+      ],
+      "bell_fidelity": [
+        12544,
+        15625
+      ]
+    }
+  }
+}

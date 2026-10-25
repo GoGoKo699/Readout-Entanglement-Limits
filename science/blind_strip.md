@@ -46,6 +46,8 @@ Fix the controller's shared randomness. Decompose the output by the complete pub
 
 All gate choices and instrument choices are now fixed. A record inconsistent with the controller's rules contributes zero. A consistent record determines a nonadaptive local quantum circuit, multiplied by a nonnegative scalar $`\gamma_h`$ containing the relevant readout probabilities and the probability of the shared randomness.
 
+The control policy is defined on every possible public history, including histories with zero probability. Fixing a record means evaluating that same policy on its successive prefixes; it does not give the controller access to the refinement or to an unreported physical outcome.
+
 At an outside measurement, its selected true outcome $`x`$ contributes the branch map $`\mathcal I_x`$. The probability of its reported value, conditional on $`x`$, is a scalar included in $`\gamma_h`$.
 
 At an inside measurement, the probability of the selected public report is $`1/2`$ for either true outcome. The true outcome is not included in $`h`$. Consequently its quantum contribution is
@@ -193,5 +195,16 @@ Writing $`F=\mathrm{Tr}(\Pi_\Phi\rho_{AB})`$, it follows that
 F\le\frac12+\frac12[1-(2p)^k]^M
 \le\frac12+\frac12\exp[-M(2p)^k].
 ```
+
+The same argument retains the success probability. If $`s`$ is the probability of a public success event and $`f`$ is the conditional Bell fidelity, then
+
+```math
+\boxed{
+s(2f-1)\le[1-(2p)^k]^M
+\le\exp[-M(2p)^k].
+}
+```
+
+To see this, set $`W=2\Pi_\Phi-\mathbf1`$. Its expectation on an unnormalized separable operator is nonpositive, and its largest eigenvalue is one. Conditional on a flag pattern with a blind strip, the accepted endpoint operator is separable. For a pattern with no blind strip, its witness expectation is at most its trace, which is at most one. Averaging the unnormalized accepted operators therefore gives $`s(2f-1)`$ at most the probability that no strip is blind. At $`s=0`$, interpret the left side as zero. The independent-coin flags remain a proof device and are not supplied to the controller.
 
 The [information bound](information_bound.md) improves the detector-quality dependence by comparing the actual noise with a mixture in which the location of one blind strip is unknown. It uses the original unflagged BSC interface throughout.

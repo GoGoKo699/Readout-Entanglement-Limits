@@ -1,0 +1,33 @@
+{
+  "original_commit_count": 7,
+  "original_git_objects_verified": true,
+  "restored_refs_match": true,
+  "branch_count": 4,
+  "pull_head_ref_count": 3,
+  "tag_count": 1,
+  "unique_blob_count": 29,
+  "root_tree_count": 4,
+  "main_sha": "9b596727e74356bbc7add127da1426066431c066",
+  "main_tree_sha": "147b00efb675a38c4623bb972757a11e49e2a52f",
+  "main_file_count": 17,
+  "standalone_issues": 0,
+  "merged_pull_requests": 3,
+  "release_count": 1,
+  "release_assets": 0,
+  "issue_comments": 0,
+  "review_comments": 0,
+  "reviews": 0,
+  "discussions_enabled": false,
+  "git_bundle_self_contained": true,
+  "git_fsck_full_strict_passed": true,
+  "git_fsck_output": "",
+  "bundle_verify_output": "The bundle contains these 9 refs:\n90e69c64baea05b6d41bfdb2e37c29bd235f8b44 refs/heads/docs/hosted-gate-rendering\n0eb56837cae93c8deb8bc6c189ba954d7d75cc85 refs/heads/learning/watrous-route\n9b596727e74356bbc7add127da1426066431c066 refs/heads/main\n7320488ebbfe7622a96ecea8b1fa3abc00e1afb9 refs/heads/research/readout-depth-law\n7320488ebbfe7622a96ecea8b1fa3abc00e1afb9 refs/pull/1/head\n0eb56837cae93c8deb8bc6c189ba954d7d75cc85 refs/pull/2/head\n90e69c64baea05b6d41bfdb2e37c29bd235f8b44 refs/pull/3/head\n9b596727e74356bbc7add127da1426066431c066 refs/tags/v1.0.0\n9b596727e74356bbc7add127da1426066431c066 HEAD\nThe bundle records a complete history.\nThe bundle uses this hash algorithm: sha1\nadaptive-entanglement-depth.bundle is okay\n",
+  "actions_runs_observed": 0,
+  "metadata_uncompressed_sha256": "3bb87c4d247602ec49de6ef658b5ed4c5120c733189dc5f4c06329fcb1b95404",
+  "source_snapshot_in_destination": {
+    "repository": "GoGoKo699/Readout-Entanglement-Limits",
+    "commit": "65cd110ceab7f63f4ef828e4e596b2aedd4c4e0b",
+    "tree": "147b00efb675a38c4623bb972757a11e49e2a52f",
+    "branch": "archive/adaptive-entanglement-depth-20261025"
+  }
+}

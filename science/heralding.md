@@ -49,6 +49,8 @@ This last logarithmic form can be vacuous when its right-hand side is negative. 
 
 The proof separates the two requirements. Mixing the location of a blind strip controls the geometric dependence on $`M`$. A comparison with one blind strip controls how accurately the accepted branch can approach a Bell state.
 
+The [elementary erasure-component argument](blind_strip.md#an-elementary-bound-at-fixed-detector-quality) also gives $`s(2F_s-1)\le[1-(2p)^k]^M`$. It is useful for every fixed target above $`1/2`$, but its detector coefficient does not replace the uniform unflagged-BSC bounds proved here.
+
 ## Accepted output as a function of the error table
 
 Let $`P`$ be the actual independent BSC flip-table distribution. For a fixed complete table $`e`$, write $`\omega_{\mathrm{acc}}(e)`$ for the unnormalized endpoint operator on the accepted branch, after averaging intrinsic outcomes and independent controller randomness.

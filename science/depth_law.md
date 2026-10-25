@@ -290,6 +290,22 @@ For fixed $`p\in(0,1/2)`$ and fixed accuracy, $`D`$ is a positive constant and t
 T_{\mathrm{opt}}=\Theta(\sqrt{\log L}).
 ```
 
+### Every fixed target above the separable threshold
+
+**Corollary.** Fix $`p\in(0,1/2)`$ and $`F_0\in(1/2,1)`$ independently of $`L`$. The minimum deterministic depth for physical Bell fidelity at least $`F_0`$ is $`\Theta_{p,F_0}(\sqrt{\log L})`$. With a fixed success threshold $`s_0\in(0,1]`$, the minimum depth for conditional fidelity at least $`F_0`$ is $`\Theta_{p,F_0,s_0}(\sqrt{\log L})`$.
+
+This includes $`F_0<3/4`$, outside the displayed uniform theorem's accuracy domain. For the lower bound, the [finite heralded witness inequality](heralding.md#finite-heralded-bounds) gives
+
+```math
+2kD(p)\ge\log\left[1+M s_0^2(2F_0-1)^2\right].
+```
+
+For $`T=o(L)`$, the strip count is $`M=\Theta(L/T)`$ and $`k=O(T^2)`$. If $`T=o(\sqrt{\log L})`$, the left side is $`o(\log L)`$ while the right side is $`(1-o(1))\log L`$, a contradiction. More quantitatively, taking $`T\le c\sqrt{\log L}`$ with a sufficiently small fixed $`c>0`$ gives the same contradiction for all sufficiently large $`L`$. Depths of order $`L`$ already satisfy the claimed lower bound. For deterministic preparation take $`s_0=1`$.
+
+For the upper bound, use the existing deterministic construction with target fidelity $`\max\{F_0,3/4\}`$. Its target infidelity lies in $`(0,1/4]`$, so the uniform theorem supplies depth $`O_{p,F_0}(\sqrt{\log L})`$ and success probability one. Constants in this corollary may depend on the fixed gap $`F_0-1/2`$; no uniform claim is made as that gap vanishes.
+
+### Variable accuracy and detector quality
+
 At fixed detector quality but variable accuracy, the usual expression
 
 ```math

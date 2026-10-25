@@ -25,7 +25,7 @@ The constants are independent of distance, detector quality, and accuracy. The s
 
 | Result | Scientific meaning | Account |
 |---|---|---|
-| At fixed detector quality and accuracy, $`T_{\mathrm{opt}}=\Theta(\sqrt{\log L})`$ | Both spatial copies and repeated readout contribute to reliability. | [Construction](science/construction.md), [depth law](science/depth_law.md) |
+| At fixed detector quality and any fixed target $`F_0\in(1/2,1)`$, $`T_{\mathrm{opt}}=\Theta_{p,F_0}(\sqrt{\log L})`$ | Both spatial copies and repeated readout contribute to reliability, including targets below $`3/4`$. | [Construction](science/construction.md), [fixed-fidelity corollary](science/depth_law.md#every-fixed-target-above-the-separable-threshold) |
 | In the intermediate regime, $`D(p)T^2\asymp\log[L/(T\epsilon)]`$ | A depth-$`T`$ neighborhood supplies order $`T^2`$ reports, while order $`L/T`$ neighborhoods must be connected. | [Information bound](science/information_bound.md), [interpretation](science/interpretation.md) |
 | At fixed accuracy near uninformative readout, sublinear depth occurs precisely when $`(1-2p)L\to\infty`$ | The weak-detector crossover follows from the uniform law. | [Depth law](science/depth_law.md) |
 | A fixed success requirement preserves the same depth order | Postselection can change constants without removing the distance or accuracy cost. | [Heralding](science/heralding.md) |
@@ -49,7 +49,7 @@ For the connected argument, read the model, the blind-strip and information boun
 
 ## Study the project
 
-The single educational anchor is **Mark M. Wilde, *Quantum Information Theory*, second edition (2017)**. The [Wilde bridge](learning/WILDE_BRIDGE.md) gives selective source readings, translates the book's conventions, and connects them to the project's arguments. It includes a complete four-qubit example with noisy reports, majority decoding, and physical endpoint correction.
+The single educational anchor is **Mark M. Wilde, *Quantum Information Theory*, second edition (2017)**. The [Wilde bridge](learning/WILDE_BRIDGE.md) gives selective source readings, translates the book's conventions, and connects them to the project's arguments. Its four-qubit example explains noisy reports and physical correction; an eight-qubit example combines spatial copies, repeated readout and fair-tie majority decoding.
 
 The [30-milestone map](learning/MILESTONES.md) organizes the understanding route for every reader, including LLMs. Fourteen background milestones connect quantum states, instruments, and locality with the required classical statistics. Sixteen research milestones assemble the construction and blind-strip mechanism into the global resource law.
 
@@ -61,18 +61,19 @@ The [30-milestone map](learning/MILESTONES.md) organizes the understanding route
 
 Use the listed Wilde sections alongside the bridge and milestone explanations. Each milestone points to the authoritative scientific statements and proofs; the source bridge identifies the steps developed specifically for this project.
 
-## Reproduce the finite construction check
+## Reproduce the finite construction checks
 
 From the repository root, using Python 3.12:
 
 ```sh
 python3 -m pip install -r verification/requirements.txt
 python3 verification/verify_bell_layout.py
+python3 verification/verify_construction.py
 ```
 
-The deterministic state-vector check examines a twelve-qubit circuit with three blocks, two swapping boundaries, and all sixteen true Bell-outcome strings. It checks nearest-neighbor scheduling, disjoint pointer-copy domains, branch probabilities, and the corrected endpoint density matrix. A successful run prints JSON with `"passed": true` and numerical errors below $`10^{-12}`$.
+The first deterministic state-vector check examines a twelve-qubit circuit with three blocks, two swapping boundaries, and all sixteen true Bell-outcome strings. The second checks additional even and odd block layouts, arbitrary-length partitions, native and CNOT-compiled schedules, exact operation counts, physical output fidelity under noisy reports, and finite choices of the uniform construction parameters. It also verifies the bridge's eight-qubit example. Success is reported as `"passed": true` by the original check and `"status": "PASS"` by the extension; the [verification guide](verification/README.md) specifies their fixed cases and tolerances.
 
-The [verification guide](verification/README.md) records the executed environment, expected counts, and acceptance tolerances. This finite calculation checks the circuit and Pauli convention. The general converse, arbitrary-size construction, and asymptotic depth law are established by the written analytical arguments.
+The verification guide records the executed environment and exact scope. These finite calculations check implementation consistency. The general converse, arbitrary-size construction, and asymptotic depth law rest on the written analytical arguments.
 
 ## Consequential assumptions
 
