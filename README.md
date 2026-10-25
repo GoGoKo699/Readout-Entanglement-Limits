@@ -61,19 +61,18 @@ The [30-milestone map](learning/MILESTONES.md) organizes the understanding route
 
 Use the listed Wilde sections alongside the bridge and milestone explanations. Each milestone points to the authoritative scientific statements and proofs; the source bridge identifies the steps developed specifically for this project.
 
-## Reproduce the finite construction checks
+## Verify the construction
 
 From the repository root, using Python 3.12:
 
 ```sh
 python3 -m pip install -r verification/requirements.txt
-python3 verification/verify_bell_layout.py
-python3 verification/verify_construction.py
+python3 verification/check.py
 ```
 
-The first deterministic state-vector check examines a twelve-qubit circuit with three blocks, two swapping boundaries, and all sixteen true Bell-outcome strings. The second checks additional even and odd block layouts, arbitrary-length partitions, native and CNOT-compiled schedules, exact operation counts, physical output fidelity under noisy reports, and finite choices of the uniform construction parameters. It also verifies the bridge's eight-qubit example. Success is reported as `"passed": true` by the original check and `"status": "PASS"` by the extension; the [verification guide](verification/README.md) specifies their fixed cases and tolerances.
+This command runs two complementary audits and reports `"status": "PASS"` only when both succeed. A dense state-vector engine checks the twelve-qubit Bell circuit and every true outcome branch. A separate sparse engine checks additional layouts, noisy corrections, exact operation counts, compiled gates, and finite choices of the uniform construction parameters. The [verification guide](verification/README.md) records the cases, requirements and tolerances.
 
-The verification guide records the executed environment and exact scope. These finite calculations check implementation consistency. The general converse, arbitrary-size construction, and asymptotic depth law rest on the written analytical arguments.
+These finite calculations check implementation consistency. The general converse, arbitrary-size construction, and asymptotic depth law rest on the written analytical arguments.
 
 ## Consequential assumptions
 
@@ -84,3 +83,5 @@ The matching construction assumes ideal coherent gates, memories, and repeatable
 ## Purpose and contact
 
 This repository serves as a record of the work and a guide for the author’s self-directed learning. For discussion or potential collaboration, please contact Ruge Lin at [gogoko699@gmail.com](mailto:gogoko699@gmail.com).
+
+[License](LICENSE) · [Source provenance](references/PROVENANCE.md)
