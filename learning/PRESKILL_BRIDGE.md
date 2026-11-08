@@ -26,8 +26,8 @@ All logarithms in this project are natural. $`L`$ is a chain's endpoint separati
 
 | Object | Convention and operational meaning |
 |---|---|
-| Bell target | $`|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2`$ |
-| Bell fidelity | $`F_{\mathrm B}=\langle\Phi^+|\rho_{AB}|\Phi^+\rangle`$, a squared overlap |
+| Bell target | $`\lvert\Phi^+\rangle=(\lvert00\rangle+\lvert11\rangle)/\sqrt2`$ |
+| Bell fidelity | $`F_{\mathrm B}=\langle\Phi^+\rvert\rho_{AB}\lvert\Phi^+\rangle`$, a squared overlap |
 | Toric target | $`F_{\mathrm{TC}}=\mathrm{Tr}(P_{\mathrm{TC}}\rho)`$, weight in the full physical code space |
 | Preskill's $`X_s,Z_P`$ | Stars $`A_v`$ and plaquettes $`B_a`$ here |
 | Binary syndrome | Check value $`(-1)^{z_v}`$; syndrome zero means check value $`+1`$ |
@@ -79,7 +79,7 @@ For a long chain, first prepare Bell links within blocks of length $`b`$. Joinin
 For $`m`$ reports, use majority with an independent fair coin to break a tie:
 
 ```math
-e_m(p)=\Pr[\mathrm{Bin}(m,p)>m/2]
+e_m(p)=\Pr[\mathrm{Bin}(m,p)\gt m/2]
 +\tfrac12\Pr[\mathrm{Bin}(m,p)=m/2]
 \le e^{-D(p)m}.
 ```
@@ -129,7 +129,7 @@ T_{\mathrm{opt}}
 =\Theta\!\left(\max\{1,\min\{L,\tau\}\}\right).
 ```
 
-This statement is uniform in $`L\ge2`$, $`0<p<1/2`$, and $`0<\epsilon\le1/4`$. The same order holds with a fixed positive heralding success requirement, with constants allowed to depend on that requirement. At each fixed $`p`$ and fixed Bell target above $`1/2`$, depth is $`\Theta(\sqrt{\log L})`$.
+This statement is uniform in $`L\ge2`$, $`0\lt p\lt 1/2`$, and $`0\lt \epsilon\le1/4`$. The same order holds with a fixed positive heralding success requirement, with constants allowed to depend on that requirement. At each fixed $`p`$ and fixed Bell target above $`1/2`$, depth is $`\Theta(\sqrt{\log L})`$.
 
 The microscopic floor prevents a claimed depth below one layer; the linear cap is supplied by a coherent exact preparation. These facts are part of the proof, rather than extrapolations of the intermediate-depth equation. See [the depth law](../science/depth_law.md).
 

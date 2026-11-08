@@ -6,15 +6,15 @@ The [model](model.md) fixes the operation and report interface. The [constructio
 
 ## 1. Statement
 
-Let $`L\ge2`$, $`0<p<1/2`$, and $`0<\epsilon\le1/4`$. Hold the microscopic memory, gate range, and report density fixed. Write
+Let $`L\ge2`$, $`0\lt p\lt 1/2`$, and $`0\lt \epsilon\le1/4`$. Hold the microscopic memory, gate range, and report density fixed. Write
 
 ```math
-D=D(p)=-\frac12\log[4p(1-p)]>0.
+D=D(p)=-\frac12\log[4p(1-p)]\gt 0.
 ```
 
 Let $`T_{\mathrm{det}}`$ be the minimum worst-case depth of a deterministic protocol with physical Bell fidelity at least $`1-\epsilon`$. For a fixed $`s_0\in(0,1]`$, let $`T_{\mathrm{her}}`$ be the minimum worst-case depth with success probability at least $`s_0`$ and conditional Bell fidelity at least $`1-\epsilon`$.
 
-Define $`\tau>0`$ by
+Define $`\tau\gt 0`$ by
 
 ```math
 D\tau^2=\log\frac{L}{\epsilon\tau},
@@ -22,7 +22,7 @@ D\tau^2=\log\frac{L}{\epsilon\tau},
 \mathcal T=\max\{1,\min\{L,\tau\}\}.
 ```
 
-**Theorem.** There are constants $`c>0`$ and $`C<\infty`$ such that
+**Theorem.** There are constants $`c\gt 0`$ and $`C\lt \infty`$ such that
 
 ```math
 \boxed{
@@ -45,7 +45,7 @@ The function
 g(x)=Dx^2+\log x-\log(L/\epsilon)
 ```
 
-is continuous and strictly increasing on $`x>0`$, with limits $`-\infty`$ and $`+\infty`$. Its unique zero is $`\tau`$. Rearranging its equation gives
+is continuous and strictly increasing on $`x\gt 0`$, with limits $`-\infty`$ and $`+\infty`$. Its unique zero is $`\tau`$. Rearranging its equation gives
 
 ```math
 \tau^2 e^{2D\tau^2}=(L/\epsilon)^2,
@@ -100,7 +100,7 @@ because $`x\ge\tau`$ and $`g`$ is increasing.
 
 ### At least two blocks fit
 
-Suppose $`n\ge2b`$. Use the explicit unequal-block partition in the [construction](construction.md#5-an-explicit-partition-for-every-chain-length). Its block lengths lie in $`[b,2b-1]`$, its boundary count obeys $`M<n/b`$, and every latent bit receives at least $`b^2/2`$ reports. Thus
+Suppose $`n\ge2b`$. Use the explicit unequal-block partition in the [construction](construction.md#5-an-explicit-partition-for-every-chain-length). Its block lengths lie in $`[b,2b-1]`$, its boundary count obeys $`M\lt n/b`$, and every latent bit receives at least $`b^2/2`$ reports. Thus
 
 ```math
 \begin{aligned}
@@ -115,7 +115,7 @@ Suppose $`n\ge2b`$. Use the explicit unequal-block partition in the [constructio
 Since $`L\ge2`$, $`n/L\le3/2`$. The condition $`n\ge2b\ge4x`$ gives $`x/L\le3/8`$. Therefore
 
 ```math
-1-F\le\frac9{16}\epsilon^2<\epsilon.
+1-F\le\frac9{16}\epsilon^2\lt \epsilon.
 ```
 
 The schedule has
@@ -124,11 +124,11 @@ The schedule has
 T\le2b+t+3=3b+3\le6x+9\le15x.
 ```
 
-In this case $`x\le3L/8<L`$, so $`\mathcal T=x`$ and $`T\le15\mathcal T`$.
+In this case $`x\le3L/8\lt L`$, so $`\mathcal T=x`$ and $`T\le15\mathcal T`$.
 
 ### Fewer than two blocks fit
 
-If $`n<2b`$, use the exact unitary Bell-distribution circuit. Its depth is
+If $`n\lt 2b`$, use the exact unitary Bell-distribution circuit. Its depth is
 
 ```math
 T_{\mathrm{unit}}
@@ -136,7 +136,7 @@ T_{\mathrm{unit}}
 \le\frac32L.
 ```
 
-Moreover $`L<n<2b\le8x`$, so $`T_{\mathrm{unit}}<12x`$. These two inequalities imply
+Moreover $`L\lt n\lt 2b\le8x`$, so $`T_{\mathrm{unit}}\lt 12x`$. These two inequalities imply
 
 ```math
 T_{\mathrm{unit}}\le12\min\{L,x\}=12\mathcal T.
@@ -144,7 +144,7 @@ T_{\mathrm{unit}}\le12\min\{L,x\}=12\mathcal T.
 
 This circuit has fidelity one and success one for every $`p`$. It supplies the linear cap without extrapolating an amplification estimate beyond the size of the chain.
 
-The two cases prove the upper bound. They also cover $`\tau<1`$: the choice $`x=1`$ uses fixed-size blocks and a fixed number of readouts. Thus the microscopic floor follows from an actual bounded-depth construction, not an informal cutoff of a vanishing expression.
+The two cases prove the upper bound. They also cover $`\tau\lt 1`$: the choice $`x=1`$ uses fixed-size blocks and a fixed number of readouts. Thus the microscopic floor follows from an actual bounded-depth construction, not an informal cutoff of a vanishing expression.
 
 ## 4. A uniform lower estimate before inversion
 
@@ -172,7 +172,7 @@ Let
 ```math
 y=kD,
 \qquad a=\frac{s_0^2}{4},
-\qquad y_0=\frac12\log(1+a)>0.
+\qquad y_0=\frac12\log(1+a)\gt 0.
 ```
 
 Because $`2f-1\ge1-2\epsilon\ge1/2`$,
@@ -200,7 +200,7 @@ Hence a permissible constant is
 
 ```math
 \kappa_{s_0}
-=\left[8+\frac{\log(16/s_0^5)}{\tfrac12\log(1+s_0^2/4)}\right]^{-1}>0,
+=\left[8+\frac{\log(16/s_0^5)}{\tfrac12\log(1+s_0^2/4)}\right]^{-1}\gt 0,
 \qquad
 \boxed{kD\ge\kappa_{s_0}\log\frac M\epsilon.}
 ```
@@ -258,17 +258,17 @@ DT^2\ge c_1\log\frac{L}{T\epsilon},
 \qquad
 c_1=
 \frac{\kappa_{s_0}\log4}
-     {\nu A_r\log(4B_r)}>0.
+     {\nu A_r\log(4B_r)}\gt 0.
 ```
 
-If $`T<\tau`$, the right-side logarithm is larger than $`\log[L/(\tau\epsilon)]=D\tau^2`$. Hence $`T\ge\sqrt{c_1}\tau`$. If $`T\ge\tau`$, no inversion is needed. Together these cases imply
+If $`T\lt \tau`$, the right-side logarithm is larger than $`\log[L/(\tau\epsilon)]=D\tau^2`$. Hence $`T\ge\sqrt{c_1}\tau`$. If $`T\ge\tau`$, no inversion is needed. Together these cases imply
 
 ```math
 T\ge\sqrt{\min\{1,c_1\}}\,\tau
 \qquad\text{when }T\le L/B_r.
 ```
 
-In the remaining regime, $`T>L/B_r`$ already implies $`T\ge B_r^{-1}\min\{L,\tau\}`$. Therefore, with
+In the remaining regime, $`T\gt L/B_r`$ already implies $`T\ge B_r^{-1}\min\{L,\tau\}`$. Therefore, with
 
 ```math
 c=\min\!\left\{\frac1{B_r},\sqrt{\min\{1,c_1\}}\right\},
@@ -294,13 +294,13 @@ T_{\mathrm{opt}}=\Theta(\sqrt{\log L}).
 
 **Corollary.** Fix $`p\in(0,1/2)`$ and $`F_0\in(1/2,1)`$ independently of $`L`$. The minimum deterministic depth for physical Bell fidelity at least $`F_0`$ is $`\Theta_{p,F_0}(\sqrt{\log L})`$. With a fixed success threshold $`s_0\in(0,1]`$, the minimum depth for conditional fidelity at least $`F_0`$ is $`\Theta_{p,F_0,s_0}(\sqrt{\log L})`$.
 
-This includes $`F_0<3/4`$, outside the displayed uniform theorem's accuracy domain. For the lower bound, the [finite heralded witness inequality](heralding.md#finite-heralded-bounds) gives
+This includes $`F_0\lt 3/4`$, outside the displayed uniform theorem's accuracy domain. For the lower bound, the [finite heralded witness inequality](heralding.md#finite-heralded-bounds) gives
 
 ```math
 2kD(p)\ge\log\left[1+M s_0^2(2F_0-1)^2\right].
 ```
 
-For $`T=o(L)`$, the strip count is $`M=\Theta(L/T)`$ and $`k=O(T^2)`$. If $`T=o(\sqrt{\log L})`$, the left side is $`o(\log L)`$ while the right side is $`(1-o(1))\log L`$, a contradiction. More quantitatively, taking $`T\le c\sqrt{\log L}`$ with a sufficiently small fixed $`c>0`$ gives the same contradiction for all sufficiently large $`L`$. Depths of order $`L`$ already satisfy the claimed lower bound. For deterministic preparation take $`s_0=1`$.
+For $`T=o(L)`$, the strip count is $`M=\Theta(L/T)`$ and $`k=O(T^2)`$. If $`T=o(\sqrt{\log L})`$, the left side is $`o(\log L)`$ while the right side is $`(1-o(1))\log L`$, a contradiction. More quantitatively, taking $`T\le c\sqrt{\log L}`$ with a sufficiently small fixed $`c\gt 0`$ gives the same contradiction for all sufficiently large $`L`$. Depths of order $`L`$ already satisfy the claimed lower bound. For deterministic preparation take $`s_0=1`$.
 
 For the upper bound, use the existing deterministic construction with target fidelity $`\max\{F_0,3/4\}`$. Its target infidelity lies in $`(0,1/4]`$, so the uniform theorem supplies depth $`O_{p,F_0}(\sqrt{\log L})`$ and success probability one. Constants in this corollary may depend on the fixed gap $`F_0-1/2`$; no uniform claim is made as that gap vanishes.
 
@@ -357,7 +357,7 @@ Sz^2=H+\log(1/z),
 z^2=\frac{W_0(2Se^{2H})}{2S}.
 ```
 
-If the optimal depth is $`o(L)`$, the uniform theorem implies $`z\to0`$. Eventually $`z<1`$, so $`H/S\le z^2\to0`$. Conversely, if $`S/H\to\infty`$, then $`S\to\infty`$ because $`H\ge\log4`$. The elementary Lambert bound gives
+If the optimal depth is $`o(L)`$, the uniform theorem implies $`z\to0`$. Eventually $`z\lt 1`$, so $`H/S\le z^2\to0`$. Conversely, if $`S/H\to\infty`$, then $`S\to\infty`$ because $`H\ge\log4`$. The elementary Lambert bound gives
 
 ```math
 z^2

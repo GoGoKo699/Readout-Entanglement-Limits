@@ -330,7 +330,7 @@ The twelve background targets supply the quantum, geometric, and statistical lan
 
 **Conceptual connection:** A receiving target needs its own valid local observable; Bell separability cannot simply be relabeled.
 
-**Source pointers:** Preskill §§7.10,7.14,7.18; [two-loop account](../science/toric_extension.md#buffered-blindness-and-outside-records); [proof home](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/c9aca22ecd2489da883de8a0c2b91e696f837213/science/noisy-readout.md).
+**Source pointers:** Preskill §§7.10,7.14,7.18; [two-loop account](../science/toric_extension.md#buffered-blindness-and-outside-records); [proof home](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/771934f46773adb81138ced09c3d8e356fca035f/science/noisy-readout.md).
 
 <a id="m22"></a>
 ### M22. Buffering before outside conditioning

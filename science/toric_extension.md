@@ -2,7 +2,7 @@
 
 The same noisy-report interface that limits Bell distribution also constrains preparation of a physical toric-code ground state. The new geometric ingredient is a local two-loop test inside a buffered blind region. The constructive ingredient is local removal of raw syndrome information before protected readout. These steps establish a fixed-detector cube-root logarithmic depth law; dimensional analogy alone would not establish it.
 
-The authoritative detailed proof and compiled construction are in [Topological Communication Cost: noisy measurement reports](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/c9aca22ecd2489da883de8a0c2b91e696f837213/science/noisy-readout.md). This page defines the receiving model, states the consequence, and explains the transfer. The original [one-dimensional Bell theorem](model.md#5-uniform-optimal-depth-theorem), including its uniform detector/accuracy dependence and heralding result, retains its own scope.
+The authoritative detailed proof and compiled construction are in [Topological Communication Cost: noisy measurement reports](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/771934f46773adb81138ced09c3d8e356fca035f/science/noisy-readout.md). This page defines the receiving model, states the consequence, and explains the transfer. The original [one-dimensional Bell theorem](model.md#5-uniform-optimal-depth-theorem), including its uniform detector/accuracy dependence and heralding result, retains its own scope.
 
 ## Model and physical target
 
@@ -16,12 +16,12 @@ The task is to achieve
 
 ```math
 F_{\mathrm{TC}}=\mathrm{Tr}(P_{\mathrm{TC}}\rho_{\mathrm{out}})\ge F_0,
-\qquad 0<F_0<1,
+\qquad 0\lt F_0\lt 1,
 ```
 
 where $`F_0`$ is fixed independently of $`L`$. The density operator is the unconditional physical data output after all actual correction gates. Ground-space weight and decoded logical recoverability are different criteria: a state with even a single residual anyon pair has zero weight in this projector despite possible later recoverability.
 
-Import the [report interface](model.md#2-the-report-interface) into this two-dimensional geometry. Input resources are product across cells after fixing shared randomness. Local gate layers have disjoint cell supports of diameter at most a fixed $`r`$. The worst-case depth $`T`$ includes gates, readout, and physical corrections. At most $`\nu`$ binary reports per cell and layer pass through independent unflagged $`\mathrm{BSC}(p)`$ channels, with $`0<p<1/2`$. The controller has free global access to public reports and no ideal access to true outcomes. A retained local quantum pointer obeys the local propagation and memory rules. Ideal CPTP maps, including reset and dephasing, are allowed.
+Import the [report interface](model.md#2-the-report-interface) into this two-dimensional geometry. Input resources are product across cells after fixing shared randomness. Local gate layers have disjoint cell supports of diameter at most a fixed $`r`$. The worst-case depth $`T`$ includes gates, readout, and physical corrections. At most $`\nu`$ binary reports per cell and layer pass through independent unflagged $`\mathrm{BSC}(p)`$ channels, with $`0\lt p\lt 1/2`$. The controller has free global access to public reports and no ideal access to true outcomes. A retained local quantum pointer obeys the local propagation and memory rules. Ideal CPTP maps, including reset and dephasing, are allowed.
 
 The upper construction uses two data qubits and one pointer qubit per cell, $`q=3`$, nearest-neighbor gates, and one repeatable site-local pointer readout per readout layer. The lower bound permits arbitrary finite local dimensions while retaining fixed range and report density. This extension changes the geometry and target; it does not add a hidden finite-speed constraint on the global classical controller.
 
@@ -65,7 +65,7 @@ T\le16b+t-4,\qquad
 D(p)=-\frac12\log[4p(1-p)].
 ```
 
-Choosing $`t=b`$ and $`b`$ proportional to $`(\log L)^{1/3}`$ gives any fixed $`F_0<1`$. Together with the finite converse, this proves the displayed fixed-detector theorem. For a single rectangle, all defects are removed locally, its parity is known to be even, and exact preparation requires no noisy report.
+Choosing $`t=b`$ and $`b`$ proportional to $`(\log L)^{1/3}`$ gives any fixed $`F_0\lt 1`$. Together with the finite converse, this proves the displayed fixed-detector theorem. For a single rectangle, all defects are removed locally, its parity is known to be even, and exact preparation requires no noisy report.
 
 The finite inequalities retain useful detector and accuracy information. The fixed-detector theorem does **not** assert a uniformly matched $`p,\epsilon,L`$ crossover, a two-dimensional heralded theorem, or an analogous law with faulty data gates or storage. Those statements require their own bounds.
 
@@ -123,7 +123,7 @@ Copy each remaining orthogonal root pointer along local row and column trees int
 Decode $`B-1`$ root bits by majority with independent fair tie breaking. Infer the last from known even total parity. Let
 
 ```math
-e_m(p)=\Pr[\mathrm{Bin}(m,p)>m/2]
+e_m(p)=\Pr[\mathrm{Bin}(m,p)\gt m/2]
 +\tfrac12\Pr[\mathrm{Bin}(m,p)=m/2].
 ```
 

@@ -38,7 +38,7 @@ A local binary instrument has completely positive outcome maps $`\mathcal M_0,\m
 y=x\oplus e,
 \qquad
 \Pr(e=1)=p,
-\qquad 0<p<\frac12.
+\qquad 0\lt p\lt \frac12.
 ```
 
 Every potential report slot has its own independent flip bit. The full flip table is independent of the initial quantum resources and the controller's shared randomness. The controller may know $`p`$ and choose its protocol for the specified $`L,p,\epsilon`$, but it does not know the realized flips. There are at most $`\nu\ge1`$ binary slots per site and layer, with fixed $`\nu`$. A slot is indexed by site, layer, and a local report index. Unused slots can be assigned independent unused flip bits for the proof. A flip bit cannot be reused in another slot.
@@ -67,7 +67,7 @@ For deterministic preparation, the two endpoint qubits after all corrections hav
 
 ```math
 F=\mathrm{Tr}(\Pi\rho_{AB})\ge1-\epsilon,
-\qquad 0<\epsilon\le\frac14.
+\qquad 0\lt \epsilon\le\frac14.
 ```
 
 This convention uses the squared overlap with the pure Bell state. All other registers are discarded. A record of a possibly incorrect Pauli frame alone is not the required output; the physical corrected endpoint state must meet the fidelity target. Nor is a signed estimator of Bell observables, assembled over several executions, an entangled output state.
@@ -75,7 +75,7 @@ This convention uses the squared overlap with the pure Bell state. All other reg
 A heralded protocol also produces a public success flag. Let $`s`$ be its probability of success and $`f`$ the Bell fidelity conditioned on success. The fixed-success version requires
 
 ```math
-s\ge s_0>0,
+s\ge s_0\gt 0,
 \qquad f\ge1-\epsilon,
 ```
 
@@ -117,7 +117,7 @@ The strip count and the number of construction boundaries are both denoted $`M`$
 
 ## 5. Uniform optimal-depth theorem
 
-Let $`T_{\mathrm{det}}(L,\epsilon,p)`$ be the minimum depth over all deterministic protocols in the model. Let $`T_{\mathrm{her}}(L,\epsilon,p;s_0)`$ be the corresponding minimum with success at least $`s_0`$. Define $`\tau>0`$ by
+Let $`T_{\mathrm{det}}(L,\epsilon,p)`$ be the minimum depth over all deterministic protocols in the model. Let $`T_{\mathrm{her}}(L,\epsilon,p;s_0)`$ be the corresponding minimum with success at least $`s_0`$. Define $`\tau\gt 0`$ by
 
 ```math
 D(p)\tau^2=\log\frac{L}{\epsilon\tau}.
@@ -134,7 +134,7 @@ The left side is strictly increasing and the right side strictly decreasing, so 
 
 where $`W_0`$ is the nonnegative principal branch of the Lambert W function.
 
-**Theorem.** For all $`L\ge2`$, $`0<p<1/2`$, and $`0<\epsilon\le1/4`$,
+**Theorem.** For all $`L\ge2`$, $`0\lt p\lt 1/2`$, and $`0\lt \epsilon\le1/4`$,
 
 ```math
 T_{\mathrm{det}}(L,\epsilon,p)=\Theta(\mathcal T(L,\epsilon,p)),

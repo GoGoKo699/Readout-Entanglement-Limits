@@ -10,7 +10,7 @@ There are $`M\ge1`$ disjoint blind-strip alternatives, with $`k`$ potential read
 \delta=1-2p,
 \qquad
 D(p)=-\frac12\log[4p(1-p)],
-\qquad 0<p<1/2.
+\qquad 0\lt p\lt 1/2.
 ```
 
 For the site-local readout convention, one can use
@@ -21,7 +21,7 @@ w=2rT+1,
 \qquad M=\left\lfloor\frac{L-1}{w}\right\rfloor.
 ```
 
-Let $`s>0`$ be the actual success probability, and let $`F_s=1-\epsilon>1/2`$ be the Bell fidelity conditioned on success.
+Let $`s\gt 0`$ be the actual success probability, and let $`F_s=1-\epsilon\gt 1/2`$ be the Bell fidelity conditioned on success.
 
 ## Finite heralded bounds
 
@@ -45,7 +45,7 @@ Equivalently, the second inequality gives
 kD(p)\ge\frac16\log\frac{s^3}{4\epsilon}.
 ```
 
-This last logarithmic form can be vacuous when its right-hand side is negative. The exact lower bound on $`\epsilon`$ is positive for every $`s>0`$ and finite $`k`$. In particular, exact conditional Bell preparation is impossible in the strip regime at nonzero success probability and $`p>0`$.
+This last logarithmic form can be vacuous when its right-hand side is negative. The exact lower bound on $`\epsilon`$ is positive for every $`s\gt 0`$ and finite $`k`$. In particular, exact conditional Bell preparation is impossible in the strip regime at nonzero success probability and $`p\gt 0`$.
 
 The proof separates the two requirements. Mixing the location of a blind strip controls the geometric dependence on $`M`$. A comparison with one blind strip controls how accurately the accepted branch can approach a Bell state.
 
@@ -126,7 +126,7 @@ Fix one strip and write $`Q=Q_j`$ in this section. Introduce the likelihood rati
 \qquad R(e)=\frac{Q(e)}{P(e)}.
 ```
 
-All ratios are finite because $`0<p<1/2`$. Only the $`k`$ replaced slots contribute to their moments.
+All ratios are finite because $`0\lt p\lt 1/2`$. Only the $`k`$ replaced slots contribute to their moments.
 
 For one replaced slot,
 
@@ -181,7 +181,7 @@ Conditional separability supplies the relation between these two comparisons:
 \le e^{kD(p)}\sqrt{s\epsilon}.
 ```
 
-Squaring and dividing by $`s>0`$ proves
+Squaring and dividing by $`s\gt 0`$ proves
 
 ```math
 \epsilon\ge
@@ -199,13 +199,13 @@ because $`(1+\delta^2)(1-\delta^2)\le1`$. Substitution gives the simpler $`s^3e^
 
 ## Constant-success consequence
 
-Suppose $`s\ge s_0>0`$ and $`0<\epsilon\le\epsilon_0<1/2`$, with $`s_0`$ and $`\epsilon_0`$ fixed. The first bound implies
+Suppose $`s\ge s_0\gt 0`$ and $`0\lt \epsilon\le\epsilon_0\lt 1/2`$, with $`s_0`$ and $`\epsilon_0`$ fixed. The first bound implies
 
 ```math
 kD(p)\ge c_1\log(1+M)
 ```
 
-for a constant $`c_1>0`$ depending only on $`s_0,\epsilon_0`$. For example, concavity of the logarithm permits
+for a constant $`c_1\gt 0`$ depending only on $`s_0,\epsilon_0`$. For example, concavity of the logarithm permits
 
 ```math
 c_1=\frac12s_0^2(1-2\epsilon_0)^2.
@@ -225,7 +225,7 @@ kD(p)\ge
 c\left[\log(1+M)+\log(1/\epsilon)\right]
 ```
 
-for some fixed $`c>0`$ depending on $`s_0,\epsilon_0`$. To see that the additive constant causes no difficulty, split into $`\log(1/\epsilon)\ge2\log(4/s_0^3)`$ and its complement. In the first case the accuracy bound controls $`\log(1/\epsilon)/12`$. In the second, that logarithm is bounded by a constant, which is absorbed by the geometric bound because $`M\ge1`$.
+for some fixed $`c\gt 0`$ depending on $`s_0,\epsilon_0`$. To see that the additive constant causes no difficulty, split into $`\log(1/\epsilon)\ge2\log(4/s_0^3)`$ and its complement. In the first case the accuracy bound controls $`\log(1/\epsilon)/12`$. In the second, that logarithm is bounded by a constant, which is absorbed by the geometric bound because $`M\ge1`$.
 
 Using $`k=\Theta(T^2)`$ and $`M=\Theta(L/T)`$ gives the same necessary condition as deterministic preparation, up to constants:
 

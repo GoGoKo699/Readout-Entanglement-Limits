@@ -112,12 +112,12 @@ This is still sublinear. Dropping the $`T`$ inside the logarithm of the intermed
 
 With variable accuracy, the criterion becomes $`D(p)L^2/\log(1/\epsilon)\to\infty`$. Very demanding accuracy can activate the coherent linear-depth alternative even for a detector that is useful at fixed fidelity.
 
-The endpoint channels can be treated directly, separately from the theorem's open interval $`0<p<1/2`$:
+The endpoint channels can be treated directly, separately from the theorem's open interval $`0\lt p\lt 1/2`$:
 
 | Readout channel | Optimal depth at fixed $`F_0\in(1/2,1)`$ | Mechanism |
 |---|---:|---|
 | Perfect reports, $`p=0`$ | $`\Theta(1)`$ | Fixed-size Bell links, simultaneous swapping, exact correction |
-| Fixed informative noise, $`0<p<1/2`$ | $`\Theta_{p,F_0}(\sqrt{\log L})`$ | Spatial copies and repeated reports match the converse |
+| Fixed informative noise, $`0\lt p\lt 1/2`$ | $`\Theta_{p,F_0}(\sqrt{\log L})`$ | Spatial copies and repeated reports match the converse |
 | Independent fair reports, $`p=1/2`$ | $`\Theta(L)`$ | Only local coherent propagation can supply endpoint entanglement |
 
 For $`p=0`$, fixed-size blocks and one readout layer make the [construction](construction.md) exact. At $`p=1/2`$, fix every independent report coin, the controller's randomness, and the initial shared random variable $`\lambda`$. The selected operations are then a predetermined local CPTP circuit: true outcomes are summed out, and any retained quantum pointer remains part of that circuit. Disjoint endpoint backward cones factor on the resulting product input. Averaging the fixed classical variables preserves separability, including for any accepted subset of public records. Thus fidelity above $`1/2`$ requires linear depth. Central Bell preparation followed by outward SWAPs provides the exact linear-depth upper bound without using readout. The middle row includes the lower-fidelity targets by the [fixed-fidelity corollary](depth_law.md#every-fixed-target-above-the-separable-threshold).
@@ -126,7 +126,7 @@ For $`p=0`$, fixed-size blocks and one readout layer make the [construction](con
 
 Postselection may substantially improve a finite experiment's conditional fidelity. The cost is its probability of success. A universal comparison must track both.
 
-The blind-strip comparison state stays separable after a public acceptance event. The mixture witness gives a finite constraint on $`s(2f-1)`$, while a separate two-sided likelihood-moment argument controls the high-accuracy limit. Together they yield the same optimal order whenever $`s\ge s_0>0`$ independently of distance, detector quality and target error.
+The blind-strip comparison state stays separable after a public acceptance event. The mixture witness gives a finite constraint on $`s(2f-1)`$, while a separate two-sided likelihood-moment argument controls the high-accuracy limit. Together they yield the same optimal order whenever $`s\ge s_0\gt 0`$ independently of distance, detector quality and target error.
 
 This does not identify the optimal constant prefactor or rule out a useful finite-size improvement from error detection. It states that fixed-yield postselection cannot change the asymptotic depth order in this model. If yield is allowed to vanish with the problem parameters, it is a different optimization problem. The exact inequalities in [the heralding account](heralding.md) retain the success probability for assessing that distinction.
 
@@ -163,4 +163,4 @@ F_{\mathrm{TC}}=\prod_{j=1}^{B-1}[1-e_{a_jt}(p)].
 
 This criterion is stricter than a successful logical recovery from a state with residual local defects. It also differs from endpoint Bell correction, where errors can cancel in each accumulated byproduct parity. An even pattern of wrong toric root estimates can still leave a nonzero physical syndrome.
 
-For fixed $`p\in(0,1/2)`$ and any fixed $`F_0\in(0,1)`$, the toric optimum is $`\Theta_{p,F_0}((\log L)^{1/3})`$. The original one-dimensional result has the stronger uniform detector/accuracy and fixed-success scope stated in [the model](model.md). A matched two-dimensional variable-detector crossover or heralded theorem is not asserted. The [companion proof](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/c9aca22ecd2489da883de8a0c2b91e696f837213/science/noisy-readout.md) records the geometric inheritance and the new buffered transfer; [related work](../references/RELATED_WORK.md#toric-report-noise-extension) separates this preparation question from single-shot recovery and terminal metrological readout.
+For fixed $`p\in(0,1/2)`$ and any fixed $`F_0\in(0,1)`$, the toric optimum is $`\Theta_{p,F_0}((\log L)^{1/3})`$. The original one-dimensional result has the stronger uniform detector/accuracy and fixed-success scope stated in [the model](model.md). A matched two-dimensional variable-detector crossover or heralded theorem is not asserted. The [companion proof](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/771934f46773adb81138ced09c3d8e356fca035f/science/noisy-readout.md) records the geometric inheritance and the new buffered transfer; [related work](../references/RELATED_WORK.md#toric-report-noise-extension) separates this preparation question from single-shot recovery and terminal metrological readout.

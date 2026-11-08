@@ -181,7 +181,7 @@ The source identities and locators above support attribution to particular resul
 <a id="toric-report-noise-extension"></a>
 ## Toric report-noise extension
 
-The [toric extension](../science/toric_extension.md) combines this project's noisy-report mechanism with [Topological Communication Cost](https://github.com/GoGoKo699/Topological-Communication-Cost). The inherited source accounts are pinned at [`10ec6b4`](https://github.com/GoGoKo699/Readout-Entanglement-Limits/tree/10ec6b4ebfdd3f6dc20e83a7e73d8b36126e9c0b) here and [`47e2a26`](https://github.com/GoGoKo699/Topological-Communication-Cost/tree/47e2a2632a939c96546b199b3ff08a1cd059f194) there. The detailed shared proof has one authoritative home in [the companion noisy-readout account](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/c9aca22ecd2489da883de8a0c2b91e696f837213/science/noisy-readout.md).
+The [toric extension](../science/toric_extension.md) combines this project's noisy-report mechanism with [Topological Communication Cost](https://github.com/GoGoKo699/Topological-Communication-Cost). The inherited source accounts are pinned at [`10ec6b4`](https://github.com/GoGoKo699/Readout-Entanglement-Limits/tree/10ec6b4ebfdd3f6dc20e83a7e73d8b36126e9c0b) here and [`47e2a26`](https://github.com/GoGoKo699/Topological-Communication-Cost/tree/47e2a2632a939c96546b199b3ff08a1cd059f194) there. The detailed shared proof has one authoritative home in [the companion noisy-readout account](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/771934f46773adb81138ced09c3d8e356fca035f/science/noisy-readout.md).
 
 | Earlier account | Inherited result or mechanism | Difference from the joint consequence |
 |---|---|---|

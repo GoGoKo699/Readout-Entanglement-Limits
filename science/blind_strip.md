@@ -22,7 +22,7 @@ Let
 
 ```math
 I=\{u+1,\ldots,u+w\}\subseteq\{1,\ldots,L-1\},
-\qquad w>2rT.
+\qquad w\gt 2rT.
 ```
 
 Suppose every report produced at a site in $`I`$ is an independent fair coin, independent of the physical measurement outcome and of the preceding history. Outside $`I`$, the readout can follow the original binary symmetric channel. Fixed outside flip bits, or any fixed mixture of perfect and independent-coin reports, are also allowed.
@@ -93,7 +93,7 @@ The union of the cones from $`B`$ and $`R_{\mathrm R}`$ lies at or to the right 
 u+w+1-r(T-t).
 ```
 
-These unions are disjoint because $`w>2rT`$. A quantum operation cannot connect the two retained histories: if it had an output in each, its inputs would belong to both backward cones.
+These unions are disjoint because $`w\gt 2rT`$. A quantum operation cannot connect the two retained histories: if it had an output in each, its inputs would belong to both backward cones.
 
 To remove the rest of the circuit, work backward from the traced outputs. Every operation not in a retained backward cone is trace preserving. Its adjoint therefore sends the identity to the identity,
 
@@ -175,7 +175,7 @@ These constants use site-local readout. The proof also covers general **site-loc
 
 ## An elementary bound at fixed detector quality
 
-A BSC with crossover probability $`0<p<1/2`$ admits the representation
+A BSC with crossover probability $`0\lt p\lt 1/2`$ admits the representation
 
 ```math
 Y=
