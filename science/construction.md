@@ -106,7 +106,7 @@ For $`m`$ reports of one latent bit, use majority decoding. Break an even-size t
 
 ```math
 e_m(p)
-=\Pr\!\left[\mathrm{Bin}(m,p)>\frac m2\right]
+=\Pr\!\left[\mathrm{Bin}(m,p)\gt \frac m2\right]
 +\frac12\Pr\!\left[\mathrm{Bin}(m,p)=\frac m2\right].
 ```
 
@@ -147,7 +147,7 @@ This expression is for the corrected two-qubit state after every other quantum r
 Define the detector coefficient as in the [model](model.md):
 
 ```math
-D(p)=-\frac12\log[4p(1-p)]>0.
+D(p)=-\frac12\log[4p(1-p)]\gt 0.
 ```
 
 For $`S\sim\mathrm{Bin}(m,p)`$ and $`\lambda\ge0`$,
@@ -182,7 +182,7 @@ No divisibility assumption is needed for the asymptotic result. Fix an even inte
 ```math
 K=\left\lfloor\frac nb\right\rfloor,
 \qquad R=n-Kb,
-\qquad 0\le R<b.
+\qquad 0\le R\lt b.
 ```
 
 Use one block of length $`b+R`$ and $`K-1`$ blocks of length $`b`$. Every block length $`\ell_j`$ lies between $`b`$ and $`2b-1`$, and $`K\ge2`$. The longer block may be odd.
@@ -217,7 +217,7 @@ In particular,
 \boxed{
 1-F_{\mathrm{Bell}}
 \le 2M e^{-D(p)bt/2},
-\qquad M=K-1<\frac nb.
+\qquad M=K-1\lt \frac nb.
 }
 ```
 

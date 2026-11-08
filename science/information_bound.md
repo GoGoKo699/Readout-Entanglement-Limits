@@ -2,7 +2,7 @@
 
 Randomizing the reports in one sufficiently wide strip makes the endpoint state separable. If the location of that strip is chosen uniformly among many disjoint strips, the resulting noise distribution can be close to the actual detector noise. Comparing these two distributions gives a lower bound with the same detector parameter as majority decoding.
 
-This page uses the [model](model.md) and the [blind-strip lemma](blind_strip.md). All logarithms are natural. The detector is an **unflagged** binary symmetric channel with independent crossover probability $`0<p<1/2`$ at every used readout slot. Define
+This page uses the [model](model.md) and the [blind-strip lemma](blind_strip.md). All logarithms are natural. The detector is an **unflagged** binary symmetric channel with independent crossover probability $`0\lt p\lt 1/2`$ at every used readout slot. Define
 
 ```math
 \delta=1-2p,
@@ -25,7 +25,7 @@ k=\nu(2rT+1)T,
 M=\left\lfloor\frac{L-1}{2rT+1}\right\rfloor.
 ```
 
-Let $`F>1/2`$ be the fidelity of the unconditional endpoint state with one fixed Bell state, including the protocol's report-dependent endpoint corrections.
+Let $`F\gt 1/2`$ be the fidelity of the unconditional endpoint state with one fixed Bell state, including the protocol's report-dependent endpoint corrections.
 
 **Theorem.** Every such protocol satisfies
 
@@ -40,7 +40,7 @@ and
 \log\left\{1+M\left([4F(1-F)]^{-1/2}-1\right)\right\}.
 ```
 
-For $`F=1`$, the second right-hand side is infinite. Thus exact Bell preparation is impossible at finite depth whenever a strip fits and $`p>0`$. The theorem makes no such assertion in the linear-depth regime where no strip fits.
+For $`F=1`$, the second right-hand side is infinite. Thus exact Bell preparation is impossible at finite depth whenever a strip fits and $`p\gt 0`$. The theorem makes no such assertion in the linear-depth regime where no strip fits.
 
 ## A common protocol map for every readout table
 
@@ -173,7 +173,7 @@ d(F_0\Vert F)\le D_{\mathrm{KL}}(Q\Vert P).
 
 Explicitly, the binary kernel is $`K(1\mid e)=f(e)`$, $`K(0\mid e)=1-f(e)`$. The joint relative entropy of $`Q(e)K(z\mid e)`$ against $`P(e)K(z\mid e)`$ is $`D_{\mathrm{KL}}(Q\Vert P)`$. Summing over $`e`$ and applying the log-sum inequality for each $`z`$ proves the displayed bound.
 
-For $`F_0\le1/2<F`$, the binary divergence is minimized at $`F_0=1/2`$. Hence
+For $`F_0\le1/2\lt F`$, the binary divergence is minimized at $`F_0=1/2`$. Hence
 
 ```math
 d(F_0\Vert F)
@@ -203,14 +203,14 @@ which rearranges to the second theorem inequality. The separable alternative is 
 
 ## Accuracy and geometric consequences
 
-For a deterministic protocol with $`F\ge1-\epsilon`$, $`0<\epsilon<1/2`$, the finite high-accuracy bound is
+For a deterministic protocol with $`F\ge1-\epsilon`$, $`0\lt \epsilon\lt 1/2`$, the finite high-accuracy bound is
 
 ```math
 2kD(p)\ge
 \log\left\{1+M\left([4\epsilon(1-\epsilon)]^{-1/2}-1\right)\right\}.
 ```
 
-For $`\epsilon\le\epsilon_0<1/2`$, this controls both $`\log M`$ and $`\log(1/\epsilon)`$ up to constants depending on $`\epsilon_0`$. With fixed density and range, $`k=\Theta(T^2)`$ and $`M=\Theta(L/T)`$ whenever $`T`$ is below a fixed fraction of $`L`$. These are the quantities that enter the [uniform depth law](depth_law.md). In particular, the number of strips decreases as the allowed depth grows.
+For $`\epsilon\le\epsilon_0\lt 1/2`$, this controls both $`\log M`$ and $`\log(1/\epsilon)`$ up to constants depending on $`\epsilon_0`$. With fixed density and range, $`k=\Theta(T^2)`$ and $`M=\Theta(L/T)`$ whenever $`T`$ is below a fixed fraction of $`L`$. These are the quantities that enter the [uniform depth law](depth_law.md). In particular, the number of strips decreases as the allowed depth grows.
 
 The elementary erasure estimate in [the blind-strip proof](blind_strip.md#an-elementary-bound-at-fixed-detector-quality) uses $`-\log(2p)`$, which is linear in $`\delta`$ near a fair coin. The information estimate uses $`D(p)`$, which is quadratic in $`\delta`$. The latter dependence applies to the original unflagged BSC. Revealing an additional flag that identifies perfect-read or random-read branches changes the detector interface and is outside this theorem.
 
@@ -218,7 +218,7 @@ At $`p=1/2`$, a fitting strip is already blind under the actual detector, so its
 
 ## Independent nonuniform readout probabilities
 
-The same comparison gives a finite obstruction for a fixed, independent detector profile $`p_z`$ across potential slots. Assume $`0<p_z<1/2`$, and set
+The same comparison gives a finite obstruction for a fixed, independent detector profile $`p_z`$ across potential slots. Assume $`0\lt p_z\lt 1/2`$, and set
 
 ```math
 S_j=\sum_{z\in I_j\text{ slots}}D(p_z),
