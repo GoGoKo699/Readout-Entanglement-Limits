@@ -147,3 +147,20 @@ The main theorem connects three descriptions of the same task. The geometry iden
 At fixed detector quality, useful distance grows exponentially in depth squared up to the polynomial interface factor and fixed constants. As readout approaches random guessing, the uniform coefficient locates the transition back to linear coherent preparation. High target accuracy and fixed-success heralding fit the same resource law.
 
 Read [the exact model](model.md), [finite information bounds](information_bound.md), and [constructive uniform proof](depth_law.md) together when applying these conclusions. The [finite verification](../verification/README.md) checks the circuit's implemented branch structure and corrections; the universal and asymptotic statements follow from the analytical arguments.
+
+
+## 9. From a line to a toric ground state
+
+The [two-dimensional toric extension](toric_extension.md) uses the same unflagged report interface and physical-output convention, together with a different local target test. A contractible two-loop stabilizer projector replaces endpoint Bell separability. A core of side $`32(rT+1)`$ lies in a blind block of side $`36(rT+1)`$. That buffer keeps the core's backward quantum history disjoint from retained outside outcome registers before they are selected. It permits sequential local overlap penalties without assuming independent marginals in the adaptive output.
+
+Fixed report density gives $`O(T^3)`$ potential slots per blind block and $`\Theta(L^2/T^2)`$ possible blocks. This gives a fixed-detector cube-root logarithmic depth lower bound. The matching circuit needs a separate operational argument: coherent star pointers drive counted local physical corrections and resets until only block-root defects remain. The freed pointer registers then supply area-sized spatial copies plus repeated readout. It uses two data qubits and one pointer per cell, rather than retaining every raw syndrome bit throughout the protocol.
+
+The raw star syndrome contains $`L^2-1`$ independent bits, but the controller need not learn them all. Local quantum processing physically removes most defects and discards their record into inaccessible environments. Only $`B-1`$ independent block-root parities reach the noisy interface. After the public estimates choose an actual final $`Z`$ correction, physical ground-space overlap is
+
+```math
+F_{\mathrm{TC}}=\prod_{j=1}^{B-1}[1-e_{a_jt}(p)].
+```
+
+This criterion is stricter than a successful logical recovery from a state with residual local defects. It also differs from endpoint Bell correction, where errors can cancel in each accumulated byproduct parity. An even pattern of wrong toric root estimates can still leave a nonzero physical syndrome.
+
+For fixed $`p\in(0,1/2)`$ and any fixed $`F_0\in(0,1)`$, the toric optimum is $`\Theta_{p,F_0}((\log L)^{1/3})`$. The original one-dimensional result has the stronger uniform detector/accuracy and fixed-success scope stated in [the model](model.md). A matched two-dimensional variable-detector crossover or heralded theorem is not asserted. The [companion proof](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/c9aca22ecd2489da883de8a0c2b91e696f837213/science/noisy-readout.md) records the geometric inheritance and the new buffered transfer; [related work](../references/RELATED_WORK.md#toric-report-noise-extension) separates this preparation question from single-shot recovery and terminal metrological readout.

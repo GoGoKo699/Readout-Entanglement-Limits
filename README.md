@@ -4,6 +4,8 @@
 
 The target is a physically corrected Bell pair between fixed endpoints. Using measurements to reduce the depth below coherent propagation requires sufficiently reliable information about local outcomes, even when the classical controller can communicate across the whole chain instantaneously. The complete scientific account is organized by topic under [science/](science/model.md).
 
+A [joint extension with Topological Communication Cost](science/toric_extension.md) establishes preparation depth $`\Theta_{p,F_0}((\log L)^{1/3})`$ for unconditional physical toric-code ground-space overlap in two dimensions, for fixed $`p\in(0,1/2)`$ and fixed target $`F_0\in(0,1)`$. It allows ideal local operations with two data qubits and one reusable pointer per cell, and free global classical feedforward. A buffered two-loop blind-core bound matches constant-memory syndrome compression and protected root readout. The [companion proof account](https://github.com/GoGoKo699/Topological-Communication-Cost/blob/c9aca22ecd2489da883de8a0c2b91e696f837213/science/noisy-readout.md) owns the detailed shared derivation. The one-dimensional uniform Bell theorem below retains its stated parameter and success scope.
+
 ## Principal result
 
 Let $`L\ge2`$ be the endpoint distance, $`p\in(0,1/2)`$ the independent report-flip probability, and $`\epsilon\in(0,1/4]`$ the target Bell infidelity. Define
@@ -43,23 +45,24 @@ The universal converse allows arbitrary adaptive protocols in the stated model. 
 | Which gates, memories, reports, and corrections attain the bound? | [Local construction](science/construction.md) |
 | How are the lower and upper bounds matched uniformly? | [Optimal depth and crossover](science/depth_law.md) |
 | What does the result imply for measurement-assisted entanglement? | [Physical interpretation](science/interpretation.md) |
+| How does the proof mechanism extend to a physical toric ground state in 2D? | [Toric report-noise extension](science/toric_extension.md) |
 | Which ingredients and nearby results come from prior work? | [Related work](references/RELATED_WORK.md), [bibliography](references/references.bib) |
 
 For the connected argument, read the model, the blind-strip and information bounds, heralding, the construction, and the depth law, then the interpretation. For a circuit-first route, follow the model with the construction before returning to the converse. The [LLM guide](llms.txt) maps more specific questions to these files.
 
 ## Study the project
 
-The single educational anchor is **Mark M. Wilde, *Quantum Information Theory*, second edition (2017)**. The [Wilde bridge](learning/WILDE_BRIDGE.md) gives selective source readings, translates the book's conventions, and connects them to the project's arguments. Its four-qubit example explains noisy reports and physical correction; an eight-qubit example combines spatial copies, repeated readout and fair-tie majority decoding.
+The single educational anchor is **John Preskill, *Quantum Information*, Chapter 7, *Quantum Error Correction*, March 2026 author draft**. The [Preskill bridge](learning/PRESKILL_BRIDGE.md) gives selective verified section locators, explains states and records, and supplies the report-noise statistics and preparation arguments developed specifically for these tasks. A four-site Bell example and a local toric syndrome example make the physical corrections concrete.
 
-The [30-milestone map](learning/MILESTONES.md) organizes the understanding route for every reader, including LLMs. Fourteen background milestones connect quantum states, instruments, and locality with the required classical statistics. Sixteen research milestones assemble the construction and blind-strip mechanism into the global resource law.
+The [30-milestone map](learning/MILESTONES.md) connects local records to both global preparation laws. Twelve background milestones assemble states, instruments, locality, detector information, and stabilizer language. Eighteen narrative milestones develop the Bell theorem before the toric transfer and its independent construction.
 
 | Phase | Route | Understanding developed |
 |---|---|---|
-| Background/preliminaries | [M01–M14](learning/MILESTONES.md#background-preliminaries) | Physical registers and measurement records, local quantum control, independent readout errors, and statistical comparison |
-| Narrative/innovation | [M15–M21](learning/MILESTONES.md#m15) | The Bell circuit, reliable pointer reports, and the separability mechanism inside a blind strip |
-| Narrative/innovation | [M22–M30](learning/MILESTONES.md#m22) | The common adaptive comparison, accuracy and heralding bounds, uniform optimum, crossover, and physical interpretation |
+| Background/preliminaries | [M01–M12](learning/MILESTONES.md#background-preliminaries) | Local physical records, composite resources, statistical comparisons, and the complete two-task model |
+| Narrative/innovation | [M13–M20](learning/MILESTONES.md#m13) | Protected Bell reports, blind-strip separability, uniform accuracy and success bounds |
+| Narrative/innovation | [M21–M30](learning/MILESTONES.md#m21) | Buffered two-loop tests, actual syndrome compression, physical toric overlap, and joint scope |
 
-Use the listed Wilde sections alongside the bridge and milestone explanations. Each milestone points to the authoritative scientific statements and proofs; the source bridge identifies the steps developed specifically for this project.
+The bridge uses one educational source. Primary research attribution remains in the scientific pages and [related-work account](references/RELATED_WORK.md).
 
 ## Verify the construction
 

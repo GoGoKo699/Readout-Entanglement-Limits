@@ -3,7 +3,10 @@
 One scientific account of the minimum local operation depth for a physically
 corrected Bell pair between distant endpoints of a one-dimensional chain with
 independent noisy measurement reports. README.md is the canonical reading guide;
-science/model.md owns the model and theorem. Each topic is developed in science/.
+science/model.md owns the one-dimensional model and theorem. Each topic is developed in science/.
+science/toric_extension.md gives the separate two-dimensional physical-ground-space
+extension; its detailed shared proof lives in Topological-Communication-Cost,
+science/noisy-readout.md. The Bell theorem retains its original uniform scope.
 
 Authoritative sources
 
@@ -24,6 +27,9 @@ Authoritative sources
   the corollary for every fixed F0 in (1/2,1).
 - science/interpretation.md: physical mechanism, noise endpoints, resource
   comparisons and limits of the implementation model.
+- science/toric_extension.md: exact receiving model, buffered two-loop blind-core
+  transfer, finite overlap bound, q=3 physical syndrome compression/protected-root
+  construction, exact corrected ground-space overlap, and fixed-p cube-root law.
 - references/RELATED_WORK.md and references/references.bib: primary sources,
   exact comparison models, established ingredients and attribution limits.
 - references/PROVENANCE.md: durable source history and restoration routes.
@@ -31,12 +37,14 @@ Authoritative sources
 Learning and verification
 
 The common learning route is learning/MILESTONES.md: exactly M01–M30, with
-14 background and 16 narrative/innovation milestones, each phase local to global.
-Its stable #m01 through #m30 fragments and understanding targets are independent
-of the learner. learning/WILDE_BRIDGE.md uses the single selected source, Wilde's
-Quantum Information Theory, second edition (2017), and supplies the project's
-four- and eight-qubit examples plus the arguments absent from the textbook.
-Printed-book locators and labeled arXiv:1106.1445v8 draft locators differ.
+12 background and 18 narrative/innovation targets, each phase local to global.
+Stable #m01 through #m30 fragments and understanding targets are learner independent.
+learning/PRESKILL_BRIDGE.md uses the single selected source, Preskill's Quantum
+Information, Chapter 7, Quantum Error Correction, March 2026 author draft:
+https://www.preskill.caltech.edu/ph219/chap7_26_6A.pdf . It verifies section locators,
+translates code conventions, and supplies local Bell/toric examples and the
+statistical preparation arguments absent from the source. Unfinished toric
+passages in the author draft are not represented as complete source proofs.
 
 Run python3 verification/check.py from the repository root after installing
 verification/requirements.txt. verification/README.md records scope, cases and
@@ -83,7 +91,24 @@ Model and claim safeguards
 - Finite circuit and probability checks support their tested instances. The
   arbitrary-size construction and universal depth law rest on written proofs;
   internal review and test success are not independent peer review.
-- Wilde's squared fidelity agrees with Bell overlap; his unhalved trace norm
-  differs from normalized trace distance/total variation by a factor of two.
-  The book uses base-two logs; the project uses natural logs. The bridge states
-  the conversions and separates textbook foundations from project arguments.
+- The toric extension uses the two-dimensional noisy-report model with free
+  global classical feedforward, two designated data qubits plus one reusable
+  pointer per cell in the upper construction, and actual physical corrections.
+  Its matching law is Theta_(p,F0)((log L)^(1/3)) for fixed p in (0,1/2) and
+  fixed positive F0<1. It does not assert a uniformly matched variable-detector,
+  variable-accuracy crossover or a two-dimensional heralded theorem.
+- The toric local test uses contractible loops. The core has side32(rT+1),
+  buffered blind block side36(rT+1), M=floor[L/(36(rT+1))]^2 and
+  k=1296 nu(rT+1)^2 T. Retain outside outcome registers BEFORE conditioning;
+  multiplication follows from sequential trace inequalities, not independent
+  adaptive output marginals. Hidden fair-report flags never reach the controller.
+- Toric raw syndrome entropy is not necessary public information. Counted local
+  pointer-controlled corrections and resets remove nonroot physical defects
+  before noisy reports. Copying an XOR of already noisy raw reports is different.
+- Ground-space overlap after actual toric correction equals the probability that
+  all B-1 independent root estimates are correct; even root-error patterns can
+  leave residual anyons. Logical recoverability after a hypothetical final
+  recovery, a small energy density, and an unapplied Pauli frame are different.
+- Preskill supplies code/channel foundations, while project pages supply BSC
+  statistics, blind-region arguments, preparation geometry and resource proofs.
+  The source's Y=ZX convention is avoided by using Hermitian X and Z directly.
